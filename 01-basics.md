@@ -37,11 +37,11 @@ $$P(\phi) = 0$$
 
 Proof
 
-$E := \phi \\
-E \cup \phi = E \\
-P(E) + P(\phi) = P(E) \\
-P(\phi) = P(E) - P(E) \\
-P(\phi) = 0$
+$E := \phi$<br>
+$E \cup \phi = E$<br>
+$P(E) + P(\phi) = P(E)$<br>
+$P(\phi) = P(E) - P(E)$<br>
+$P(\phi) = 0$
 
 **Monotonicity**
 
@@ -49,10 +49,10 @@ $$A \subseteq B \implies P(A) \le P(B) $$
 
 Proof
 
-$A \subseteq B \\
-A \cup (B \setminus A) = B\\
-P(A) + P(B \setminus A) = P(B) \\
-P(A) \le P(B)$
+$A \subseteq B$<br>
+$A \cup (B \setminus A) = B$<br>
+$P(A) + P(B \setminus A) = P(B)$<br>
+$P(A) \le P(B)$
 
 **Complement rule**
 
@@ -62,9 +62,9 @@ Proof
 
 $A$ and $A^C$ are mutually exclusive and $A \cup A^C = \Omega$
 
-$P(A \cup A^C) = P(A) + P(A^C) \\
-P(A) + P(A^C) = P(\Omega) = 1 \\
-P(A^C) = 1 - P(A)$
+$P(A \cup A^C) = P(A) + P(A^C)$<br>
+$P(A) + P(A^C) = P(\Omega) = 1$<br>
+$P(A^C) = 1 - P(A)$
 
 **Numeric bound**
 
@@ -72,9 +72,8 @@ $$P(A) \le 1 \text{, for all A in event space}$$
 
 Proof from the complement rool
 
-$P(A^C) = 1 - P(A) \\
-P(A^C) \ge 0 \text{, from the first axiom} \\
-$
+$P(A^C) = 1 - P(A)$<br>
+$P(A^C) \ge 0$, from the first axiom
 
 **Inclusion-exclusion principle**
 
@@ -84,20 +83,20 @@ Proof
 
 $A$ and $B \setminus A$ are mutually exclusive
 
-$P(A \cup B) = P(A \cup (B \setminus A)) \\
-P(A \cup B) = P(A) + P(B \setminus A)$
+$P(A \cup B) = P(A \cup (B \setminus A))$<br>
+$P(A \cup B) = P(A) + P(B \setminus A)$
 
 Also $B \setminus A$ and $A \cap B$ are also exclusive with union B:
 
-$(B \setminus A) \cup (A \cap B) = B \\
-P(B \setminus A) + P(A \cap B) = P(B)$
+$(B \setminus A) \cup (A \cap B) = B$<br>
+$P(B \setminus A) + P(A \cap B) = P(B)$
 
 Adding both sides of the two results together
 
 $P(A \cup B) + P(A \cap B) + P(B \setminus A) = P(A) + P(B) + P(B \setminus A)$, we can eliminate $P(B \setminus A)$
 
-$P(A \cup B) + P(A \cap B) = P(A) + P(B) \\
-P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+$P(A \cup B) + P(A \cap B) = P(A) + P(B)$<br>
+$P(A \cup B) = P(A) + P(B) - P(A \cap B)$
 
 ### **1.1.3 Conditional probabilities**
 
@@ -111,24 +110,23 @@ $$ P(A \cap B) = P(A|B)P(B) $$
 
 **Conditional probabilities act the same way as priors, because they satisfy the three axioms of probability**
 
-$\text{1. } P(A|B) \ge 0 \\
-\text{2. } P(B|B) = 1 \\
-\text{3.  if} A_1, A_2, ..., A_k\text{ are mutually exclusive events, then} \\
-P(A_1 \cup ... \cup A_k | B) = P(A_1|B) + ... + P(A_k|B)
-$
+1. $P(A|B) \ge 0$<br>
+2. $P(B|B) = 1$<br>
+3.  if $A_1, A_2, ..., A_k$ are mutually exclusive events, then<br>
+$P(A_1 \cup ... \cup A_k | B) = P(A_1|B) + ... + P(A_k|B)$
 
 Proof
 
-$\text{1. } P(A \cap B) \ge 0, P(B) > 0 \implies {P(A \cap B) \over P(B)} \ge 0 \\
-\text{2. } B \cap B = B \\
-P(B \cap B) = P(B) \\
-P(B|B) = {P(B \cap B) \over P(B)} = {P(B) \over P(B)} = 1 \\
-\text{3. From set theory, for: } A_1...A_k \text{ mutually exclusive sets} \\
-(A_1 \cup ... \cup A_k) \cap B = (A_1 \cap B) \cup ... \cup (A_k \cap B) \\
-P((A_1 \cup ... \cup A_k) \cap B) = P((A_1 \cap B) \cup ... \cup (A_k \cap B)) \\ 
-P((A_1 \cup ... \cup A_k) \cap B) = P(A_1 \cap B) + ... + P(A_k \cap B) \\ 
-{P((A_1 \cup ... \cup A_k) \cap B) \over P(B)} = {P(A_1 \cap B) \over P(B)} + ... + {P(A_k \cap B) \over P(B)} \\
-P(A_1 \cup ... \cup A_k | B) = P(A_1 | B) + ... + P(A_k | B)$
+1. $P(A \cap B) \ge 0, P(B) > 0 \implies {P(A \cap B) \over P(B)} \ge 0$<br>
+2. $B \cap B = B$<br>
+$P(B \cap B) = P(B)$<br>
+$P(B|B) = {P(B \cap B) \over P(B)} = {P(B) \over P(B)} = 1$<br>
+3. From set theory, for: $A_1...A_k$ mutually exclusive sets<br>
+$(A_1 \cup ... \cup A_k) \cap B = (A_1 \cap B) \cup ... \cup (A_k \cap B)$<br>
+$P((A_1 \cup ... \cup A_k) \cap B) = P((A_1 \cap B) \cup ... \cup (A_k \cap B))$<br>
+$P((A_1 \cup ... \cup A_k) \cap B) = P(A_1 \cap B) + ... + P(A_k \cap B)$<br>
+${P((A_1 \cup ... \cup A_k) \cap B) \over P(B)} = {P(A_1 \cap B) \over P(B)} + ... + {P(A_k \cap B) \over P(B)}$<br>
+$P(A_1 \cup ... \cup A_k | B) = P(A_1 | B) + ... + P(A_k | B)$
 
 ### **1.1.4 Bayes rule**
 
@@ -138,16 +136,14 @@ $$P(B | A) = {P(A | B) P(B) \over P(A)}$$
 
 Proof using the product rule
 
-$ P(A \cap B) = P(A | B) P(B)  \text{ and} \\
-P(A \cap B) = P(B | A) P(A)  \text{ by making right side equal} \\
-P(B | A) P(A) = P(A | B) P(B) \\
-P(B | A) = {P(A | B) P(B) \over P(A)}
-$
+$P(A \cap B) = P(A | B) P(B)$ and<br>
+$P(A \cap B) = P(B | A) P(A)$ by making right side equal<br>
+$P(B | A) P(A) = P(A | B) P(B)$<br>
+$P(B | A) = {P(A | B) P(B) \over P(A)}$
 
 Bayes rule can be conditioned on a background variable
 
 $$P(B | A, e) = {P(A | B, e) P(B, e) \over P(A, e)}$$
-
 
 instead of calculating $P(A, e)$ we can sometimes calculate the complement instead and normalizing it to become $1$
 
