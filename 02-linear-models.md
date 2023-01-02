@@ -20,25 +20,21 @@ $$[(Y-\hat{Y})^2] = \underbrace{[f(X)-\hat{f}(X)]^2}_\text{Reducible} + \underbr
 
 Proof:
 
-$E[(Y-\hat{Y})^2] \\
-  =E[(f(X)+\epsilon-\hat{f}(X))^2] \\
-  =E[(f(X)-\hat{f}(X))^2+2 \epsilon (f(X)-\hat{f}(X)) +\epsilon^2]$
+$E[(Y-\hat{Y})^2]$<br>
+$=E[(f(X)+\epsilon-\hat{f}(X))^2]$<br>
+$=E[(f(X)-\hat{f}(X))^2+2 \epsilon (f(X)-\hat{f}(X)) +\epsilon^2]$
 
-Because the expectation is linear
+Because the expectation is linear<br>
+$=E[(f(X)-\hat{f}(X))^2] +2E[\epsilon (f(X)-\hat{f}(X))] +E[\epsilon^2]$
 
-$ =E[(f(X)-\hat{f}(X))^2] +2E[\epsilon (f(X)-\hat{f}(X))] +E[\epsilon^2]$
+Because the expectation of $f$ and $\hat{f}$ are constant<br>
+$=[f(X)-\hat{f}(X)]^2 +E[\epsilon^2] +2E[\epsilon (f(X)-\hat{f}(X))$
 
-Because the expectation of $f$ and $\hat{f}$ are constant
+Because the mean of $\epsilon$ is zero<br>
+$=[f(X)-\hat{f}(X)]^2 +E[\epsilon^2]$
 
-$ =[f(X)-\hat{f}(X)]^2 +E[\epsilon^2] +2E[\epsilon (f(X)-\hat{f}(X))]$
-
-Because the mean of $\epsilon$ is zero
-
-$ =[f(X)-\hat{f}(X)]^2 +E[\epsilon^2] $
-
-Because the variance of $\epsilon$ is $E(\epsilon^2)$
-
-$ =[f(X)-\hat{f}(X)]^2 + \text{Var}(\epsilon)$
+Because the variance of $\epsilon$ is $E(\epsilon^2)$<br>
+$=[f(X)-\hat{f}(X)]^2 + \text{Var}(\epsilon)$
 
 We can opimize our estimate to minimize reducible error but irreducible error is also unknown and our model might overfit by inclusing it to the estimate.
 
