@@ -14,7 +14,7 @@ Formally, let $(\Omega, F, P)$ be a measure space, called probability space for 
 
 Probability can be described with a set of axioms named **Kolmogorov** axioms. 
 
-Probability of each world is a non negative real number bigger than $0$
+Probability of each world can be defined as
 
 $$P(A) \in \mathbb{R}, \\ 
 \forall A \in F,\ \ 0 \le P(A) \tag{Axiom 1}$$
@@ -153,6 +153,51 @@ $$\text{using notation }\boldsymbol{P}(A) := \langle P(A), P(A^C) \rangle \\
 where $\alpha$ is the normalization constant to make entries in $\boldsymbol{P}$  sum up to $1$
 
 
+## **1.2 Moments in statistics**
+
+We can define the moments of a random variable as
+
+1st moment: mean or expectation as central tendency<br>
+2nd moment: variance<br>
+3rd moment: skewness<br>
+4th moment: kurtosis<br>
+
+### **1.2.1 Variance**
+
+The variance is defined as 
+
+$$Var(X) = E[(X - E(X))^2]$$
+
+It can be shown that
+
+$$E[(X - E(X))^2] = E[X^2] - (E[X])^2$$
+
+Proof with both discrete and continuous random variables:
+https://proofwiki.org/wiki/Variance_as_Expectation_of_Square_minus_Square_of_Expectation
+
+## **1.3 Density estimation**
+
+In supervised machine learning we try to find a model that best explains the training data. The same problem can be framed as: given some samples, what point estimate explains the observations
+
+There are two main probabilistic optimization frameworks, **Maximum Likelihood Estimation** (MLE) and **Maximum a Posteriori** (MAP). The difference is that MAP assumes a model and tries to estimate parameters using the posterior probability, MLE estimates parameters using the prior based on observations only.
+
+$$\theta_{MLE} = argmax_{\theta}\ f_n(x_1...x_n|\theta)$$
+
+If values of $x_1...x_n$ are i.i.d or we assume it, becomes
+
+$$\theta_{MLE} = argmax_{\theta}\ \prod_{i=1}^nf(x_i|\theta)$$
+
+We than try to optimize $L(\theta)$. Since it's an optimization problem, we can optimize log likelyhood of $log\ L(\theta)$ instead to facilitate derivative calculations and avoid underflows due to several products of small decimal values.
+
+If we assume a prior distribution in addition to our observations, we can apply MAP, which maximizes the posterior function :
+
+$$\begin{aligned}\theta_{MAP} &= argmax_{\theta}\ f(\theta|x_1...x_n)
+\\ &= argmax_{\theta}\ g(\theta) f(x_1...x_n|\theta)\end{aligned}$$
+
+We skipped the denuminator, (so-called marginal likelihood) after applying the Bayes rule above because it does not change the optimization problem.
+
+For example for linear regression, MLE estimates the mean squared loss, applying MAP will estimate L2 regularization as well.
+
 ## References
 
 **Artificial Intelligence: A Modern Approach, Forth edition**
@@ -164,3 +209,8 @@ https://en.wikipedia.org/wiki/Probability_axioms
 
 https://online.stat.psu.edu/stat414/lesson/4/4.2
 
+https://machinelearningmastery.com/bayes-optimal-classifier/
+
+https://medium.com/@luckecianomelo/the-ultimate-guide-for-linear-regression-theory-918fe1acb380
+
+https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation
