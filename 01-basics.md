@@ -193,8 +193,8 @@ If we assume a prior distribution in addition to our observations, we can apply 
 
 $$
 \begin{aligned}
-\theta_{MAP} &= argmax_{\theta}\ f(\theta|x_1...x_n)
-\\ &= argmax_{\theta}\ g(\theta) f(x_1...x_n|\theta)
+\theta_{MAP} &= argmax_{\theta}\ f(\theta|x_1...x_n) \\
+&= argmax_{\theta}\ g(\theta) f(x_1...x_n|\theta)
 \end{aligned}
 $$
 
