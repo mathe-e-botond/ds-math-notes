@@ -79,9 +79,7 @@ $$\hat y = \hat \beta _0 + \hat \beta _1 x_1 + ... +  \hat \beta _p x_p$$
 
 Parameters can be estimated using our training data set and the sum of squared residual loss function
 
-$$\begin{aligned}
-RSS &= \sum_{i=1}^n(y_i - \hat y)^2
-\end{aligned}$$
+$$RSS = \sum_{i=1}^n(y_i - \hat y)^2$$
 
 To assess quality of fit, the **residual standard error** $RSE$ is an estimate of standard deviation of $\epsilon$
 

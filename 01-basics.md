@@ -191,8 +191,12 @@ We than try to optimize $L(\theta)$. Since it's an optimization problem, we can 
 
 If we assume a prior distribution in addition to our observations, we can apply MAP, which maximizes the posterior function :
 
-$$\begin{aligned}\theta_{MAP} &= argmax_{\theta}\ f(\theta|x_1...x_n)
-\\ &= argmax_{\theta}\ g(\theta) f(x_1...x_n|\theta)\end{aligned}$$
+$$
+\begin{aligned}
+\theta_{MAP} &= argmax_{\theta}\ f(\theta|x_1...x_n)
+\\ &= argmax_{\theta}\ g(\theta) f(x_1...x_n|\theta)
+\end{aligned}
+$$
 
 We skipped the denuminator, (so-called marginal likelihood) after applying the Bayes rule above because it does not change the optimization problem.
 
