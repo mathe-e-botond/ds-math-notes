@@ -198,7 +198,7 @@ $$
 \end{aligned}
 $$
 
-We skipped the denuminator, (so-called marginal likelihood) after applying the Bayes rule above because it does not change the optimization problem.
+We skipped the denuminator (so-called marginal likelihood) after applying the Bayes rule above because it does not change the optimization problem.
 
 For example for linear regression, MLE estimates the mean squared loss, applying MAP will estimate L2 regularization as well.
 

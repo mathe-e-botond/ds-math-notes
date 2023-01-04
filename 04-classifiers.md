@@ -1,4 +1,4 @@
-# 3. Classifiers
+# 4. Classifiers
 
 Classification is the problem of mapping variables to a categorical dependent variable. While in some cases there can be more than two categories, we can reduce the problem of classifing to a category or another and repeating for the latter. 
 
@@ -23,9 +23,9 @@ The Bayes error rate is analogous to the irreducible error of linear models. The
 Proofs:
 https://en.wikipedia.org/wiki/Bayes_classifier
 
-## 3.1 K nearest neighbour classifier (KNN)
+## 4.1 K nearest neighbour classifier (KNN)
 
-KNN classifier tries to estimate the Bayes classifier, by finding the K neaerest observation in training data closest to {x_0} test observation
+KNN classifier tries to estimate the Bayes classifier, by finding the K neaerest observation in training data closest to $x_0$ test observation
 
 $$Pr(Y = j | X = x_0) = {1 \over K} \sum_{i \in \Nu_0}I(y_j = j)$$
 
@@ -35,11 +35,11 @@ $$C^{KNN}(x) = argmax_j({1 \over K} \sum_{i \in \Nu_0}I(y_j = j))$$
 
 Small K values lead to higher variance, $K=1$ will perfectly fit the training data.
 
-## 3.2 Naive Bayes classifier
+## 4.2 Naive Bayes classifier
 
 
 
 $${\displaystyle C^{\text{Bayes}}(x)={\underset {y_i}{\operatorname {argmax} }}\operatorname {P} (Y=y_i)\prod _{j} P(X_j|Y=y_j)}$$
 
-## 3.3 Logistic regression
+## 4.3 Logistic regression
 
