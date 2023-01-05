@@ -27,11 +27,11 @@ https://en.wikipedia.org/wiki/Bayes_classifier
 
 KNN classifier tries to estimate the Bayes classifier, by finding the K neaerest observation in training data closest to $x_0$ test observation
 
-$$Pr(Y = j | X = x_0) = {1 \over K} \sum_{i \in \Nu_0}I(y_j = j)$$
+$$Pr(Y = j | X = x_0) = {1 \over K} \sum_{i \in N_0}I(y_j = j)$$
 
 The classifier result will be the max probability: $argmax_j(Pr)$
 
-$$C^{KNN}(x) = argmax_j({1 \over K} \sum_{i \in \Nu_0}I(y_j = j))$$
+$$C^{KNN}(x) = argmax_j({1 \over K} \sum_{i \in N_0}I(y_j = j))$$
 
 Small K values lead to higher variance, $K=1$ will perfectly fit the training data.
 

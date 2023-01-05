@@ -150,7 +150,7 @@ Interactions and polinomial terms can cause multicolliniarity for non centered p
 
 KNN is a non parametric estimator, and so does not make assumptions about the form of $f(X)$. On the other hand, does not support inference (explaining predictor relationships). To perform KNN regression, we find the K nearest neighbours of $x_0$ noted with $\Nu_0$, and we calculate the average of training responses
 
-$$f(x_0) = {1 \over K} \sum_{x_i \in |Nu_0}y_i$$
+$$f(x_0) = {1 \over K} \sum_{x_i \in N_0}y_i$$
 
 A parametric approach usually ouperforms the non parametric one, becuase the non parametric can have an increase in variance without reducing bias. With large number of predictors, the **curse of dimensionality** reduces the number of neighbours that can be used. In some cases KNN might perform better, but model explainability and the presence of p-values is also an advantage of linear regression.
 
