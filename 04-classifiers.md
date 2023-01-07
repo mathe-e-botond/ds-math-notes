@@ -37,9 +37,48 @@ Small K values lead to higher variance, $K=1$ will perfectly fit the training da
 
 ## 4.2 Naive Bayes classifier
 
-
-
 $${\displaystyle C^{\text{Bayes}}(x)={\underset {y_i}{\operatorname {argmax} }}\operatorname {P} (Y=y_i)\prod _{j} P(X_j|Y=y_j)}$$
 
 ## 4.3 Logistic regression
 
+In logistic regression we model the probability of an observation belonging to one of two classes with logistic function. \output ranges between 0 and 1 (<b>Figure 4.1</b> left side)
+
+$$p(X) = {e^{\beta_0 + \beta_1X_1 + ... +  \beta_pX_p} \over 1 + e^{\beta_0 + \beta_1X_1 + ... + \beta_pX_p}}$$
+
+We can transform the above to odds form $p \over 1-p$
+
+$p = {e^z \over 1 + e^z}$<br>
+$p(1 + e^z) = e^z$<br>
+$p + p e^z = e^z$<br>
+$p = e^z(1-p)$<br>
+${p \over 1 - p} = e^z$
+
+Giving
+
+$${p(X) \over 1 - p(X)} = e^{\beta_0 + \beta_1X_1 + ... + \beta_pX_p}$$
+
+Taking $log$ of both sides gives the log odds or **logit**
+
+$$log\bigg({p(X) \over 1 - p(X)}\bigg) = \beta_0 + \beta_1X_1 + ... + \beta_pX_p$$
+
+Which is a linear function, see right side of **Figue 4.1**
+
+<figure align="center">
+<img src="./img/04-log-function.png" style="width:100%; max-width: 400px">
+<figcaption><b>Figure 4.1: </b><i>Left side probability p, rights side logit transformation. Observations move from 0 to negative infinity and from 1 to infinity</i> (source StatQuest)</figcaption>
+</figure>
+
+We can use categorical variables trough dummies, same as linear regression.
+
+### 4.3.1 Fitting the model
+
+The logistic function can be fit using maximum likelyhood. The lokelyhood function is
+
+$$\ell(\beta_0, \beta_1) = \prod_{i:y_i=1}p(x_i)\prod_{j:y_j=1}\big (1 - p(x_j)\big )$$
+
+### 4.3.2 Assessing the model
+
+Each estimated coefficient has associated *z*-statistic
+$$\hat \beta_1 \over \operatorname{SE}(\hat \beta_1)$$
+
+If *z*-statistic is large, and the associated $p$-value is below a selected $\alpha$ we can reject the null hypothesis: $H_0: \beta_1 = 0$
