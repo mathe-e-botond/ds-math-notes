@@ -65,7 +65,7 @@ Which is a linear function, see right side of **Figue 4.1**
 
 <p align="center">
 <img src="./img/04-log-function.png" width="400">
-<b>Figure 4.1: </b><i>Left side probability p, rights side logit transformation. Observations move from 0 to negative infinity and from 1 to infinity</i> (source StatQuest)
+<br><b>Figure 4.1: </b><i>Left side probability p, rights side logit transformation. Observations move from 0 to negative infinity and from 1 to infinity</i> (source StatQuest)
 </p>
 
 We can use categorical variables trough dummies, same as linear regression.
