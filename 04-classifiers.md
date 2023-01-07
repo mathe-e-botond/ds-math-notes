@@ -63,10 +63,10 @@ $$log\bigg({p(X) \over 1 - p(X)}\bigg) = \beta_0 + \beta_1X_1 + ... + \beta_pX_p
 
 Which is a linear function, see right side of **Figue 4.1**
 
-<figure align="center">
-<img src="./img/04-log-function.png" style="width:100%; max-width: 400px">
-<figcaption><b>Figure 4.1: </b><i>Left side probability p, rights side logit transformation. Observations move from 0 to negative infinity and from 1 to infinity</i> (source StatQuest)</figcaption>
-</figure>
+<p align="center">
+<img src="./img/04-log-function.png" width="400">
+<b>Figure 4.1: </b><i>Left side probability p, rights side logit transformation. Observations move from 0 to negative infinity and from 1 to infinity</i> (source StatQuest)
+</p>
 
 We can use categorical variables trough dummies, same as linear regression.
 
