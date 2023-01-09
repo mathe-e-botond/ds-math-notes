@@ -23,7 +23,21 @@ The Bayes error rate is analogous to the irreducible error of linear models. The
 Proofs:
 https://en.wikipedia.org/wiki/Bayes_classifier
 
-## 4.1 K nearest neighbour classifier (KNN)
+Same as regression there are two main categories of classification: non parametric like KNN and parametric classificaiton.
+
+Parametric classifications can be further categorized based on the parameter estimation approach (see also **Figure 4.1**): 
+* **Discriminative classifier**: we estimate probability of an observation to belonging to a particular value of categorical variable $Y$, drawing a separation boundary. Example: logistic regression.
+* **Generative classifier** we estimate distribution of each class of $Y$ separately based on observations and using all estimates of an observation, we choose the maximum to decide final class. Examples:
+  * Naive Bayes
+  * Linear discriminant analysis (LDA), a dimensionality reduction technique
+  * Hidden Markov Model 
+
+<p align="center">
+<img src="./img/04-discriminative-generative.png" width="300">
+<br><b>Figure 4.1: </b><i>Discriminative vs generative classifier</i> (source dataisutopia.com)
+</p>
+
+## **4.1 K nearest neighbour classifier (KNN)**
 
 KNN classifier tries to estimate the Bayes classifier, by finding the K neaerest observation in training data closest to $x_0$ test observation
 
@@ -35,13 +49,9 @@ $$C^{KNN}(x) = argmax_j({1 \over K} \sum_{i \in N_0}I(y_j = j))$$
 
 Small K values lead to higher variance, $K=1$ will perfectly fit the training data.
 
-## 4.2 Naive Bayes classifier
+## **4.2 Logistic regression**
 
-$${\displaystyle C^{\text{Bayes}}(x)={\underset {y_i}{\operatorname {argmax} }}\operatorname {P} (Y=y_i)\prod _{j} P(X_j|Y=y_j)}$$
-
-## 4.3 Logistic regression
-
-In logistic regression we model the probability of an observation belonging to one of two classes with logistic function. \output ranges between 0 and 1 (<b>Figure 4.1</b> left side)
+In logistic regression we model the probability of an observation belonging to one of two classes with logistic function. \output ranges between 0 and 1 (<b>Figure 4.2</b> left side)
 
 $$p(X) = {e^{\beta_0 + \beta_1X_1 + ... +  \beta_pX_p} \over 1 + e^{\beta_0 + \beta_1X_1 + ... + \beta_pX_p}}$$
 
@@ -61,24 +71,66 @@ Taking $log$ of both sides gives the log odds or **logit**
 
 $$log\bigg({p(X) \over 1 - p(X)}\bigg) = \beta_0 + \beta_1X_1 + ... + \beta_pX_p$$
 
-Which is a linear function, see right side of **Figue 4.1**
+Which is a linear function, see right side of **Figue 4.2**
 
 <p align="center">
 <img src="./img/04-log-function.png" width="400">
-<br><b>Figure 4.1: </b><i>Left side probability p, rights side logit transformation. Observations move from 0 to negative infinity and from 1 to infinity</i> (source StatQuest)
+<br><b>Figure 4.2: </b><i>Left side probability p, rights side logit transformation. Observations move from 0 to negative infinity and from 1 to infinity</i> (source StatQuest)
 </p>
 
 We can use categorical variables trough dummies, same as linear regression.
 
-### 4.3.1 Fitting the model
+### **4.2.1 Fitting the model**
 
 The logistic function can be fit using maximum likelyhood. The lokelyhood function is
 
 $$\ell(\beta_0, \beta_1) = \prod_{i:y_i=1}p(x_i)\prod_{j:y_j=1}\big (1 - p(x_j)\big )$$
 
-### 4.3.2 Assessing the model
+### **4.2.2 Multinomail logistic regressoin**
+
+Multinomial logistic regression is used to classify more than two classes. To achieve this we use a reference class and coefficients tell the relative change of one class probability compared to another. 
+
+Model for classifying multiple classes when using the $K$ th class as reference for classes $k = 1...K-1$
+
+$$Pr(Y=k|X=x) = {e^{\beta_{k0} + \beta_{k1}X_1 + ... + \beta_{kp}X_p} \over 1 + \sum_{l=1}^{K-1}e^{\beta_{l0} + \beta_{l1}X_1 + ... + \beta_{lp}X_p}}$$
+
+and for class $K$
+
+$$Pr(Y=K|X=x) = {1 \over 1 + \sum_{l=1}^{K-1}e^{\beta_{l0} + \beta_{l1}X_1 + ... + \beta_{lp}X_p}}$$
+
+we can derive
+
+$$log\bigg({Pr(Y=k|X=x) \over Pr(Y=K|X=x)}\bigg)=\beta_{k0} + \beta_{k1}X_1 + ... + \beta_{kp}X_p$$
+
+Proof (with simplified notations):<br>
+$log\big({Pr(k) \over Pr(K)}\big) = log\bigg({{e^{z_k} \over 1 + \sum_{l=1}^{K-1}e^{z_l}} \over {1 \over 1 + \sum_{l=1}^{K-1}e^{z_l}}}\bigg) = log({e^{z_k} \over 1}) = log(e^{z_k}) = z_k$
+
+An alternative is to use softmax encoding, we etimate coefficients for all classes $k = 1...K$
+
+$$Pr(Y=k|X=x) = {e^{\beta_{k0} + \beta_{k1}X_1 + ... + \beta_{kp}X_p} \over \sum_{l=1}^K e^{\beta_{l0} + \beta_{l1}X_1 + ... + \beta_{lp}X_p}}$$
+
+and we calculate ration between classes $k$ and $k'$
+
+$$log\bigg({Pr(Y=k|X=x) \over Pr(Y=K|X=x)}\bigg)=(\beta_{k0}-\beta_{k'0}) + (\beta_{k1}-\beta_{k'1})X_1 + ... + (\beta_{kp}-\beta_{k'p})X_p$$
+
+Proof (with simplified notations):<br>
+$log\big({Pr(k) \over Pr(k')}\big) = log\big({e^{z_k} \over e^{z_{k'}}}\big) = log(e^{z_k}) - log(e^{z_{k'}}) = z_k - z_{k'}$
+
+### 4.2.3 Assessing the model
 
 Each estimated coefficient has associated *z*-statistic
 $$\hat \beta_1 \over \operatorname{SE}(\hat \beta_1)$$
 
 If *z*-statistic is large, and the associated $p$-value is below a selected $\alpha$ we can reject the null hypothesis: $H_0: \beta_1 = 0$
+
+## **4.3 Genertive Models for Classification**
+
+## **4.4 Naive Bayes classifier**
+
+$${\displaystyle C^{\text{Bayes}}(x)={\underset {y_i}{\operatorname {argmax} }}\operatorname {P} (Y=y_i)\prod _{j} P(X_j|Y=y_j)}$$
+
+## References
+
+**An Introduction to Statistical Learning, with applications in R, Second Edition**, Gareth James, Daniela Witten, Trevor Hastie, Rob Tibshirani
+
+https://betterprogramming.pub/generative-vs-discriminative-models-d26def8fd64a
