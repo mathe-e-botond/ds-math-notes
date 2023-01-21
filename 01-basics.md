@@ -1,14 +1,16 @@
 # 1. Statistics basics
 
-This document will have basic equations needed to dereive statistical concepts
+This document will have basic equations needed to dereive statistical concepts.
 
-## **1.1 Probability**
+## **1.1 Basics of probability**
 
 Probability consitutes the basics of statistics. Probability theory is an application of measure theory and relies on set theory. 
 
 ### **1.1.1 Axioms of probability**
 
-Probability is about possible worlds and probabiliatic assertions of how probable worlds are. **Sample space** is the set of all possible worlds. Possible worlds are *mutually exclusive* and *exhaustive*. In the case of discrete countable set of worlds, for a fully specified **probability model** we define a probability $P(A)$ for each world. 
+Probability is about possible worlds and probabiliatic assertions of how probable worlds are. **Sample space** is the set of all possible worlds. Possible worlds are *mutually exclusive* and *exhaustive*. A **random variables** is a measuremnt function that maps observations from a sample space to a measurable space, usually the real numbers $\R$. 
+
+In the case of a random variable, for a fully specified **probability model** we can define a probability $P(A)$ for each possible outcome. 
 
 Formally, let $(\Omega, F, P)$ be a measure space, called probability space for event $A$, sample space $\Omega$, event space $F$ and probability measure $P$
 
@@ -27,7 +29,7 @@ Set of worlds are called **events** or **propositions**. Probability of an event
 
 $$ P(E_1 \cup ... \cup E_k) = P(E_1) + ... + P(E_k) \tag{Axiom 3} $$
 
-### **1.1.2 Rules derived from axioms**
+### **1.1.4 Rules derived from axioms**
 
 We can derive several consequences from the axioms
 
@@ -152,8 +154,52 @@ $$\text{using notation }\boldsymbol{P}(A) := \langle P(A), P(A^C) \rangle \\
 
 where $\alpha$ is the normalization constant to make entries in $\boldsymbol{P}$  sum up to $1$
 
+## **1.2 Describing random variables** ##
+If we enumerate all possible outcomes and their probabilities, we can construct a function that describes a random variable. This function is called **probability distribution**. 
 
-## **1.2 Moments in statistics**
+### **1.2.1 Discrete probability distribution** ###
+
+If the random variable outcome is discreete like a coint toss, the probability distribution function is also called **probability mass function**. 
+
+$$p: \R \to [0, 1], \  p_X(x) = P(X = x)$$
+
+Where values must be non negative and sum up to one as per the Kolmogorov axioms
+
+$$p_X(x) \ge 0$$
+and
+$$\sum_x p_X(x) = 1$$
+
+### **1.2.2 Continuous probability distribution** ###
+
+In the case of **absolutely continuous probability distributions** the probability distribution is also called the **probability desnity function (PDF)**. Since the random varibale is continuous, the probability of taking of a specific value is 0. Instead we can describe the probability of a random variable taking a value from an interval 
+
+$$Pr[a \le X \le b] = \int_a^bf(x)dx$$
+
+Unlike the probability the density function can take up values bigger than $1$, but the integrsaste on the complete domain needs to be $1$
+
+$$\int_{-\infty}^\infty f(x)dx = 1$$
+
+### **1.2.3 Cumulative distribution function** ###
+
+An alternative description with a funciton of a random variable is the **cumulative distribution function** (CDF) which in both discrete and continuous case is defined as the probability of the random variable taking a value bigger or equal to $x$.
+
+$$F_X(x) = p(X <= x)$$
+
+It has the following properties
+
+$$\lim_{x \to - \infty} F(x) = 0\text{ and }\lim_{x \to  \infty} F(x) = 1$$
+
+$$P(a < X <= b) = F_X(b) - F_X(a)$$
+
+For discrete distribution the CDF is
+
+$$F_X(x) = \sum_{k <= x} p(k)$$
+
+For a continuous random variable
+
+$$F_X(x) = \int_{-\infty}^x p(y)dy$$
+
+## **1.3 Moments in statistics**
 
 We can define the moments of a random variable as
 
@@ -162,11 +208,39 @@ We can define the moments of a random variable as
 3rd moment: skewness<br>
 4th moment: kurtosis<br>
 
-### **1.2.1 Variance**
+We can desfine each in terms of a population, a sample, discreete probability distribution and continuous probability distribution. 
 
-The variance is defined as 
+### **1.3.1 Mean**
 
-$$Var(X) = E[(X - E(X))^2]$$
+Population size N
+
+$$\mu = {\sum x \over N}$$
+
+Sample size $n$
+
+$$\bar x = {\sum x \over n}$$
+
+Discreete probability distribution
+
+$$E[x] = \mu = \sum x p(x)$$
+
+Continuous probability distribution
+
+$$E[x] = \mu = \int_{-\infty}^\infty x f(x) dx$$
+
+### **1.3.2 Variance**
+
+Population size N
+
+$$\sigma^2={\sum(x-\mu)^2 \over N}$$
+
+Sample size $n$, for variance degrees of freedom is $n-1$ (for single observation variance is undefined)
+
+$$s^2={\sum(x-\bar x)^2 \over n-1}$$
+
+For probability distributions
+
+$$\sigma^2 = Var(X) = E[(X - E(X))^2]$$
 
 It can be shown that
 
@@ -175,11 +249,78 @@ $$E[(X - E(X))^2] = E[X^2] - (E[X])^2$$
 Proof with both discrete and continuous random variables:
 https://proofwiki.org/wiki/Variance_as_Expectation_of_Square_minus_Square_of_Expectation
 
-## **1.3 Density estimation**
+$\sigma$ is called the standard deviation and is the square root of variance. For a probability distribution it's noted with $\operatorname{SD}(X)$
 
-In supervised machine learning we try to find a model that best explains the training data. The same problem can be framed as: given some samples, what point estimate explains the observations
+## **1.4 Multiple random variables** ##
 
-There are two main probabilistic optimization frameworks, **Maximum Likelihood Estimation** (MLE) and **Maximum a Posteriori** (MAP). The difference is that MAP assumes a model and tries to estimate parameters using the posterior probability, MLE estimates parameters using the prior based on observations only.
+We sometimes want to work with multiple random variables. 
+
+### **1.4.1 Joint probability distribution** ###
+
+The joint probability of two variables is noted by
+
+$$P(A, B) = P(A \cap B)$$
+
+The joint probability distribution is
+
+$$f(x, y) = P(X = x, Y= y)$$
+
+We can write it in terms of conditional distribution
+
+$$P(X,Y) = P(X|Y)P(Y) = P(Y|X)P(X)\\
+f(x, y) = P(X = x | Y= y) \cdot P(Y= y) = P(Y = y | X = x) \cdot P(X = x)$$
+
+We can calulcate the individual probability distributions from the joint probability distribution, and it's called the **marginal probability distributions** (if we enumerate a discreet joint probability distribution in a table, we would calulcate the marginal distribution by summing up the rows and columns, making it the margin of the table as the last row and columns)
+
+$$f_X(x) = \int f_{X,Y}(x,y)dy \\ f_Y(y) = \int f_{X,Y}(x,y)dx$$
+
+Similarly to the probability distribution the joint cumulative distribution function
+
+$$F_{X,Y}(x,y) = P(X \le x, Y \le y)$$
+
+### **1.4.2 Independent and identically distributed random variables (i.i.d)** ###
+
+Two variables are **independent** when the conditional probability is same as the pior
+
+$$P(A|B) = P(A)$$
+
+The joint probability distribution for two independent variables becomes
+
+$$P(A,B) = P(A)P(B)$$
+
+Independence can be stated with cumulative distribution functions
+
+$$F_{X,Y}(x,y) = F_X(x)F_Y(y)\tag{i}$$
+
+Two varaibales are identically distributed if their joint cumulative distribution function is equal
+
+$$F_X(x) = F_Y(y)\tag{i.d}$$
+
+Two variables are said to be **independent and identically distributed (i.i.d)** if both condition for independence (eq. (i)) and identically distributed (eq. (i.d.)) are both satisfied.
+
+### **1.4.3 Covariance and correlation** ###
+
+Similarity between two variables can be defined using correlation or covariance. 
+
+For a random sample covariance is defined as
+
+$$\operatorname{cov}(x,y) = \sigma_{xy} = {\sum(x - \bar x)(y - \bar y) \over n-1}$$
+
+And correlation as
+
+$$\operatorname{corr}(x,y) = \rho_{xy} = {\sigma_{xy} \over \sigma_x \sigma_y}$$
+
+For a discreet probability distribution
+
+$$\operatorname{cov}(X, Y) = \sum(X - E[X])(Y - E[Y])P(X,Y)$$
+
+Correlation is
+
+$$\operatorname{corr}(X, Y) = {\operatorname{cov}(X, Y) \over \operatorname{SD}(X)\operatorname{SD}(Y)}$$
+
+## **1.5 Density estimation**
+
+There are two main probabilistic optimization frameworks to estimate some parameter given a set of observation: **Maximum Likelihood Estimation** (MLE) and **Maximum a Posteriori** (MAP). The difference is that MAP assumes a model and tries to estimate parameters using the posterior probability, MLE estimates parameters using the prior based on observations only.
 
 $$\theta_{MLE} = argmax_{\theta}\ f_n(x_1...x_n|\theta)$$
 
@@ -208,6 +349,10 @@ For example for linear regression, MLE estimates the mean squared loss, applying
  Peter Norvig and Stuart J. Russell
 
 https://en.wikipedia.org/wiki/Probability_axioms
+
+https://en.wikipedia.org/wiki/Joint_probability_distribution
+
+https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables
 
 **Inclusion-exclusion principle** Marton Balaazs and Balint Toth, October 13, 2014
 
