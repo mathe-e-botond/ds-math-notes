@@ -30,6 +30,7 @@ Parametric classifications can be further categorized based on the parameter est
 * **Generative classifier** we estimate distribution of each class of $Y$ separately based on observations and using all estimates of an observation, we choose the maximum to decide final class. Examples:
   * Naive Bayes
   * Linear discriminant analysis (LDA), a dimensionality reduction technique
+  * Quadratic discriminant analysis
   * Hidden Markov Model 
 
 <p align="center">
@@ -53,23 +54,23 @@ Small K values lead to higher variance, $K=1$ will perfectly fit the training da
 
 In logistic regression we model the probability of an observation belonging to one of two classes with logistic function. \output ranges between 0 and 1 (<b>Figure 4.2</b> left side)
 
-$$p(X) = {e^{\beta_0 + \beta_1X_1 + ... +  \beta_pX_p} \over 1 + e^{\beta_0 + \beta_1X_1 + ... + \beta_pX_p}}$$
+$$P(X) = {e^{\beta_0 + \beta_1X_1 + ... +  \beta_pX_p} \over 1 + e^{\beta_0 + \beta_1X_1 + ... + \beta_pX_p}}$$
 
 We can transform the above to odds form $p \over 1-p$
 
-$p = {e^z \over 1 + e^z}$<br>
-$p(1 + e^z) = e^z$<br>
-$p + p e^z = e^z$<br>
-$p = e^z(1-p)$<br>
-${p \over 1 - p} = e^z$
+$P(X) = {e^z \over 1 + e^z}$<br>
+$P(X)\cdot(1 + e^z) = e^z$<br>
+$P(X) + P(X) e^z = e^z$<br>
+$P(X) = e^z(1-P(X))$<br>
+${P(X) \over 1 - P(X)} = e^z$
 
 Giving
 
-$${p(X) \over 1 - p(X)} = e^{\beta_0 + \beta_1X_1 + ... + \beta_pX_p}$$
+$${P(X) \over 1 - P(X)} = e^{\beta_0 + \beta_1X_1 + ... + \beta_pX_p}$$
 
 Taking $log$ of both sides gives the log odds or **logit**
 
-$$log\bigg({p(X) \over 1 - p(X)}\bigg) = \beta_0 + \beta_1X_1 + ... + \beta_pX_p$$
+$$log\bigg({P(X) \over 1 - P(X)}\bigg) = \beta_0 + \beta_1X_1 + ... + \beta_pX_p$$
 
 Which is a linear function, see right side of **Figue 4.2**
 
@@ -123,11 +124,54 @@ $$\hat \beta_1 \over \operatorname{SE}(\hat \beta_1)$$
 
 If *z*-statistic is large, and the associated $p$-value is below a selected $\alpha$ we can reject the null hypothesis: $H_0: \beta_1 = 0$
 
-## **4.3 Genertive Models for Classification**
+## **4.3 Generative Models for Classification**
 
-## **4.4 Naive Bayes classifier**
+Instead of directly estimating $Pr(Y = y|X = x)$ we estimate the distribution $Pr(X = x|Y=k)$ for each value $k$ of $Y$ and then we use Bayes rule to flip the conditional and calculate $Pr(Y = y|X = x)$. Whith this approach we can model the cases better, where $X$ is more separated for each valye of $Y$. 
+
+If $Pr(Y = k)$, denoted with $\pi_k$ is the overall probability that an observation belongs to class $k$ (i.e $n_k \over n$ where $n_k$ is samples in class $k$ and $n$ is total number of samples of our training data) and $f_k(X) = Pr(X | Y = k)$ is the distribution of a single class, using Bayes rule we get
+
+$$Pr(Y = k|X = x) = p_k(x) = {\pi_k f_k(x) \over \sum_{l=1}^K\pi_l f_l(x)}$$
+
+### **4.3.1 Linear discriminant analysis**
+
+
+### **4.3.2 Naive Bayes classifier**
 
 $${\displaystyle C^{\text{Bayes}}(x)={\underset {y_i}{\operatorname {argmax} }}\operatorname {P} (Y=y_i)\prod _{j} P(X_j|Y=y_j)}$$
+
+## **4.4 Evaluating classifiers**
+
+<table>
+  <tr>
+    <td></td>
+    <td>Predicted class</td>
+  </tr>
+  <tr>
+    <td>Actual class</td>
+    <td>
+      <table>
+        <tr>
+          <td></td>
+          <td align="center">Positive</td>
+          <td align="center">Negative</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Positive</td>
+          <td>True Positive (TP)</td>
+          <td>False Negative (FN)<br><span style="color: #ff5555">Type II error</span></td>
+          <td>Sensitivity $TP \over $ TP + FN$ $$TP \over $ TP + FN$$</td>
+        </tr>
+        <tr>
+          <td>Negative</td>
+          <td>False Positive (FP)<br><span style="color: #ff5555">Type I error</span></td>
+          <td>True Negative (TN)</td>
+          <td></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
 
 ## References
 
