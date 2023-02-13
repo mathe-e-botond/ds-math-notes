@@ -144,32 +144,29 @@ $${\displaystyle C^{\text{Bayes}}(x)={\underset {y_i}{\operatorname {argmax} }}\
 <table>
   <tr>
     <td></td>
-    <td>Predicted class</td>
+    <td></td>
+    <th align="center" colspan="2">Predicted class</th>
+    <td></td>
   </tr>
   <tr>
-    <td>Actual class</td>
-    <td>
-      <table>
-        <tr>
-          <td></td>
-          <td align="center">Positive</td>
-          <td align="center">Negative</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>Positive</td>
-          <td>True Positive (TP)</td>
-          <td>False Negative (FN)<br><span style="color: #ff5555">Type II error</span></td>
-          <td>Sensitivity $TP \over $ TP + FN$ $$TP \over $ TP + FN$$</td>
-        </tr>
-        <tr>
-          <td>Negative</td>
-          <td>False Positive (FP)<br><span style="color: #ff5555">Type I error</span></td>
-          <td>True Negative (TN)</td>
-          <td></td>
-        </tr>
-      </table>
-    </td>
+    <td></td>
+    <td></td>
+    <th align="center">Positive</th>
+    <th align="center">Negative</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th rowspan="2">Actual class</th>
+    <th align="center">Positive</td>
+    <td align="center">True Positive (TP)</td>
+    <td align="center">False Negative (FN)<br><span style="color: #ff5555">Type II error</span></td>
+    <td align="center"><b>Sensitivity</b> $$TP \over TP + FN$$</td>
+  </tr>
+  <tr>
+    <th align="center">Negative</td>
+    <td align="center">False Positive (FP)<br><span style="color: #ff5555">Type I error</span></td>
+    <td align="center">True Negative (TN)</td>
+    <td align="center"><b>Specificity</b> $$TN \over TN + FP$$</td>
   </tr>
 </table>
 
