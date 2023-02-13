@@ -143,17 +143,13 @@ $${\displaystyle C^{\text{Bayes}}(x)={\underset {y_i}{\operatorname {argmax} }}\
 
 <table>
   <tr>
-    <td></td>
-    <td></td>
+    <td colspan="2" rowspan="2"></td>
     <th align="center" colspan="2">Predicted class</th>
-    <td></td>
+    <td rowspan="2"></td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
     <th align="center">Positive</th>
     <th align="center">Negative</th>
-    <td></td>
   </tr>
   <tr>
     <th rowspan="2">Actual class</th>
@@ -167,6 +163,11 @@ $${\displaystyle C^{\text{Bayes}}(x)={\underset {y_i}{\operatorname {argmax} }}\
     <td align="center">False Positive (FP)<br><span style="color: #ff5555">Type I error</span></td>
     <td align="center">True Negative (TN)</td>
     <td align="center"><b>Specificity</b> $$TN \over TN + FP$$</td>
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+    <td align="center"><b>Precision</b> $$TP \over TP + FP$$</td>
+    <td colspan="2"></td>
   </tr>
 </table>
 
