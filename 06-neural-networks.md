@@ -1,6 +1,6 @@
 # **6. Neural networks**
 
-## **6.1 Feed forward netowrks**
+## **6.1 Feed forward networks**
 
 ### **6.1.1 Perceptron**
 
@@ -141,7 +141,7 @@ Transforming to matrix form
 
 Backpropagation is an algorithm to calculate ${\partial C \over \partial w^l}$ and ${\partial C \over \partial b^l}$, by introducing an error term in the $j$ th neuron noted with $\delta_j^l$ 
 
-By making a weighted input change of a neuron $\Delta z_j^l$, this would cause the output of neuron to be $h(z_j^l + \Delta z_j^l)$, overall cost would change ${\partial C \over \partial z_j^l} \Delta z_j^l$. To minimize cost, we can choose $\Delta z_j^l$ to be $- {\partial C \over \partial z_j^l}$. Thus the error term we can choose is
+By making a weighted input change of a neuron $\Delta z_j^l$, this would cause the output of neuron to be $h(z_j^l + \Delta z_j^l)$, overall cost would change ${\partial C \over \partial z_j^l} \Delta z_j^l$. To minimize cost, we can choose $\Delta z_j^l$ to be $- {\partial C \over \partial z_j^l}$, so that it would result in a minus squared term which is always negative, and thus would help us reduce the cost function. Thus the error term we can choose is
 
 $$\delta_j^l = {\partial C \over \partial z_j^l} \tag{6.3}$$
 
@@ -150,8 +150,8 @@ The vector $e^l$ is the error term for layer $l$.
 **Error in out payer** (element wise and matrix form):
 
 $$\delta_j^L = {\partial C \over \partial A_j ^ L} h ' (z_j^L)$$
-$$\delta^L = \nabla _AC \odot h(z^L) \tag{BP1}$$
 
+$$\delta^L = \nabla _AC \odot h(z^L) \tag{BP1}$$
 
 Proof:
 
