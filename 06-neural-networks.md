@@ -63,15 +63,7 @@ In feed forward networks, output of neurons in a layer act as inputs in the next
 <br><b>Figure 6.3: </b><i>Architecture of a feed forward neural network with 3 inputs and 2 hidden layers</i>
 </p>
 
-To train the model the mean squared error (MSE) could be used as a loss function to be minimized 
-
-$$C(w) = \sum_{x \in \{1..n\}} \| y(x) - a \| ^2 \tag{6.1}$$
-
-where $n$ is training inputs, $a$ the output for input $x$. $\| \ \|^2$ is notation for distance.
-
-**6.1.3 Gradient descent**
-
-To minimize $C$ we can define a change in $C$ as
+To train the model we can choose a loss function $C$ we could minimize. To minimize $C$ we can define a change in $C$ as
 
 $$\Delta C \approx \sum_k { \partial C \over \partial w_k} \Delta w_k = \nabla C \Delta w_k \tag{6.2}$$
 
@@ -91,7 +83,49 @@ Similarly we can write the same for bias as well
 
 $$b' = b - \eta { \partial C \over \partial b}$$
 
-**Stochastic gradient descent**
+
+the mean squared error (MSE) could be used as a loss function to be minimized 
+
+$$C(w) = \sum_{x \in \{1..n\}} \| y(x) - a \| ^2 \tag{6.1}$$
+
+where $n$ is training inputs, $a$ the output for input $x$. $\| \ \|^2$ is notation for distance.
+
+The MSE is often used with ReLU but does not work well with sigmoid neurons. If the neuron haas to learn too much, and adjust from one side to another, the initial learning rate might be slow (until the learning gets to the steep part of the sigmoid function). Because of this a better alternative to be used with sigmoid is the **cross entropy cost function**
+
+$$C = -{1 \over n}\sum_x[y \ln a + (1 - y) \ln (1-a)]$$
+
+To see why this seemingly complex function is useful, we could check the learning rate for a single sigmoid neuron, notated with $\sigma(z)$ the partial derivate against a weight $w$:
+
+${\partial C \over \partial w_j} = {\partial \over \partial w_j }{\big ( -{1 \over n}\sum_x(y \ln \sigma(z) + (1 - y) \ln (1-\sigma(z)))\big ) }$<br>
+
+
+$ = -{1 \over n}\sum_x \left ( {\partial \over \partial w_j}\big ( y \ln \sigma(z)\big ) + {\partial \over \partial w_j} \big ((1 - y) \ln (1-\sigma(z))\big )\right )$<br>
+
+Because $ln(x)' = {1 \over x}$
+
+${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y \over \sigma(z) } {\partial \sigma(z) \over \partial w_j} - {1 - y \over 1-\sigma(z)} {\partial \sigma(z) \over \partial w_j}\right )$<br>
+
+Notice how the sign in the middle flipped because of $ln'(1-\sigma(z))$
+
+${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y \over \sigma(z) } - {1 - y \over 1-\sigma(z)}\right ) {\partial \sigma(z) \over \partial w_j} $<br>
+
+Since $z = b + \sum_j x_jw_j$ the derivate will be ${\partial \sigma(z) \over \partial w_j} = \sigma'(z) z'(w_j) = \sigma'(z) x_j$, pluggin in
+
+${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y \over \sigma(z) } - {1 - y \over 1-\sigma(z)}\right ) \sigma'(z)x_j $<br>
+
+We can rewrite ${y \over \sigma(z) } - {1 - y \over 1-\sigma(z)} = {y(1-\sigma(z)) - (1 - y)\sigma(z) \over \sigma(z) (1-\sigma(z)) } = {y - \sigma(z) - y\sigma(z) + y\sigma(z) \over \sigma(z) (1-\sigma(z))} = {y - \sigma(z) \over \sigma(z) (1-\sigma(z))}$. We get
+
+${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y - \sigma(z) \over \sigma(z) (1-\sigma(z))}\right ) \sigma'(z)x_j $<br>
+
+Using the definition of sigmoid $\sigma(z) = {1 \over 1 + e^{-z}}$, and the rule $ \left( 1 \over f \right )' = (f^{-1})' = -f^{-2} f' $ we can calculate 
+
+$\sigma'(z) = \left (-{1 \over ( 1 + e^{-z})^2} \right ) e^{-z} (-1) = {e^{-z} \over ( 1 + e^{-z})^2 } = {1 \over  1 + e^{-z}} {e^{-z} \over 1 + e^{-z}} = {1 \over  1 + e^{-z}} {1 + e^{-z} - 1 \over 1 + e^{-z}} = {1 \over 1 + e^{-z}} \left ( 1 - {1 \over  1 + e^{-z}} \right ) = \sigma(z)(1 - \sigma(z))$. Plugging the result, i.e $\sigma'(z) = \sigma(z)(1 - \sigma(z))$ to ${\partial C \over \partial w_j}$ will give
+
+${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y - \sigma(z) \over \sigma(z) (1-\sigma(z))}\right ) \sigma(z)(1 - \sigma(z)) x_j = -{1 \over n}\sum_x(y - \sigma(z))x_j$<br>
+
+The result shows that the learning rate ${\partial C \over \partial w_j}$ is proportional to the difference between expected and actual output $y - \sigma(z)$. The larger the difference the better the learning rate. The same is not true if we use MSE with sigmoid.
+
+**Stochastic Gradient descent**
 
 Because (6.1) iterates trough all input data, calculating weight updates might be costly. For each update we can select a subset of size $m$ of training data, noted with $X_j$, called mini batch to update the weights. The update wouldtake the form
 
@@ -107,9 +141,11 @@ Backprograpagation is the algorithm used in training, specifically for calculati
 
 $${\partial C \over \partial w} \operatorname{ and } {\partial C \over \partial b}$$
 
+for a network with multiple neurons and layers.
+
 **Assumptions of backpropagatation**
 
-1. The cost function $C$ can be written as the average of the cost function for all training samples $x$ noted $C_x$. This assumption is needed because backpropagation is done for each training sample
+1. The cost function $C$ can be written as the average of the cost function for all training samples $x$ noted $C_x$. This assumption is needed because backpropagation is done per training sample
 
 $$C = {1 \over n} C_x$$
 
@@ -223,7 +259,7 @@ The algorithm (using mini batches)
     3. Backpropagate error with (BP2)
 5. Adjust weights and biases with learning rate times the average of gradients given by (BP3) and (BP4)
 
-The reasopn backpropagation is faster than forward learning is because we would need to compute the gradient for all combinations of weights for each layer. Since most of the computation is redundant in the sense that partial gradients are re calculated multiple times, for each forward path, the backpropagation algorythms optimizes on this to compute only once.
+The reason backpropagation is faster than forward learning is because we would need to compute the gradient for all combinations of weights for each layer. Since most of the computation is redundant in the sense that partial gradients are recalculated multiple times, for each forward path, the backpropagation algoroithm optimizes on this to compute only once.
 
 ## References
 
