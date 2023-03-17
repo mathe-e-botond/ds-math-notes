@@ -99,7 +99,7 @@ To see why this seemingly complex function is useful, we could check the learnin
 ${\partial C \over \partial w_j} = {\partial \over \partial w_j }{\big ( -{1 \over n}\sum_x(y \ln \sigma(z) + (1 - y) \ln (1-\sigma(z)))\big ) }$<br>
 
 
-$ = -{1 \over n}\sum_x \left ( {\partial \over \partial w_j}\big ( y \ln \sigma(z)\big ) + {\partial \over \partial w_j} \big ((1 - y) \ln (1-\sigma(z))\big )\right )$<br>
+$= -{1 \over n}\sum_x \left ( {\partial \over \partial w_j}\big ( y \ln \sigma(z)\big ) + {\partial \over \partial w_j} \big ((1 - y) \ln (1-\sigma(z))\big )\right )$<br>
 
 Because $ln(x)' = {1 \over x}$
 
@@ -117,7 +117,7 @@ We can rewrite ${y \over \sigma(z) } - {1 - y \over 1-\sigma(z)} = {y(1-\sigma(z
 
 ${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y - \sigma(z) \over \sigma(z) (1-\sigma(z))}\right ) \sigma'(z)x_j $<br>
 
-Using the definition of sigmoid $\sigma(z) = {1 \over 1 + e^{-z}}$, and the rule $ \left( 1 \over f \right )' = (f^{-1})' = -f^{-2} f' $ we can calculate 
+Using the definition of sigmoid $\sigma(z) = {1 \over 1 + e^{-z}}$, and the rule $\left( 1 \over f \right )' = (f^{-1})' = -f^{-2} f'$ we can calculate 
 
 $\sigma'(z) = \left (-{1 \over ( 1 + e^{-z})^2} \right ) e^{-z} (-1) = {e^{-z} \over ( 1 + e^{-z})^2 } = {1 \over  1 + e^{-z}} {e^{-z} \over 1 + e^{-z}} = {1 \over  1 + e^{-z}} {1 + e^{-z} - 1 \over 1 + e^{-z}} = {1 \over 1 + e^{-z}} \left ( 1 - {1 \over  1 + e^{-z}} \right ) = \sigma(z)(1 - \sigma(z))$. Plugging the result, i.e $\sigma'(z) = \sigma(z)(1 - \sigma(z))$ to ${\partial C \over \partial w_j}$ will give
 
