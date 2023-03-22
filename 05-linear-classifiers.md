@@ -1,4 +1,4 @@
-# 4. Classifiers
+# 5 Linear Models for Classification
 
 Classification is the problem of mapping variables to a categorical dependent variable. While in some cases there can be more than two categories, we can reduce the problem of classifing to a category or another and repeating for the latter. 
 
@@ -25,7 +25,7 @@ https://en.wikipedia.org/wiki/Bayes_classifier
 
 Same as regression there are two main categories of classification: non parametric like KNN and parametric classificaiton.
 
-Parametric classifications can be further categorized based on the parameter estimation approach (see also **Figure 4.1**): 
+Parametric classifications can be further categorized based on the parameter estimation approach (see also **Figure 5.1**): 
 * **Discriminative classifier**: we estimate probability of an observation to belonging to a particular value of categorical variable $Y$, drawing a separation boundary. Example: logistic regression.
 * **Generative classifier** we estimate distribution of each class of $Y$ separately based on observations and using all estimates of an observation, we choose the maximum to decide final class. Examples:
   * Naive Bayes
@@ -34,11 +34,11 @@ Parametric classifications can be further categorized based on the parameter est
   * Hidden Markov Model 
 
 <p align="center">
-<img src="./img/04-discriminative-generative.png" width="300">
-<br><b>Figure 4.1: </b><i>Discriminative vs generative classifier</i> (source dataisutopia.com)
+<img src="./img/05-discriminative-generative.png" width="300">
+<br><b>Figure 5.1: </b><i>Discriminative vs generative classifier</i> (source dataisutopia.com)
 </p>
 
-## **4.1 K nearest neighbour classifier (KNN)**
+## **5.1 K nearest neighbour classifier (KNN)**
 
 KNN classifier tries to estimate the Bayes classifier, by finding the K neaerest observation in training data closest to $x_0$ test observation
 
@@ -50,9 +50,9 @@ $$C^{KNN}(x) = argmax_j({1 \over K} \sum_{i \in N_0}I(y_j = j))$$
 
 Small K values lead to higher variance, $K=1$ will perfectly fit the training data.
 
-## **4.2 Logistic regression**
+## **5.2 Logistic regression**
 
-In logistic regression we model the probability of an observation belonging to one of two classes with logistic function. \output ranges between 0 and 1 (<b>Figure 4.2</b> left side)
+In logistic regression we model the probability of an observation belonging to one of two classes with logistic function. \output ranges between 0 and 1 (<b>Figure 5.2</b> left side)
 
 $$P(X) = {e^{\beta_0 + \beta_1X_1 + ... +  \beta_pX_p} \over 1 + e^{\beta_0 + \beta_1X_1 + ... + \beta_pX_p}}$$
 
@@ -72,22 +72,22 @@ Taking $log$ of both sides gives the log odds or **logit**
 
 $$log\bigg({P(X) \over 1 - P(X)}\bigg) = \beta_0 + \beta_1X_1 + ... + \beta_pX_p$$
 
-Which is a linear function, see right side of **Figue 4.2**
+Which is a linear function, see right side of **Figue 5.2**
 
 <p align="center">
-<img src="./img/04-log-function.png" width="400">
-<br><b>Figure 4.2: </b><i>Left side probability p, rights side logit transformation. Observations move from 0 to negative infinity and from 1 to infinity</i> (source StatQuest)
+<img src="./img/05-log-function.png" width="400">
+<br><b>Figure 5.2: </b><i>Left side probability p, rights side logit transformation. Observations move from 0 to negative infinity and from 1 to infinity</i> (source StatQuest)
 </p>
 
 We can use categorical variables trough dummies, same as linear regression.
 
-### **4.2.1 Fitting the model**
+### **5.2.1 Fitting the model**
 
 The logistic function can be fit using maximum likelyhood. The lokelyhood function is
 
 $$\ell(\beta_0, \beta_1) = \prod_{i:y_i=1}p(x_i)\prod_{j:y_j=1}\big (1 - p(x_j)\big )$$
 
-### **4.2.2 Multinomail logistic regressoin**
+### **5.2.2 Multinomail logistic regressoin**
 
 Multinomial logistic regression is used to classify more than two classes. To achieve this we use a reference class and coefficients tell the relative change of one class probability compared to another. 
 
@@ -117,14 +117,14 @@ $$log\bigg({Pr(Y=k|X=x) \over Pr(Y=K|X=x)}\bigg)=(\beta_{k0}-\beta_{k'0}) + (\be
 Proof (with simplified notations):<br>
 $log\big({Pr(k) \over Pr(k')}\big) = log\big({e^{z_k} \over e^{z_{k'}}}\big) = log(e^{z_k}) - log(e^{z_{k'}}) = z_k - z_{k'}$
 
-### 4.2.3 Assessing the model
+### 5.2.3 Assessing the model
 
 Each estimated coefficient has associated *z*-statistic
 $$\hat \beta_1 \over \operatorname{SE}(\hat \beta_1)$$
 
 If *z*-statistic is large, and the associated $p$-value is below a selected $\alpha$ we can reject the null hypothesis: $H_0: \beta_1 = 0$
 
-## **4.3 Generative Models for Classification**
+## **5.3 Generative Models for Classification**
 
 Instead of directly estimating $Pr(Y = y|X = x)$ we estimate the distribution $Pr(X = x|Y=k)$ for each value $k$ of $Y$ and then we use Bayes rule to flip the conditional and calculate $Pr(Y = y|X = x)$. Whith this approach we can model the cases better, where $X$ is more separated for each valye of $Y$. 
 
@@ -132,14 +132,14 @@ If $Pr(Y = k)$, denoted with $\pi_k$ is the overall probability that an observat
 
 $$Pr(Y = k|X = x) = p_k(x) = {\pi_k f_k(x) \over \sum_{l=1}^K\pi_l f_l(x)}$$
 
-### **4.3.1 Linear discriminant analysis**
+### **5.3.1 Linear discriminant analysis**
 
 
-### **4.3.2 Naive Bayes classifier**
+### **5.3.2 Naive Bayes classifier**
 
 $${\displaystyle C^{\text{Bayes}}(x)={\underset {y_i}{\operatorname {argmax} }}\operatorname {P} (Y=y_i)\prod _{j} P(X_j|Y=y_j)}$$
 
-## **4.4 Evaluating classifiers**
+## **5.4 Evaluating classifiers**
 
 <table>
   <tr>
@@ -156,7 +156,7 @@ $${\displaystyle C^{\text{Bayes}}(x)={\underset {y_i}{\operatorname {argmax} }}\
     <th align="center">Positive</td>
     <td align="center">True Positive (TP)</td>
     <td align="center">False Negative (FN)<br><span style="color: #ff5555">Type II error</span></td>
-    <td align="center"><b>Sensitivity</b> $$TP \over TP + FN$$</td>
+    <td align="center"><b>Sensitivity or Recall</b> $$TP \over TP + FN$$</td>
   </tr>
   <tr>
     <th align="center">Negative</td>

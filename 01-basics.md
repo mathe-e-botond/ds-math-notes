@@ -318,31 +318,6 @@ Correlation is
 
 $$\operatorname{corr}(X, Y) = {\operatorname{cov}(X, Y) \over \operatorname{SD}(X)\operatorname{SD}(Y)}$$
 
-## **1.5 Density estimation**
-
-There are two main probabilistic optimization frameworks to estimate some parameter given a set of observation: **Maximum Likelihood Estimation** (MLE) and **Maximum a Posteriori** (MAP). The difference is that MAP assumes a model and tries to estimate parameters using the posterior probability, MLE estimates parameters using the prior based on observations only.
-
-$$\theta_{MLE} = argmax_{\theta}\ f_n(x_1...x_n|\theta)$$
-
-If values of $x_1...x_n$ are i.i.d or we assume it, becomes
-
-$$\theta_{MLE} = argmax_{\theta}\ \prod_{i=1}^nf(x_i|\theta)$$
-
-We than try to optimize $L(\theta)$. Since it's an optimization problem, we can optimize log likelyhood of $log\ L(\theta)$ instead to facilitate derivative calculations and avoid underflows due to several products of small decimal values.
-
-If we assume a prior distribution in addition to our observations, we can apply MAP, which maximizes the posterior function :
-
-$$
-\begin{aligned}
-\theta_{MAP} &= argmax_{\theta}\ f(\theta|x_1...x_n) \\
-&= argmax_{\theta}\ g(\theta) f(x_1...x_n|\theta)
-\end{aligned}
-$$
-
-We skipped the denuminator (so-called marginal likelihood) after applying the Bayes rule above because it does not change the optimization problem.
-
-For example for linear regression, MLE estimates the mean squared loss, applying MAP will estimate L2 regularization as well.
-
 ## References
 
 **Artificial Intelligence: A Modern Approach, Forth edition**
