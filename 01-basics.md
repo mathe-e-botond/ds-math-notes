@@ -12,7 +12,7 @@ Probability is about possible worlds and probabiliatic assertions of how probabl
 
 In the case of a random variable, for a fully specified **probability model** we can define a probability $P(A)$ for each possible outcome. 
 
-Formally, let $(\Omega, F, P)$ be a measure space, called probability space for event $A$, sample space $\Omega$, event space $F$ and probability measure $P$
+While probabilities are an application of measurement theory, understanding probabilities does not require deep understanding of measurement theory itself. For completeness we include the formal definition as: let $(\Omega, F, P)$ be a measure space, called probability space for event $A$, sample space $\Omega$, event space $F$ and probability measure $P$. 
 
 Probability can be described with a set of axioms named **Kolmogorov** axioms. 
 
@@ -29,7 +29,7 @@ Set of worlds are called **events** or **propositions**. Probability of an event
 
 $$ P(E_1 \cup ... \cup E_k) = P(E_1) + ... + P(E_k) \tag{Axiom 3} $$
 
-### **1.1.4 Rules derived from axioms**
+### **1.1.2 Rules derived from axioms**
 
 We can derive several consequences from the axioms
 
@@ -154,6 +154,16 @@ $$\text{using notation }\boldsymbol{P}(A) := \langle P(A), P(A^C) \rangle \\
 
 where $\alpha$ is the normalization constant to make entries in $\boldsymbol{P}$  sum up to $1$
 
+### **1.1.5 Intepretation of probability**
+
+There are two main interpretation of probabilities:
+* The **Bayesian interpretation** states that probablities are degrees of beliefs of certain events. As new evidence is discovered, we can update our beliefs on the probability for an outcome.
+* The **frequentist interpretation** states that probablities are the ratio for a certain outcome to all outcomes for a long running process.
+
+An interesting challenge for the bayesian interpretation is what if an agent does not assume the correct belief despite evidence. A counter argument is if probabilities would have a stake in a fair game, the agent who does update their belief system correctly, would more likely emerge as a winner against the agent that does not, hense motivating agents to maximize having the correct belief system.
+
+The two interpretations are mathematically equivalent, rely on the same set of axioms and definitions, including conditional probabilities. The bayesian intepretation of conditional probabilities is updating our belief system with some evidence while the frequentist interpretation is including new evidence to the evaluation of the repeated process. 
+
 ## **1.2 Describing random variables** ##
 If we enumerate all possible outcomes and their probabilities, we can construct a function that describes a random variable. This function is called **probability distribution**. 
 
@@ -210,7 +220,7 @@ The purpose of statistics is to estimate properties of a population, given a sam
 
 We can desfine each in terms of a population, a sample, discreete probability distribution or continuous probability distribution. 
 
-### **1.3.1 Mean**
+### **1.3.1 Mean or expectation**
 
 Population size N
 
@@ -270,7 +280,7 @@ We can write it in terms of conditional distribution
 $$P(X,Y) = P(X|Y)P(Y) = P(Y|X)P(X)\\
 f(x, y) = P(X = x | Y= y) \cdot P(Y= y) = P(Y = y | X = x) \cdot P(X = x)$$
 
-We can calulcate the individual probability distributions from the joint probability distribution, and it's called the **marginal probability distributions** (if we enumerate a discreet joint probability distribution in a table, we would calulcate the marginal distribution by summing up the rows and columns, making it the margin of the table as the last row and columns)
+We can calulcate the individual probability distributions from the joint probability distribution, and it's called the **marginal probability distributions** (if we enumerate a discreet joint probability distribution in a table, we would calculate the marginal distribution by summing up the rows and columns, making it the margin of the table as the last row and columns)
 
 $$f_X(x) = \int f_{X,Y}(x,y)dy \\ f_Y(y) = \int f_{X,Y}(x,y)dx$$
 
@@ -292,7 +302,7 @@ Independence can be stated with cumulative distribution functions
 
 $$F_{X,Y}(x,y) = F_X(x)F_Y(y)\tag{i}$$
 
-Two varaibales are identically distributed if their joint cumulative distribution function is equal
+Two varaibales are **identically distributed** if their joint cumulative distribution function is equal
 
 $$F_X(x) = F_Y(y)\tag{i.d}$$
 
