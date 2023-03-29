@@ -8,7 +8,7 @@ Probability consitutes the basics of statistics. Probability theory is an applic
 
 ### **1.1.1 Axioms of probability**
 
-Probability is about possible worlds and probabiliatic assertions of how probable worlds are. **Sample space** is the set of all possible worlds. Possible worlds are *mutually exclusive* and *exhaustive*. A **random variables** is a measuremnt function that maps observations from a sample space to a measurable space, usually the real numbers $\R$. 
+Probability is about possible worlds and probabiliatic assertions of how probable worlds are. **Sample space** is the set of all possible worlds. Possible worlds are *mutually exclusive* and *exhaustive*. A **random variables** is a measuremnt function that maps observations from a sample space to a measurable space, usually the real numbers $\mathbb{R}$. 
 
 In the case of a random variable, for a fully specified **probability model** we can define a probability $P(A)$ for each possible outcome. 
 
@@ -161,7 +161,7 @@ If we enumerate all possible outcomes and their probabilities, we can construct 
 
 If the random variable outcome is discreete like a coint toss, the probability distribution function is also called **probability mass function**. 
 
-$$p: \R \to [0, 1], \  p_X(x) = P(X = x)$$
+$$p: \mathbb{R} \to [0, 1], \  p_X(x) = P(X = x)$$
 
 Where values must be non negative and sum up to one as per the Kolmogorov axioms
 

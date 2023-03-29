@@ -56,7 +56,7 @@ Given a population parameter $\beta_P$, an estimator function $\hat \beta$,and t
 Since the samples might not be fully representative of the population, the estimated parameters might also have some error to the real parameter $\beta^P$. 
 
 <p align="center">
-<img src="./img/03-estimate-distribution.png" width="400">
+<img src="./img/03-estimate-distribution.png" width="500">
 <br><b>Figure 3.2: </b><i>Plot of the probability distribution for the estimates which we get by applying an unboased and consistent estimator to each sample. The red distribution is for a smaller sample with higer variance, the blue one is less variance measured on higher sample.</i>
 </p>
 
@@ -71,7 +71,7 @@ $$E[\hat \beta] = \beta^P$$
 $$n \to +\infty: \hat \beta \to \beta^P $$
 
 <p align="center">
-<img src="./img/03-biased-consistent-estimator.png" width="400">
+<img src="./img/03-biased-consistent-estimator.png" width="500">
 <br><b>Figure 3.3: </b><i>Biased consistent estimator.</i>
 </p>
 
