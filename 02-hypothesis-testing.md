@@ -1,6 +1,6 @@
 # 2. Hypothesis testing
 
-Hypothsis testing is the process to confirm a test metric on a data set. The general process is to
+Hypothesis testing is the process to confirm a test metric on a data set. The general process is to
 
 1. State a **null hypothesis** $H_0$ which is the contradiction of the **alternative hypothesis** we want to verify, sometimes noted with $H_1$
 2. Use a **test statistic** to calculate the probability of an observation given the null hypothesis. This probability is the **p-value**
@@ -18,11 +18,11 @@ for some metric $\mu$
 
 ## **2.1. Z-test and t-test**
 
-## **2.2. Anova**
+## **2.2. ANOVA**
 
-Anova is used to verify means of multiple populations. If we apply Z-test multiple times, the error accumulates.
+ANOVA is used to verify means of multiple populations. If we apply Z-test multiple times, the error accumulates.
 
-The Anova Hypothesis for $p$ groups:
+The ANOVA Hypothesis for $p$ groups:
 
 $$
 \begin{aligned}

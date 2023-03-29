@@ -1,14 +1,14 @@
 # 1. Statistics basics
 
-This document will have basic equations needed to dereive statistical concepts.
+This document will have basic equations needed to derive statistical concepts.
 
 ## **1.1 Basics of probability**
 
-Probability consitutes the basics of statistics. Probability theory is an application of measure theory and relies on set theory. 
+Probability constitutes the basics of statistics. Probability theory is an application of measure theory and relies on set theory. 
 
 ### **1.1.1 Axioms of probability**
 
-Probability is about possible worlds and probabiliatic assertions of how probable worlds are. **Sample space** is the set of all possible worlds. Possible worlds are *mutually exclusive* and *exhaustive*. A **random variables** is a measuremnt function that maps observations from a sample space to a measurable space, usually the real numbers $\mathbb{R}$. 
+Probability is about possible worlds and probabilistic assertions of how probable worlds are. **Sample space** is the set of all possible worlds. Possible worlds are *mutually exclusive* and *exhaustive*. A **random variables** is a measurement function that maps observations from a sample space to a measurable space, usually the real numbers $\mathbb{R}$. 
 
 In the case of a random variable, for a fully specified **probability model** we can define a probability $P(A)$ for each possible outcome. 
 
@@ -72,7 +72,7 @@ $P(A^C) = 1 - P(A)$
 
 $$P(A) \le 1 \text{, for all A in event space}$$
 
-Proof from the complement rool
+Proof from the complement rule
 
 $P(A^C) = 1 - P(A)$<br>
 $P(A^C) \ge 0$, from the first axiom
@@ -102,7 +102,7 @@ $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
 
 ### **1.1.3 Conditional probabilities**
 
-Probability of a propositions in the absence of any other information or **condition** is called an **unconditional probability**, **prior probability** or **prior**. In many cases there is already some **evidence**, in which case we can caculate the **conditional** or **posterior** probability. For propositions $A$ and $B$ conditional probabilities are defined as:
+Probability of a propositions in the absence of any other information or **condition** is called an **unconditional probability**, **prior probability** or **prior**. In many cases there is already some **evidence**, in which case we can calculate the **conditional** or **posterior** probability. For propositions $A$ and $B$ conditional probabilities are defined as:
 
 $$ P(A|B) = {P(A \cap B) \over P(B)} $$
 
@@ -132,7 +132,7 @@ $P(A_1 \cup ... \cup A_k | B) = P(A_1 | B) + ... + P(A_k | B)$
 
 ### **1.1.4 Bayes rule**
 
-The Bayes rule can be used to change the cause-effect probability to effect-cause or the otherway around. $P(\text{effect}|\text{cause})$ is the **casual** direction and $P(\text{cause}|\text{effect})$ is called the **diagnostic** direction
+The Bayes rule can be used to change the cause-effect probability to effect-cause or the other way around. $P(\text{effect}|\text{cause})$ is the **casual** direction and $P(\text{cause}|\text{effect})$ is called the **diagnostic** direction
 
 $$P(B | A) = {P(A | B) P(B) \over P(A)}$$
 
@@ -154,22 +154,22 @@ $$\text{using notation }\boldsymbol{P}(A) := \langle P(A), P(A^C) \rangle \\
 
 where $\alpha$ is the normalization constant to make entries in $\boldsymbol{P}$  sum up to $1$
 
-### **1.1.5 Intepretation of probability**
+### **1.1.5 Interpretation of probability**
 
 There are two main interpretation of probabilities:
-* The **Bayesian interpretation** states that probablities are degrees of beliefs of certain events. As new evidence is discovered, we can update our beliefs on the probability for an outcome.
-* The **frequentist interpretation** states that probablities are the ratio for a certain outcome to all outcomes for a long running process.
+* The **Bayesian interpretation** states that probabilities are degrees of beliefs of certain events. As new evidence is discovered, we can update our beliefs on the probability for an outcome.
+* The **frequentist interpretation** states that probabilities are the ratio for a certain outcome to all outcomes for a long running process.
 
-An interesting challenge for the bayesian interpretation is what if an agent does not assume the correct belief despite evidence. A counter argument is if probabilities would have a stake in a fair game, the agent who does update their belief system correctly, would more likely emerge as a winner against the agent that does not, hense motivating agents to maximize having the correct belief system.
+An interesting challenge for the bayesian interpretation is what if an agent does not assume the correct belief despite evidence. A counter argument is if probabilities would have a stake in a fair game, the agent who does update their belief system correctly, would more likely emerge as a winner against the agent that does not, hanse motivating agents to maximize having the correct belief system.
 
-The two interpretations are mathematically equivalent, rely on the same set of axioms and definitions, including conditional probabilities. The bayesian intepretation of conditional probabilities is updating our belief system with some evidence while the frequentist interpretation is including new evidence to the evaluation of the repeated process. 
+The two interpretations are mathematically equivalent, rely on the same set of axioms and definitions, including conditional probabilities. The bayesian interpretation of conditional probabilities is updating our belief system with some evidence while the frequentist interpretation is including new evidence to the evaluation of the repeated process. 
 
 ## **1.2 Describing random variables** ##
 If we enumerate all possible outcomes and their probabilities, we can construct a function that describes a random variable. This function is called **probability distribution**. 
 
 ### **1.2.1 Discrete probability distribution** ###
 
-If the random variable outcome is discreete like a coint toss, the probability distribution function is also called **probability mass function**. 
+If the random variable outcome is discreet like a coin toss, the probability distribution function is also called **probability mass function**. 
 
 $$p: \mathbb{R} \to [0, 1], \  p_X(x) = P(X = x)$$
 
@@ -181,17 +181,17 @@ $$\sum_x p_X(x) = 1$$
 
 ### **1.2.2 Continuous probability distribution** ###
 
-In the case of **absolutely continuous probability distributions** the probability distribution is also called the **probability desnity function (PDF)**. Since the random varibale is continuous, the probability of taking of a specific value is 0. Instead we can describe the probability of a random variable taking a value from an interval 
+In the case of **absolutely continuous probability distributions** the probability distribution is also called the **probability density function (PDF)**. Since the random variable is continuous, the probability of taking of a specific value is 0. Instead we can describe the probability of a random variable taking a value from an interval 
 
 $$Pr[a \le X \le b] = \int_a^bf(x)dx$$
 
-Unlike the probability the density function can take up values bigger than $1$, but the integrsaste on the complete domain needs to be $1$
+Unlike the probability the density function can take up values bigger than $1$, but the integrate on the complete domain needs to be $1$
 
 $$\int_{-\infty}^\infty f(x)dx = 1$$
 
 ### **1.2.3 Cumulative distribution function** ###
 
-An alternative description with a funciton of a random variable is the **cumulative distribution function** (CDF) which in both discrete and continuous case is defined as the probability of the random variable taking a value bigger or equal to $x$.
+An alternative description with a function of a random variable is the **cumulative distribution function** (CDF) which in both discrete and continuous case is defined as the probability of the random variable taking a value bigger or equal to $x$.
 
 $$F_X(x) = p(X <= x)$$
 
@@ -218,7 +218,7 @@ The purpose of statistics is to estimate properties of a population, given a sam
 3rd moment: skewness<br>
 4th moment: kurtosis<br>
 
-We can desfine each in terms of a population, a sample, discreete probability distribution or continuous probability distribution. 
+We can define each in terms of a population, a sample, discreet probability distribution or continuous probability distribution. 
 
 ### **1.3.1 Mean or expectation**
 
@@ -230,7 +230,7 @@ Sample size $n$
 
 $$\bar x = {\sum x \over n}$$
 
-Discreete probability distribution
+Discreet probability distribution
 
 $$E[x] = \mu = \sum x p(x)$$
 
@@ -280,7 +280,7 @@ We can write it in terms of conditional distribution
 $$P(X,Y) = P(X|Y)P(Y) = P(Y|X)P(X)\\
 f(x, y) = P(X = x | Y= y) \cdot P(Y= y) = P(Y = y | X = x) \cdot P(X = x)$$
 
-We can calulcate the individual probability distributions from the joint probability distribution, and it's called the **marginal probability distributions** (if we enumerate a discreet joint probability distribution in a table, we would calculate the marginal distribution by summing up the rows and columns, making it the margin of the table as the last row and columns)
+We can calculate the individual probability distributions from the joint probability distribution, and it's called the **marginal probability distributions** (if we enumerate a discreet joint probability distribution in a table, we would calculate the marginal distribution by summing up the rows and columns, making it the margin of the table as the last row and columns)
 
 $$f_X(x) = \int f_{X,Y}(x,y)dy \\ f_Y(y) = \int f_{X,Y}(x,y)dx$$
 
@@ -302,7 +302,7 @@ Independence can be stated with cumulative distribution functions
 
 $$F_{X,Y}(x,y) = F_X(x)F_Y(y)\tag{i}$$
 
-Two varaibales are **identically distributed** if their joint cumulative distribution function is equal
+Two variables are **identically distributed** if their joint cumulative distribution function is equal
 
 $$F_X(x) = F_Y(y)\tag{i.d}$$
 
@@ -327,24 +327,3 @@ $$\operatorname{cov}(X, Y) = \sum(X - E[X])(Y - E[Y])P(X,Y)$$
 Correlation is
 
 $$\operatorname{corr}(X, Y) = {\operatorname{cov}(X, Y) \over \operatorname{SD}(X)\operatorname{SD}(Y)}$$
-
-## References
-
-**Artificial Intelligence: A Modern Approach, Forth edition**
- Peter Norvig and Stuart J. Russell
-
-https://en.wikipedia.org/wiki/Probability_axioms
-
-https://en.wikipedia.org/wiki/Joint_probability_distribution
-
-https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables
-
-**Inclusion-exclusion principle** Marton Balaazs and Balint Toth, October 13, 2014
-
-https://online.stat.psu.edu/stat414/lesson/4/4.2
-
-https://machinelearningmastery.com/bayes-optimal-classifier/
-
-https://medium.com/@luckecianomelo/the-ultimate-guide-for-linear-regression-theory-918fe1acb380
-
-https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation

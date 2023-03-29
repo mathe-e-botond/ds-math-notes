@@ -1,12 +1,12 @@
 # 5 Linear Models for Classification
 
-Classification is the problem of mapping variables to a categorical dependent variable. While in some cases there can be more than two categories, we can reduce the problem of classifing to a category or another and repeating for the latter. 
+Classification is the problem of mapping variables to a categorical dependent variable. While in some cases there can be more than two categories, we can reduce the problem of classifying to a category or another and repeating for the latter. 
 
 We can measure performance of classifier trough the error rate
 
 $${1 \over n} \sum_{i=1}^nI(y_i \ne \hat y_i)$$
 
-where $\hat y$ is predicted class for $i$ th observation and $I(y_i \ne \hat y_i)$ is an indicator having value of $0$ in case of missclassification and $1$ for correct classification.
+where $\hat y$ is predicted class for $i$ th observation and $I(y_i \ne \hat y_i)$ is an indicator having value of $0$ in case of misclassification and $1$ for correct classification.
 
 The test error rate is minimized by maximizing the **Bayes classifier**, which assigns each observation to the most likely class, given it's predictor values
 
@@ -23,7 +23,7 @@ The Bayes error rate is analogous to the irreducible error of linear models. The
 Proofs:
 https://en.wikipedia.org/wiki/Bayes_classifier
 
-Same as regression there are two main categories of classification: non parametric like KNN and parametric classificaiton.
+Same as regression there are two main categories of classification: non parametric like KNN and parametric classification.
 
 Parametric classifications can be further categorized based on the parameter estimation approach (see also **Figure 5.1**): 
 * **Discriminative classifier**: we estimate probability of an observation to belonging to a particular value of categorical variable $Y$, drawing a separation boundary. Example: logistic regression.
@@ -38,9 +38,9 @@ Parametric classifications can be further categorized based on the parameter est
 <br><b>Figure 5.1: </b><i>Discriminative vs generative classifier</i> (source dataisutopia.com)
 </p>
 
-## **5.1 K nearest neighbour classifier (KNN)**
+## **5.1 K nearest neighbor classifier (KNN)**
 
-KNN classifier tries to estimate the Bayes classifier, by finding the K neaerest observation in training data closest to $x_0$ test observation
+KNN classifier tries to estimate the Bayes classifier, by finding the K nearest observation in training data closest to $x_0$ test observation
 
 $$Pr(Y = j | X = x_0) = {1 \over K} \sum_{i \in N_0}I(y_j = j)$$
 
@@ -72,7 +72,7 @@ Taking $log$ of both sides gives the log odds or **logit**
 
 $$log\bigg({P(X) \over 1 - P(X)}\bigg) = \beta_0 + \beta_1X_1 + ... + \beta_pX_p$$
 
-Which is a linear function, see right side of **Figue 5.2**
+Which is a linear function, see right side of **Figure 5.2**
 
 <p align="center">
 <img src="./img/05-log-function.png" width="400">
@@ -83,11 +83,11 @@ We can use categorical variables trough dummies, same as linear regression.
 
 ### **5.2.1 Fitting the model**
 
-The logistic function can be fit using maximum likelyhood. The lokelyhood function is
+The logistic function can be fit using maximum likelihood. The likelihood function is
 
 $$\ell(\beta_0, \beta_1) = \prod_{i:y_i=1}p(x_i)\prod_{j:y_j=1}\big (1 - p(x_j)\big )$$
 
-### **5.2.2 Multinomail logistic regressoin**
+### **5.2.2 Multinomial logistic regression**
 
 Multinomial logistic regression is used to classify more than two classes. To achieve this we use a reference class and coefficients tell the relative change of one class probability compared to another. 
 
@@ -106,7 +106,7 @@ $$log\bigg({Pr(Y=k|X=x) \over Pr(Y=K|X=x)}\bigg)=\beta_{k0} + \beta_{k1}X_1 + ..
 Proof (with simplified notations):<br>
 $log\big({Pr(k) \over Pr(K)}\big) = log\bigg({{e^{z_k} \over 1 + \sum_{l=1}^{K-1}e^{z_l}} \over {1 \over 1 + \sum_{l=1}^{K-1}e^{z_l}}}\bigg) = log({e^{z_k} \over 1}) = log(e^{z_k}) = z_k$
 
-An alternative is to use softmax encoding, we etimate coefficients for all classes $k = 1...K$
+An alternative is to use softmax encoding, we estimate coefficients for all classes $k = 1...K$
 
 $$Pr(Y=k|X=x) = {e^{\beta_{k0} + \beta_{k1}X_1 + ... + \beta_{kp}X_p} \over \sum_{l=1}^K e^{\beta_{l0} + \beta_{l1}X_1 + ... + \beta_{lp}X_p}}$$
 
@@ -126,7 +126,7 @@ If *z*-statistic is large, and the associated $p$-value is below a selected $\al
 
 ## **5.3 Generative Models for Classification**
 
-Instead of directly estimating $Pr(Y = y|X = x)$ we estimate the distribution $Pr(X = x|Y=k)$ for each value $k$ of $Y$ and then we use Bayes rule to flip the conditional and calculate $Pr(Y = y|X = x)$. Whith this approach we can model the cases better, where $X$ is more separated for each valye of $Y$. 
+Instead of directly estimating $Pr(Y = y|X = x)$ we estimate the distribution $Pr(X = x|Y=k)$ for each value $k$ of $Y$ and then we use Bayes rule to flip the conditional and calculate $Pr(Y = y|X = x)$. With this approach we can model the cases better, where $X$ is more separated for each value of $Y$. 
 
 If $Pr(Y = k)$, denoted with $\pi_k$ is the overall probability that an observation belongs to class $k$ (i.e $n_k \over n$ where $n_k$ is samples in class $k$ and $n$ is total number of samples of our training data) and $f_k(X) = Pr(X | Y = k)$ is the distribution of a single class, using Bayes rule we get
 
@@ -170,9 +170,3 @@ $${\displaystyle C^{\text{Bayes}}(x)={\underset {y_i}{\operatorname {argmax} }}\
     <td colspan="2"></td>
   </tr>
 </table>
-
-## References
-
-**An Introduction to Statistical Learning, with applications in R, Second Edition**, Gareth James, Daniela Witten, Trevor Hastie, Rob Tibshirani
-
-https://betterprogramming.pub/generative-vs-discriminative-models-d26def8fd64a

@@ -1,6 +1,6 @@
 # 3. Machine Learning
 
-In the world of data science there are two main views. From one side there is the mathematically well founded statistical methods like **statistical learning** which mainly focuses on explaining population data from a sample. Various linear models are well defined within statistics. **Machine learning** contains more complex techniques which might not have well founded probabilistic interpretations but provide good empirical results. There is major overlap and no easy way to differenciate the two view. We will start from statistical learning and move toward more complex machine learning models.
+In the world of data science there are two main views. From one side there is the mathematically well founded statistical methods like **statistical learning** which mainly focuses on explaining population data from a sample. Various linear models are well defined within statistics. **Machine learning** contains more complex techniques which might not have well founded probabilistic interpretations but provide good empirical results. There is major overlap and no easy way to differentiate the two view. We will start from statistical learning and move toward more complex machine learning models.
 
 Statistical learning is a set of techniques where we try to fit a **model** to an observed data set. The model might also be called a **data generator process**. There are two main objectives why we would like to do this:
 * **Inference** about population properties by calculating the model properties  
@@ -36,17 +36,17 @@ $=[f(X)-\hat{f}(X)]^2 +E[\epsilon^2]$
 Because the variance of $\epsilon$ is $E(\epsilon^2)$<br>
 $=[f(X)-\hat{f}(X)]^2 + \text{Var}(\epsilon)$
 
-We can opimize our estimate to minimize reducible error but irreducible error is also unknown and our model might overfit by including some fit on the noise to our estimate.
+We can optimize our estimate to minimize reducible error but irreducible error is also unknown and our model might overfit by including some fit on the noise to our estimate.
 
 ## **3.1 Estimators**
 
-We fit a model to an observed dataset by estimating the model parameters. For this estimation process we can use a function called an **estimator**. Depending on the output of estimator we distibguish the following types of estimators:
+We fit a model to an observed dataset by estimating the model parameters. For this estimation process we can use a function called an **estimator**. Depending on the output of estimator we distinguish the following types of estimators:
 
 * **Point estimator**: outputs a single value for a parameter. It is easy to interpret but might not give information on the variability or confidence.
 * **Interval estimator**: outputs an interval providing insight to the confidence of the output.
 * **Bayesian estimator**: outputs a probability distribution.
 
-Given a population parameter $\beta_P$, an estimator function $\hat \beta$,and the samples $S_1, S_2, ..., S_n$, we can aplpy the estimator function to each sample. This would result in a set of estimated parameters $\beta^*_1, \beta^*_2, ..., \beta^*_n$
+Given a population parameter $\beta^P$, an estimator function $\hat \beta$,and the samples $S_1, S_2, ..., S_n$, we can apply the estimator function to each sample. This would result in a set of estimated parameters $\beta^*_1, \beta^*_2, ..., \beta^*_n$
 
 <p align="center">
 <img src="./img/03-estimator.png" width="400">
@@ -57,7 +57,7 @@ Since the samples might not be fully representative of the population, the estim
 
 <p align="center">
 <img src="./img/03-estimate-distribution.png" width="500">
-<br><b>Figure 3.2: </b><i>Plot of the probability distribution for the estimates which we get by applying an unboased and consistent estimator to each sample. The red distribution is for a smaller sample with higer variance, the blue one is less variance measured on higher sample.</i>
+<br><b>Figure 3.2: </b><i>Plot of the probability distribution for the estimates which we get by applying an unbiased and consistent estimator to each sample. The red distribution is for a smaller sample with higher variance, the blue one is less variance measured on higher sample.</i>
 </p>
 
 We can define the following characteristics of an estimator
@@ -77,7 +77,7 @@ $$n \to +\infty: \hat \beta \to \beta^P $$
 
 **Figure 3.3** shows a biased but consistent estimator. For small sample sizes there is a bias between the true parameter and the mean of estimated parameters, but as the sample size increases, the distribution tends toward the true parameter.
 
-3. **Efficiency**: given two estimators $\hat \beta$ and $\widetilde \beta$, the estimator $\widetilde \beta$ is said to be more efficient if it has lower variance using the same sample size. An efficient estimator might be biased. An example would be in **Figure 3.2** if it were two different estimtors with same sample size, one of them giving a more accurate distribution.
+3. **Efficiency**: given two estimators $\hat \beta$ and $\widetilde \beta$, the estimator $\widetilde \beta$ is said to be more efficient if it has lower variance using the same sample size. An efficient estimator might be biased. An example would be in **Figure 3.2** if it were two different estimators with same sample size, one of them giving a more accurate distribution.
 
 4. **Linear in parameters** might be preferable so it can be mathematically easily manipulated.
 
@@ -93,7 +93,7 @@ If values of $x_1...x_n$ are i.i.d or we assume it, becomes
 
 $$\theta_{MLE} = argmax_{\theta}\ \prod_{i=1}^nf(x_i|\theta)$$
 
-We than try to optimize $L(\theta)$. Since it's an optimization problem, we can optimize log likelyhood of $log\ L(\theta)$ instead to facilitate derivative calculations and avoid underflows due to several products of small decimal values.
+We than try to optimize $L(\theta)$. Since it's an optimization problem, we can optimize log likelihood of $log\ L(\theta)$ instead to facilitate derivative calculations and avoid underflow due to several products of small decimal values.
 
 If we assume a prior distribution in addition to our observations, we can apply MAP, which maximizes the posterior function :
 
@@ -104,12 +104,12 @@ $$
 \end{aligned}
 $$
 
-We skipped the denuminator (so-called marginal likelihood) after applying the Bayes rule above because it does not change the optimization problem.
+We skipped the denominator (so-called marginal likelihood) after applying the Bayes rule above because it does not change the optimization problem.
 
 For example for linear regression, MLE estimates the mean squared loss, applying MAP will estimate L2 regularization as well.
 
 There are two main methods of model fitting
-* If there is closed solution for the optimization we can apply analytical calcuation. This is only possible in few cases, for simple models with few parameters
+* If there is closed solution for the optimization we can apply analytical calculation. This is only possible in few cases, for simple models with few parameters
 * Iterative approach: a more commonly used approach, which can fit very complex models
 
 ## **3.3 Cost function and bias-variance trade-off**
@@ -119,13 +119,13 @@ To measure how well the model fits our observed data we can use a **cost functio
 * Should always be positive
 * If our estimate improves, the cost function should decrease
 
-Using the likelyhood function, which is the probability we can observe our data given our model, we can transform it to be a positive function, which decreases the better the fit. This is called the **negative log likelyhood cost function**. Given a set of observations $X$ and a statisticam model with parameters $\theta$ and the likelyhood function $L(\theta | X)$, the cost function is:
+Using the likelihood function, which is the probability we can observe our data given our model, we can transform it to be a positive function, which decreases the better the fit. This is called the **negative log likelihood cost function**. Given a set of observations $X$ and a statistical model with parameters $\theta$ and the likelihood function $L(\theta | X)$, the cost function is:
 
 $$\operatorname{NLL} = - \ln(L(\theta | X))$$
 
-The likelyhood function is mainly used to estimate parameters of proability distribution given the observed data, but might not have closed form or might have more than one local minima which is why other cost functions which are easier to optimize might be used to fit machine learning models.
+The likelihood function is mainly used to estimate parameters of probability distribution given the observed data, but might not have closed form or might have more than one local minima which is why other cost functions which are easier to optimize might be used to fit machine learning models.
 
-A popular example of a cost function is the *mean squared error* or MSE, which is the averagee of the squared difference of predicted and actual output for each observation $i$.
+A popular example of a cost function is the *mean squared error* or MSE, which is the average of the squared difference of predicted and actual output for each observation $i$.
 
 $$\operatorname{MSE} = {1 \over n} \sum_{i=1}^n(y_i - \hat{f}(x_i))^2 $$
 
@@ -152,7 +152,7 @@ $=\operatorname {Var} ({\hat {\theta }})+\operatorname {Bias} ^{2}({\hat {\theta
 
 Variance is always positive and bias is squared. The selected estimator needs to minimize both variance and bias in order to minimize $\operatorname{MSE}$
 
-We can scale MSE to be the same size as our data, this metric is called **Root Mean Sqaure Error** or RMSE
+We can scale MSE to be the same size as our data, this metric is called **Root Mean Square Error** or RMSE
 
 $$\operatorname{RMSE} = \sqrt{\operatorname{MSE}}$$
 
@@ -160,7 +160,7 @@ $$\operatorname{RMSE} = \sqrt{\operatorname{MSE}}$$
 
 ## **3.5 Model choice**
 
-When we would like to fit a model to the data we first assume a model structure, this process is called **model choise** e.g. a linear model, tree model, nerual network, etc. We then try to estimatee the model parameters. There are two main parameters:
+When we would like to fit a model to the data we first assume a model structure, this process is called **model choice** e.g. a linear model, tree model, neural network, etc. We then try to estimate the model parameters. There are two main parameters:
 * **Hyperparameters**: describe the structure of model or model fitting, e.g. learning rate, layers in a neural network, the K in KNN, etc
 * **Weights** or **parameters**: are function parameters we can adjusted during the learning process to best fit the model to the observed data given the regularization.
 
