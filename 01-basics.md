@@ -199,16 +199,16 @@ For a continuous random variable
 
 $$F_X(x) = \int_{-\infty}^x p(y)dy$$
 
-## **1.3 Moments in statistics**
+## **1.3 Properties of probability distributions, populations and samples**
 
-We can define the moments of a random variable as
+The purpose of statistics is to estimate properties of a population, given a sample. Properties of a population are for example what we call the moments of a random variable, defined as
 
 1st moment: mean or expectation as central tendency<br>
 2nd moment: variance<br>
 3rd moment: skewness<br>
 4th moment: kurtosis<br>
 
-We can desfine each in terms of a population, a sample, discreete probability distribution and continuous probability distribution. 
+We can desfine each in terms of a population, a sample, discreete probability distribution or continuous probability distribution. 
 
 ### **1.3.1 Mean**
 
