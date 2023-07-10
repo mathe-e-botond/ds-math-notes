@@ -10,6 +10,17 @@ The regression coefficients $\beta_1...\beta_p$ are unknown, an estimate takes t
 
 $$\hat y = \hat \beta _0 + \hat \beta _1 x_1 + ... +  \hat \beta _p x_p$$
 
+$\epsilon$ is the error term. For a linear fit, the error term is assumed to be independent and identically distributed with mean 0 and constant variance: 
+
+$$\epsilon \sim i.i.d(0, \sigma^2)$$
+
+Independent means that the error of a sample does not give information about the error of an another sample. Identically distributed means errors come from the same distribution. For example the error does not depend of $x$.
+
+<p align="center">
+<img src="./img/04-linear-regression.png" width="400">
+<br><b>Figure 4.1: </b>Linear regression with a single predictor, called simple linear regression. The gray shading represents the error distribution around the linear regression. 
+</p>
+
 ## **4.1 Fitting the model**
 
 Linear regression has a closed form solution so we can derive the best fit line analytically. Parameters can be estimated using our training data set and the sum of squared residual loss function
@@ -109,20 +120,39 @@ $$y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \beta_3x_1x_2 + \beta_4x_2^2 + \beta_5
 
 When we include interactions or polynomial terms we should always include the base predictors called **main effects**. Categorical variables only contribute to intercept, to add slope effect as well, needs to be added to interaction
 
-## **4.5 Considerations of linear regression**
+## **4.5 Assumptions of linear regression**
 
-1. **Linear relationship** between predictors and dependent variable. Can be verified using residual plots ($e_i = y_i - \hat y_i$ vs $x_i$ or in the case of multiple regression $y_i$). In case of non linearity polynomial terms can be used
+The **Gauss-Markov theorem** proposed by two mathematicians says that ordinary least squares is the best linear unbiased estimator (BLUE) under the following assumptions:
 
-2. **Error terms are uncorrelated**, an error term $\epsilon_i$ provides no information about $\epsilon_{i+1}$, like sign or distance, which is the case for example for time series analysis
+1. **Linear in parameters**: coefficients of the predictors must be linear. For example $\beta_0 + \beta_1X_1 + \epsilon$ is linear but $\beta_0 + \beta_0\beta_1X_1 + \epsilon$ is not. Can be verified using residual plots ($e_i = y_i - \hat y_i$ vs $x_i$ or in the case of multiple regression $y_i$). In case of non linearity polynomial terms can be used, e.g $\beta_0 + \beta_1X_1 + \beta_2X_1^2$ and similar exponential terms are still linear in parameters.
 
-3. **Constant variance of error terms**: if error terms increase with dependent variable, it's called **heteroscandecity** and can be seen on the residual plot as a funnel shape. In the case of this issue, we can transform the response using a concave function ($\sqrt{y}$ or $log(y)$). Another option might be to fit using **weighted least squares**
+2. **Random sampling**: our samples $\{x_i, y_i\}$ are randomly selected from a population. This assumption also contains the assumption that all samples come from the same population. 
 
-4. **Outliers** can be identified from residual plot, or we can plot **studentized residuals** $$\bigg|{\epsilon_i \over SE}\bigg| > 3$$ <br>
+3. **No perfect colliniarity** in regressors: there cannot be an exact relationship between regressors. **Multicolliniarity** happens if there is correlation between predictor variables. If two predictors are correlated, increasing the coefficient of one can be cancelled out by a corresponding opposite change of the other coefficient, thus making coefficients highly unstable (multiple values for coefficients result in same fit, including infinitely large coefficients). Pairwise correlation can be detected by plotting the correlation matrix of the predictors. Can be quantified trough the **variance inflation factor** (VIF) $$\operatorname{VIF}(\beta_j) = {1 \over 1 - R_{X_jX-j}^2}$$.
+
+4. **Zero conditional mean** of error: $$E(\epsilon | X) = 0$$ means the expectation of the error term does not depend on the value of x. The error is uniformly distributed along the regression line (does not move above or below the line depending on the value of X). It's also called **exogeneity**, which means there is no hidden variable or relationship influencing the error term. If there is a relationship and violates this assumption, we say the regressor is influenced by or are **endogenous** to the error term (endogeneity).
+
+5. **Constant variance of error terms** or **homoscedastic errors**: if error terms increase with dependent variable, it's called **heteroscedasticity** and can be seen on the residual plot as a funnel shape. In the case of this issue, we can transform the response using a concave function ($\sqrt{y}$ or $log(y)$). Another option might be to fit using **weighted least squares**. 
+
+<p align="center">
+<img src="./img/04-assumptions.png" width="500">
+<br><b>Figure 4.2: </b>Non zero conditional mean on left, error are below or above the line as X changes and heteroscedastic errors on the right. 
+</p>
+
+6. **Error terms are uncorrelated**, an error term $\epsilon_i$ provides no information about $\epsilon_j$, like sign or distance, which is the case for example for time series analysis. Mathematically this can be expressed as $$Cov(\epsilon_i, \epsilon_j) = 0 \implies i = j$$
+
+## **4.6 Other considerations**
+
+### **Outliers** 
+
+**Outliers** can be identified from residual plot, or we can plot **studentized residuals** $$\bigg|{\epsilon_i \over SE}\bigg| > 3$$ <br>
 Outliers might indicate incorrect data input in which case can be simply removed or issues with model like missing predictor variable
 
-5. **High leverage points** are observations who have unusual predictor $x_i$ values and might easily influence the regression. A so called **leverage statistic** can be calculated to quantify leverage, more so for multiple predictors
+### **High leverage points** 
 
-6. **Multicolliniarity** happens if there is correlation between predictor variables. Pairwise correlation can be detected by plotting the correlation matrix of the predictors. Can be quantified trough the **variance inflation factor** (VIF) $$\operatorname{VIF}(\beta_j) = {1 \over 1 - R_{X_jX-j}^2}$$
+**High leverage points**  are observations which have unusual predictor $x_i$ values and might easily influence the regression. A so called **leverage statistic** can be calculated to quantify leverage, more so for multiple predictors
+
+
 where $R_{X_jX-j}^2$ is the $R^2$ of a regression of $X_j$ to the other predictors. Minimum value for VIF is 1, a value above 5 or 10 indicated multicolliniarity. 
 In case of multicolliniarity we can remove one of the predictors or combine multiple predictors into one.
 
@@ -134,4 +164,4 @@ KNN is a non parametric estimator, and so does not make assumptions about the fo
 
 $$f(x_0) = {1 \over K} \sum_{x_i \in N_0}y_i$$
 
-A parametric approach usually outperforms the non parametric one, because the non parametric can have an increase in variance without reducing bias. With large number of predictors, the **curse of dimensionality** reduces the number of neighbors that can be used. In some cases KNN might perform better, but model expandability and the presence of p-values is also an advantage of linear regression.
+A parametric approach usually outperforms the non parametric one, because the non parametric can have an increase in variance without reducing bias. With large number of predictors, the **curse of dimensionality** reduces the number of neighbors that can be used. In some cases KNN might perform better, but model expandability and the presence of p-values are advantages of linear regression.

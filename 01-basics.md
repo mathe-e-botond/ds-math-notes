@@ -181,11 +181,13 @@ $$\sum_x p_X(x) = 1$$
 
 ### **1.2.2 Continuous probability distribution** ###
 
-In the case of **absolutely continuous probability distributions** the probability distribution is also called the **probability density function (PDF)**. Since the random variable is continuous, the probability of taking of a specific value is 0. Instead we can describe the probability of a random variable taking a value from an interval 
+In the case of a continuous random variable, the probability distribution is also called the **probability density function (PDF)**. 
+
+Since the random variable is continuous, the probability for the random variable to take a specific value is $0$. Instead we can describe the probability of a random variable taking a value from an interval 
 
 $$Pr[a \le X \le b] = \int_a^bf(x)dx$$
 
-Unlike the probability the density function can take up values bigger than $1$, but the integrate on the complete domain needs to be $1$
+Unlike the probability, the density function can take up values bigger than $1$, but the integrate on the complete domain needs to be $1$
 
 $$\int_{-\infty}^\infty f(x)dx = 1$$
 
@@ -222,12 +224,14 @@ We can define each in terms of a population, a sample, discreet probability dist
 
 ### **1.3.1 Mean or expectation**
 
-Population size N
+The mean of a distribution is a method to measure the central tendency.
+
+For a population size N, the mean is defined as
 
 $$\mu = {\sum x \over N}$$
 
-Sample size $n$
-
+FOr a sample size $n$
+    
 $$\bar x = {\sum x \over n}$$
 
 Discreet probability distribution
@@ -237,6 +241,11 @@ $$E[x] = \mu = \sum x p(x)$$
 Continuous probability distribution
 
 $$E[x] = \mu = \int_{-\infty}^\infty x f(x) dx$$
+
+Other methods to measure the central tendency are
+
+* **Median**: is the middle value, if we order all values, the median is the value in the middle of the row. If the number of values are even, the median is the mean of the middle two values. The benefit of median is that it:s not sensible for outliers. The drawback is that in many cases it:s difficult to calculate or to estimate.
+* **Mode**: is the most frequently occurring value, or maximum of the probability mass function. A distribution can have multiple values as modes, for example, the uniform distribution will have all of it's values as the mode. If the probability mass function has multiple maximum the distribution is called multimodal. If there are two modes, the distribution is called bimodal. If the modes are not equal, i.e the probability mass function has a global maximum and local maxima, the global is the major mode, the local one is called minor mode.
 
 ### **1.3.2 Variance**
 
@@ -260,6 +269,36 @@ Proof with both discrete and continuous random variables:
 https://proofwiki.org/wiki/Variance_as_Expectation_of_Square_minus_Square_of_Expectation
 
 $\sigma$ is called the standard deviation and is the square root of variance. For a probability distribution it's noted with $\operatorname{SD}(X)$
+
+### **1.3.3 Kurtosis**
+
+The fourth standardized moment is called the **kurtosis** which measures the impact of extreme points.
+
+$$\operatorname{KURT}[X] = E\left[ \left( X - \mu \over \sigma \right)^4 \right] = {\mu_4 \over \sigma ^ 4}$$
+
+In case of distributions which are restricted in the area, like probability distributions have an area under the PDF curve as 1, a higher kurtosis would also mean increased variance and decreased mode or peak (see Figure 1.1). Despite this, kurtosis does not measure the peakness of distribution, rather the fatness of the tails of the distribution.
+
+<p align="center">
+<img src="./img/01-moments.png" width="400">
+<br><b>Figure 1.1: </b>Variance and kurtosis 
+</p>
+
+### **1.3.4 Skewness**
+
+The third moment of statistics describes the symmetry of a distribution. 
+
+$$\bar \mu_3 = E\left[ \left( X - \mu \over \sigma \right)^3 \right] = {\mu_3 \over \sigma ^ 3}$$
+
+Where $\mu_3$ is the third central moment and $\bar \mu_3$ is skewness or the third standardized central moment Positively skewed is called right skewed, because the long tail is on the right side. Similarly negatively skewed is left skewed.
+
+<p align="center">
+<img src="./img/01-skewness.png" width="700">
+<br><b>Figure 1.2: </b>Skewness
+</p>
+
+To understand how the third power measures skewness, Figure 1.2 shows the third power of the normalized PDF. Values of $X$ which are less than the mean is similar, but a right skewed distribution will have more points larger than the mean, the third power will grow faster, and the expectation of the third power will become positive.
+
+Another method to measure skewness is using median and mode difference. Right skewed distribution will have mode smaller than the mean.
 
 ## **1.4 Multiple random variables** ##
 
@@ -314,16 +353,55 @@ Similarity between two variables can be defined using correlation or covariance.
 
 For a random sample covariance is defined as
 
-$$\operatorname{cov}(x,y) = \sigma_{xy} = {\sum(x - \bar x)(y - \bar y) \over n-1}$$
+$$\operatorname{Cov}(x,y) = \sigma_{xy} = {\sum(x - \bar x)(y - \bar y) \over n-1}$$
 
-And correlation as
+If X and Y have a relationship where Y grows when X does, the covariance will be positive. If Y has an opposite relationship, e.g. decreases as X increases, the Covariance is negative. If X and Y are independent, the Covariance is $0$. Note that the opposite is not true, there might be a complex, non independent relationship between X and Y which would result in 0 Covariance.
 
-$$\operatorname{corr}(x,y) = \rho_{xy} = {\sigma_{xy} \over \sigma_x \sigma_y}$$
+For a discreet probability distribution covariance is
 
-For a discreet probability distribution
+$$\operatorname{Cov}(X, Y) = \sum(X - E[X])(Y - E[Y])P(X,Y)$$
 
-$$\operatorname{cov}(X, Y) = \sum(X - E[X])(Y - E[Y])P(X,Y)$$
+**Correlation** is defined as
 
-Correlation is
+$$\operatorname{Corr}(x,y) = {\sigma_{xy} \over \sigma_x \sigma_y}$$
 
-$$\operatorname{corr}(X, Y) = {\operatorname{cov}(X, Y) \over \operatorname{SD}(X)\operatorname{SD}(Y)}$$
+Covariance can take up large values, while correlation is the normalized version of covariance, taking up values between $-1$ and $+1$ with the same meaning.
+
+For a discreet probability distribution correlation is
+
+$$\operatorname{Corr}(X, Y) = {\operatorname{Cov}(X, Y) \over \operatorname{SD}(X)\operatorname{SD}(Y)}$$
+
+### **1.4.4 Properties of expectation and variance**
+
+Multiplying by a constant the expectation of a random variable gives
+
+$$E[aX] = \int_{-\infty}^{\infty}aXf_XdX = aE[X] = a \mu_X$$
+
+Similarly for variance, using the result we just got
+
+$$Var(aX) = E[(aX - E(aX))^2] = E[(aX - aE(X))^2] = a^2 Var(X)$$
+
+What these results show is that multiplying the random variable with a factor of $a$, the mean will be scaled with same factor $a$, but variance will be scaled with $a^2$ because variance describes squared distance from the mean. 
+
+From the summation and integral properties we can easily show that the mean of a linear combination of two variables is a linear operation:
+
+$$E[aX + bY] = aE[X] + bE[Y]$$
+
+The variance of a linear combination is 
+
+$$Var(aX + bY) = a^2 Var(X) + b^2 Var(Y) + 2ab\operatorname{Cov}(X, Y)$$
+
+If $X$ and $Y$ are independent variables, the $\operatorname{Cov}$ term becomes $0$, and we get
+
+$$Var(aX + bY) = a^2 Var(X) + b^2 Var(Y)$$
+
+Proof: <br>
+$Var(X) = E[(X - E[X])^2]$ <br>
+$=E[(aX + bY - E[aX + bY])^2]$ <br>
+$=E[(aX + bY - aE[X] - bE[Y])^2]$ <br>
+$=E[(aX - aE[X] + bY - bE[Y])^2]$ <br>
+$=E[(aX - aE[X])^2 + 2(aX - aE[X])(bY - bE[Y]) + (bY - bE[Y])^2]$<br>
+$=E[a^2(X - E[X])^2 + 2ab(X - E[X])(Y - E[Y]) + b^2(Y - E[Y])^2]$<br>
+$=E[a^2(X - E[X])^2] + E[2ab(X - E[X])(Y - E[Y])] + E[b^2(Y - E[Y])^2]$<br>
+Finally using definition of variance and covariance, we get<br>
+$=a^2 Var(X) + 2ab \operatorname{Cov}(X, Y) + b^2 Var(Y)$

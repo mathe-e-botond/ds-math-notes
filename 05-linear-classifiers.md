@@ -8,15 +8,15 @@ $${1 \over n} \sum_{i=1}^nI(y_i \ne \hat y_i)$$
 
 where $\hat y$ is predicted class for $i$ th observation and $I(y_i \ne \hat y_i)$ is an indicator having value of $0$ in case of misclassification and $1$ for correct classification.
 
-The test error rate is minimized by maximizing the **Bayes classifier**, which assigns each observation to the most likely class, given it's predictor values
+The test error rate is minimized by maximizing the **Bayes classifier**, which assigns each observation to the most likely class, given the value $x_0$ of the predictor variable $X$.
 
-$$argmax_j(Pr(Y = j | X = x_0))$$
+$$argmax_j(P(Y = j | X = x_0))\tag{5.1}$$
 
-We use $argmax$, because we need the max $j$ parameter and not maximum probability.
+We use $argmax$, because we need the $j$ class for the maximum probability and not the maximum probability itself.
 
-Prediction of the Bayes classifier is determined by the so called **Bayesian decision boundary** where probability is $0.5$. The Bayes classifier produces the lowest error rate called **Bayes error rate**
+Prediction of the Bayes classifier is determined by the so called **Bayesian decision boundary** where probability is $0.5$. The Bayes classifier produces the lowest error rate called **Bayes error rate**, which is the expectation of the error term over all values of $X$
 
-$$1 - E(max_j(Pr(Y = j | X)))$$
+$$1 - E[argmax_j(P(Y = j | X))]$$
 
 The Bayes error rate is analogous to the irreducible error of linear models. The Bayes classifier in most cases is unknown and we would like to estimate it.
 
@@ -34,17 +34,17 @@ Parametric classifications can be further categorized based on the parameter est
   * Hidden Markov Model 
 
 <p align="center">
-<img src="./img/05-discriminative-generative.png" width="300">
-<br><b>Figure 5.1: </b><i>Discriminative vs generative classifier</i> (source dataisutopia.com)
+<img src="./img/05-discriminative-generative.png" width="600">
+<br><b>Figure 5.1: </b><i>Discriminative (left) vs generative (right) classifier</i>
 </p>
 
 ## **5.1 K nearest neighbor classifier (KNN)**
 
 KNN classifier tries to estimate the Bayes classifier, by finding the K nearest observation in training data closest to $x_0$ test observation
 
-$$Pr(Y = j | X = x_0) = {1 \over K} \sum_{i \in N_0}I(y_j = j)$$
+$$P(Y = j | X = x_0) = {1 \over K} \sum_{i \in N_0}I(y_j = j)$$
 
-The classifier result will be the max probability: $argmax_j(Pr)$
+The classifier result will be the class $j$ of the maximum probability: $argmax_j(P)$
 
 $$C^{KNN}(x) = argmax_j({1 \over K} \sum_{i \in N_0}I(y_j = j))$$
 
@@ -93,29 +93,29 @@ Multinomial logistic regression is used to classify more than two classes. To ac
 
 Model for classifying multiple classes when using the $K$ th class as reference for classes $k = 1...K-1$
 
-$$Pr(Y=k|X=x) = {e^{\beta_{k0} + \beta_{k1}X_1 + ... + \beta_{kp}X_p} \over 1 + \sum_{l=1}^{K-1}e^{\beta_{l0} + \beta_{l1}X_1 + ... + \beta_{lp}X_p}}$$
+$$P(Y=k|X=x) = {e^{\beta_{k0} + \beta_{k1}X_1 + ... + \beta_{kp}X_p} \over 1 + \sum_{l=1}^{K-1}e^{\beta_{l0} + \beta_{l1}X_1 + ... + \beta_{lp}X_p}}$$
 
 and for class $K$
 
-$$Pr(Y=K|X=x) = {1 \over 1 + \sum_{l=1}^{K-1}e^{\beta_{l0} + \beta_{l1}X_1 + ... + \beta_{lp}X_p}}$$
+$$P(Y=K|X=x) = {1 \over 1 + \sum_{l=1}^{K-1}e^{\beta_{l0} + \beta_{l1}X_1 + ... + \beta_{lp}X_p}}$$
 
 we can derive
 
-$$log\bigg({Pr(Y=k|X=x) \over Pr(Y=K|X=x)}\bigg)=\beta_{k0} + \beta_{k1}X_1 + ... + \beta_{kp}X_p$$
+$$log\bigg({P(Y=k|X=x) \over P(Y=K|X=x)}\bigg)=\beta_{k0} + \beta_{k1}X_1 + ... + \beta_{kp}X_p$$
 
 Proof (with simplified notations):<br>
-$log\big({Pr(k) \over Pr(K)}\big) = log\bigg({{e^{z_k} \over 1 + \sum_{l=1}^{K-1}e^{z_l}} \over {1 \over 1 + \sum_{l=1}^{K-1}e^{z_l}}}\bigg) = log({e^{z_k} \over 1}) = log(e^{z_k}) = z_k$
+$log\big({P(k) \over P(K)}\big) = log\bigg({{e^{z_k} \over 1 + \sum_{l=1}^{K-1}e^{z_l}} \over {1 \over 1 + \sum_{l=1}^{K-1}e^{z_l}}}\bigg) = log({e^{z_k} \over 1}) = log(e^{z_k}) = z_k$
 
 An alternative is to use softmax encoding, we estimate coefficients for all classes $k = 1...K$
 
-$$Pr(Y=k|X=x) = {e^{\beta_{k0} + \beta_{k1}X_1 + ... + \beta_{kp}X_p} \over \sum_{l=1}^K e^{\beta_{l0} + \beta_{l1}X_1 + ... + \beta_{lp}X_p}}$$
+$$P(Y=k|X=x) = {e^{\beta_{k0} + \beta_{k1}X_1 + ... + \beta_{kp}X_p} \over \sum_{l=1}^K e^{\beta_{l0} + \beta_{l1}X_1 + ... + \beta_{lp}X_p}}$$
 
 and we calculate ration between classes $k$ and $k'$
 
-$$log\bigg({Pr(Y=k|X=x) \over Pr(Y=K|X=x)}\bigg)=(\beta_{k0}-\beta_{k'0}) + (\beta_{k1}-\beta_{k'1})X_1 + ... + (\beta_{kp}-\beta_{k'p})X_p$$
+$$log\bigg({P(Y=k|X=x) \over P(Y=K|X=x)}\bigg)=(\beta_{k0}-\beta_{k'0}) + (\beta_{k1}-\beta_{k'1})X_1 + ... + (\beta_{kp}-\beta_{k'p})X_p$$
 
 Proof (with simplified notations):<br>
-$log\big({Pr(k) \over Pr(k')}\big) = log\big({e^{z_k} \over e^{z_{k'}}}\big) = log(e^{z_k}) - log(e^{z_{k'}}) = z_k - z_{k'}$
+$log\big({P(k) \over P(k')}\big) = log\big({e^{z_k} \over e^{z_{k'}}}\big) = log(e^{z_k}) - log(e^{z_{k'}}) = z_k - z_{k'}$
 
 ### 5.2.3 Assessing the model
 
@@ -126,18 +126,53 @@ If *z*-statistic is large, and the associated $p$-value is below a selected $\al
 
 ## **5.3 Generative Models for Classification**
 
-Instead of directly estimating $Pr(Y = y|X = x)$ we estimate the distribution $Pr(X = x|Y=k)$ for each value $k$ of $Y$ and then we use Bayes rule to flip the conditional and calculate $Pr(Y = y|X = x)$. With this approach we can model the cases better, where $X$ is more separated for each value of $Y$. 
+Instead of directly estimating $P(Y = y|X = x)$ we estimate the distribution $P(X|Y=k)$ for each value $k$ of $Y$ and then we use Bayes rule to flip the conditional and calculate $P(Y = y|X = x)$.
 
-If $Pr(Y = k)$, denoted with $\pi_k$ is the overall probability that an observation belongs to class $k$ (i.e $n_k \over n$ where $n_k$ is samples in class $k$ and $n$ is total number of samples of our training data) and $f_k(X) = Pr(X | Y = k)$ is the distribution of a single class, using Bayes rule we get
+If $P(Y = k)$ is the overall probability that an observation belongs to class $k$ (i.e $n_k \over n$ where $n_k$ is samples in class $k$ and $n$ is total number of samples of our training data) and $P(X | Y = k)$ is the distribution of a single class, using Bayes rule we get
 
-$$Pr(Y = k|X = x) = p_k(x) = {\pi_k f_k(x) \over \sum_{l=1}^K\pi_l f_l(x)}$$
+$$P(Y = k|X = x) = {P(Y = k) P(X = x | Y = k) \over \sum_{l=1}^K P(Y = l) P(X = x | Y = l)}\tag{5.2}$$
+
+The denominator makes sure the resulting probability distribution sums to $1$.
+
+Benefits of generative models over logistic regression:
+
+* Can be easily applied to more then two class in the output
+* If separation of classes is more prominent, generative models are more stable.
+
+The challenge is to estimate the distribution of samples within each class $P(X = x | Y = k)$, for which techniques such as linear discriminant analysis or naive bayes can be used, described below. 
 
 ### **5.3.1 Linear discriminant analysis**
 
 
+
 ### **5.3.2 Naive Bayes classifier**
 
-$${\displaystyle C^{\text{Bayes}}(x)={\underset {y_i}{\operatorname {argmax} }}\operatorname {P} (Y=y_i)\prod _{j} P(X_j|Y=y_j)}$$
+In case of the Naive Bayes classifier we make the assumption that within the class $k$ of $Y$, the predictor variables are independent:
+
+$$P(X = x | Y = k) = \prod _{j}P(X_j = x_j | Y = k)\tag{5.3}$$
+
+Where $X_1, ..., X_p$ are the predictor variables, and $x_1, ..., x_p$ are values of an observation (the one we are classifying) for each predictor. While in most cases the predictor variables are not independent, estimating the covariance between all combinations of predictor variables is very difficult. With this assumption, some bias is introduced in favour of reducing variance (we reduce model parameters, see bias-variance trade off). If we plug in equation (5.3) to (5.2) and the result to (5.1) we get the following result:
+
+$${\displaystyle C^{\text{Bayes}}(x)={\underset {k}{\operatorname {argmax} }}\operatorname {P} (Y=k)\prod _{j} P(X_j = x_j|Y=k)}$$
+
+Complete breakdown for reference <br>
+$\displaystyle C^{\text{Bayes}}(x)=argmax_k(P(Y = k | X = x))$<br>
+Plugging in (5.2) but notating the denominator with $\alpha$ for simplicity
+$\displaystyle C^{\text{Bayes}}(x)=argmax_k \biggl( {P(Y = k) P(X = x | Y = k) \over \alpha} \biggr)$<br>
+Since $\alpha$ is positive and constant for all terms, it will not change the outcome of $argmax$, we caan simply omit<br>
+$\displaystyle C^{\text{Bayes}}(x)=argmax_k \bigl( P(Y = k) P(X = x | Y = k) \bigr)$<br>
+Finally we plug in the (5.3) assumption<br>
+$\displaystyle C^{\text{Bayes}}(x)=argmax_k \bigl( P(Y = k) \prod _{j}P(X_j = x_j | Y = k)] \bigr)$<br>
+
+To complete the classification task, estimating $P(X_j = x_j|Y=k)$ for each predictor $X_1, ..., X_j$ is remaining. There are a few ways to achieve this.
+
+* If $X_j$ is quantitative, we can assume $P(X_j|Y = k)$ to be normally distributed, in this case we can follow the same process as QDA, with an added assumption that the covariance matrix of each class is diagonal
+* An alternative in case of a quantitative $X_j$ is to use a kernel density estimator or simply create a histogram from the training data, normalize it so the sum of bins is $1$ and use the bin height for $x_0$ (see Quantitative predictor on Figure 5.3).
+* For a qualitative $X_j$ we can follow a similar process to the histogram one: count all training observation for each class. The resulting probability $P(X_j = x_j|Y=k)$ is the ratio of the occurrences of $x_0$ in the training data for the class $k$ to the total number of training samples occurring for the class $k$ (see Qualitative predictor Figure 5.3).
+
+<p align="center">
+<img src="./img/05-naive-bayes.png" width="600">
+<br><b>Figure 5.3: </b> Naive bayes classifier. For each class we calculate the product of the probability of the input of all predictors independently, finally choose the class with highest probability.</p>
 
 ## **5.4 Evaluating classifiers**
 
@@ -170,3 +205,4 @@ $${\displaystyle C^{\text{Bayes}}(x)={\underset {y_i}{\operatorname {argmax} }}\
     <td colspan="2"></td>
   </tr>
 </table>
+
