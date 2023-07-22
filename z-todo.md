@@ -1,5 +1,6 @@
 ## Incomplete chapters
 * 5. generative models for classification
+* 9. Tokenization...
 
 ## Notations
 * Neural networks the bias notation as $w_0$

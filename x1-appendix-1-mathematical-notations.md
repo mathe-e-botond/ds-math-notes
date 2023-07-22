@@ -1,6 +1,6 @@
-# Appendix I - mathematical notations
+# Appendix I - mathematical notations and concepts
 
-## $\operatorname{argmin}$ and $\operatorname{argmax}$
+## **$\operatorname{argmin}$ and $\operatorname{argmax}$**
 
 $\operatorname{argmin}_x f(x)$ is the value of $x$ for which $f(x)$ attains its minimum.
 

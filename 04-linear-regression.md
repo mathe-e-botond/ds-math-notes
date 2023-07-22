@@ -2,7 +2,7 @@
 
 **Linear models** are a set of supervised statistical learning techniques, used to approximate an unknown function based on observations using a liner combination of predictors and weights. 
 
-Linear regression tries to map continuous or categorical variables to a continuous independent variable. For $X_1...X_p$ predictor variables and $\epsilon$ irreducible error term, linear regression model has the form
+Linear regression tries to map continuous or categorical variables to a continuous independent variable. For $x_1...x_p$ predictor variables and $\epsilon$ irreducible error term, linear regression model has the form
 
 $$y = \beta _0 + \beta _1 x_1 + ... + \beta _p x_p + \epsilon$$
 
@@ -94,7 +94,7 @@ where $TSS$ is **total sum of squares**: $TSS = \sum(y_i - \bar y)^2$. $\bar y$ 
 
 $$R^2 = {SS(\operatorname{mean}) - SS(\operatorname{fit}) \over SS(\operatorname{mean})} $$
 
-In simple liner regression setting ($y = \beta _0 + \beta _1 x$), $R^2$ is same as $Cor(X, Y)^2$
+In simple liner regression setting ($y = \beta _0 + \beta _1 x$), $R^2$ is same as $\operatorname{Corr}(X, Y)^2$
 
 If we have $p+1$ observations $R^2$ will **always be $1$** because we are fitting a $p$ dimensional plane on $p+1$ points so there is always a perfect fit. Such a fit however has very little confidence. To calculate p-value for $R^2$ we use the $F$ value 
 
@@ -102,7 +102,7 @@ $$F = {\operatorname{variance\ explained} \over \operatorname{variance\ not\ exp
 
 Where in case of linear regression $p_{\operatorname{mean}}$ is $1$
 
-We can either simulate lots of F values by sampling our data, calculating the fitted line and F score and finally calculating the F score for the whole dataset and finding percentiles of more extreme values from our simulations, or we can use the *F*-distribution  
+We can either simulate lots of $F$ scores by sampling our data, calculating the fitted line and $F$ score and finally calculating the $F$ score for the whole dataset and finding percentiles of more extreme values from our simulations, or we can use the *F*-distribution  
 
 ## **4.3 Categorical predictors**
 
