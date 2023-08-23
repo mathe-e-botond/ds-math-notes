@@ -165,6 +165,8 @@ We can scale MSE to be the same size as our data, this metric is called **Root M
 
 $$\operatorname{RMSE} = \sqrt{\operatorname{MSE}}$$
 
+For other cost functions we don't have a neat mathematical decomposition like with MSE, we still observe a tradeoff. For various other loss functions, the essence of the bias-variance tradeoff still exists. Whether we are using cross entropy for logistic regression, or custom loss functions for other models, the fundamental tension between fitting the training data well (and risking overfitting) versus generalizing to new data (and risking underfitting) remains. A model with too many parameters might overfit the training data and perform poorly on new, unseen data (high variance, low bias). Conversely, an overly simple model might not capture the underlying patterns in the training data, leading to systematic errors (high bias, low variance).
+
 ## **3.4 Regularization**
 
 ## **3.5 Model selection**

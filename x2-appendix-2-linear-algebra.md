@@ -60,9 +60,9 @@ The dot product of two vectors of same dimensions $n$ is defined as the sum of p
 
 $$U \cdot V = u_1 v_1 + u_2 v_2 + ... + u_n v_n$$
 
-The dot product is defined to result in $0$ if $U$ and $V$ make a $90 \degree$ angle, i.e $U$ and $V$ are perpendicular vectors. Another word with same meaning is **orthogonal** vector.
+The dot product is defined to result in $0$ if $U$ and $V$ make a $90 \degree$ angle, i.e $U$ and $V$ are perpendicular vectors. Another word with same meaning is **orthogonal** vector. Note that for the above equation to be mathematically correct $U$ needs to be a single column vector and $V$ written as a single row. This will align with concepts discussed below like matrix multiplication and transpose. 
 
-## **Basis and span**
+### **Basis and span**
 
 A set of $n$ vectors, each with $n$ dimensions, noted with $B$, with elements $\hat{b}_1, ..., \hat{b}_n$ are **linearly independent** if none of the vectors can be expressed as a linear combination of the other vectors using non zero scalars. Which means if $\hat{b}_1, ..., \hat{b}_n$ are linearly independent, the expression
 
@@ -114,11 +114,11 @@ Where $x_{1...n,1...m}$ are real numbers. The set of all matrices of size $n \cd
 
 To understand the structure of transformation matrix, let's start with a certain type of matrix, where the number of rows and columns are equal, called **square matrix**, which we can note $M_{n, n}$. Such a matrix describes the linear transformation in an $n$ dimensional vector space with both input and output vectors having $n$ dimensions. 
 
-Linear transformation is interpreted as transforming the basis of a vector space to another basis. To transform the $k$ th dimension, we can take the $k$ th standard basis vector, where each element is $0$ except for the $k$ th element, which is 1, and calculate where it would be in the transformed space.
+Linear transformation is interpreted as transforming any or all vector of a vector space. To see the effect of transforming the $k$ th dimension, we can take the $k$ th standard basis vector, where each element is $0$ except for the $k$ th element, which is 1, and calculate where it would be in the transformed space.
 
 $$\vec i_k = \begin{pmatrix} 0 \\ \vdots \\ 0 \\ 1 \\ 0 \\  \vdots \\ 0 \end{pmatrix} \rightarrow \vec b_k = \begin{pmatrix} b_{k,1} \\ \vdots \\ b_{k,k-1} \\ b_{k,k} \\ b_{k,k+1} \\ \vdots \\ b_{k,n} \end{pmatrix} $$
 
-We can imagine that each column of a matrix is a vector, the matrix $M_{n, n}$ has $n$ vectors, each of $n$ dimensions. The transformation matrix is simply the matrix constructed by conbining all the basis vectors we would get by transforming each of the standard basis vectors.
+We can imagine that each column of a matrix is a vector, the matrix $M_{n, n}$ has $n$ vectors, each of $n$ dimensions. The transformation matrix is simply the matrix constructed by conbining all the transformed basis vectors we would get applying the linear transformation to each of the original standard basis vectors.
 
 $$I_{n, n} = \begin{pmatrix}
   1 & 0 & \cdots & 0 \\
@@ -182,7 +182,7 @@ Similarly we can show that $\vec j \rightarrow \vec v$. $M_{2,2}$ similarly tran
 
 Figure II.5 shows the effect of applying the linear transformation of our example matrix $M_{uv}$ on vector $\vec t$, resulting in vector $\vec t'$. We can see that the vector space was not only elongated but also flipped around the axis of vector $\vec z$
 
-## **Determinant**
+### **Determinant**
 
 A transformation might expand or condense the vector space. The **determinant** of a matrix measures the rate of expansion applied to a vector space by the matrix. 
 
@@ -194,7 +194,9 @@ The determinant can have the following meaning depending on it's value:
 
     The number of linearly independent columns (taken as vectors) in a square matrix is called the **rank** of the matrix. Rank is also the number of dimensions of the hyperplane resulting when applying the matrix transformation to our vector space. If the rank is equal to the number of columns, the determinant is not $0$.
 
-    In the case of a projection a line or a hyperplane or the entire hyperspace will be projected to the point of origin $O$. The line, plane or hyperspace that ends up as the origin after the transformation is called the **kernel** of the matrix.  
+    In the case of a projection a line or a hyperplane or the entire hyperspace will be projected to the point of origin $O$. The line, plane or hyperspace that ends up as the origin after the transformation is called the **kernel** or **null space** of the matrix. Mathematically the kernel is defined as the set of all vectors that become null vectors after the matrix transformation
+
+    $$N(M)=\{v∣M \vec v=\vec 0\} \tag{II.3}$$
 * The determinant will be negative for one or any odd number of flips in the hyperspace. An even number of flips restores the space to it's original "side", the same transformation can be achieved trough rotation. The absolute value of a negative determinant will tell the factor the space is being scaled.
 
 The computation itself for the determinant is more complex for each added dimension, but here we will explore the two dimensional case and it's computation.
@@ -226,7 +228,7 @@ If we create another matrix with the columns flipped $M_{ba} = \begin{pmatrix}
  
  $$\det(M_{ab}) = -\det(M_{ba})$$
 
-## **Special transformations with square matrices**
+### **Special transformations with square matrices**
 
 Depending on the type of transformation we can define some special matrices
 
@@ -251,7 +253,7 @@ Depending on the type of transformation we can define some special matrices
 
 These transformation can be applied to images as well, where we can calculate the position of each pixel in a resulting image and apply interpolation or smoothing to fill in the gaps. An exception might be rotation, which is mostly done using a system called **quaternions**. Rotation with matrices suffer from a limitation called gimbal locks, where angles can align and lose degrees of freedom. Combined with limited precision of float representation of numbers, results in highly unstable motion. Quaternions use a four dimensional unit hyper-sphere to describe rotation in three dimensions.
 
-## **Nonsquare matrices**
+### **Nonsquare matrices**
 
 A square matrix with $n$ rows and $n$ columns applies a transformation in an $n$ dimensional vector space. A matrix with $n$ columns and $m$ rows makes a transformation from an $n$ to an $m$ dimensional space. The input is an $n$ dimensional vector and the output is an $m$ dimensional vector.
 
@@ -271,7 +273,7 @@ $$V_m = M_{m,n} \cdot V_n \\ = \begin{pmatrix}
   x_{m,1} v_1 + x_{m,2} v_2 + \cdots + x_{m,n} v_n  \\ 
  \end{pmatrix}$$
 
-## **Matrix multiplication**
+### **Matrix multiplication**
 
 Matrices, which describe linear transformations in vector spaces, can be combined. We can express as a single matrix the transformation described by the matrix $B$ happening after a transformation described by the $A$. This is called **composition** of two transformations and the mathematical operation for composition is **matrix multiplication**: $B \cdot A$. When we apply a matrix as a transformation to a vector $AV$ we put the matrix on the right hand side, we can imagine that composition is $B(AV) = BAV$. We can remove the parenthesis because matrix multiplication is associative: the same transformations are being applied in the same order even if we evaluate the multiplications in different orders. This notation of inversed order come from function notations $g(f(x))$
 
@@ -306,7 +308,7 @@ $$\det(B \cdot A) = \det(B) \det(A)$$
 
 While the mathematical proof of this is difficult, the intuition behind this is that the rate of change $\det(B \cdot A)$ on the vector space described by the composite transformation $B \cdot A$ is same as the rate of change $\det(B)$ done by the matrix $B$ on the rate of change $\det(A)$ done by $A$.
 
-## **Inverse matrices**
+### **Inverse matrices**
 
 As matrices describe transformations, the inverse of a transformation can be described by the **inverse matrix**. We note inverse matrix of $M$ with $M^{-1}$:
 
@@ -318,7 +320,7 @@ Projections don't have a defined inverse (there is loss of information, e.g the 
 
 Several highly optimized algorithms have been proposed to calculate the inverse. In many cases, the inverse matrix is not even calculated, rather the operation done with the inverse matrix (e.g matrix vector multiplication) is calculated or approximated trough an iterative process. This approach saves computation as well as memory for large matrices.
 
-## **Change of basis**
+### **Change of basis**
 
 In the same way we applied a matrix as a transformation to a vector in a vector space, we can apply a matrix as a transformation to the base of the vector space as well. Transforming the vector to another basis is done the same way as applying transformation to the vector.
 
@@ -337,18 +339,20 @@ In the above there are the following steps, which we can read right to left:
 
 All the above steps are simple matrix multiplications.
 
-## **Eigenvectors and eigenvalues**
+### **Eigenvectors and eigenvalues**
 
-The line a non-zero vector rests on is called the **span** of the vector. When we apply a matrix transformation to all vectors of a vector space, most vectors would change direction where they point, we say they change their span.
+The hyperline a non-zero vector rests on is the **span** of the vector. When we apply a matrix transformation to all vectors of a vector space, most vectors would change direction where they point, we say they **change their span**. This definition of span is a unique case of the definition highlighted above, applied to a single vector.
 
-**Eigenvectors** of a matrix $M$ are vectors $V$ of the vector space that do not change their span during vector transformation. The rate of change $\lambda$ of the eigenvectors during the matrix transformation is called **eigenvalue** of the eigenvector. The mathematical relationship can be expressed as:
+**Eigenvectors** of a matrix $M$ which do not change their span during the matrix transformation. Eigenvectors might change scale during the matrix transformation, the rate of change $\lambda$ is called the **eigenvalue** of the eigenvector. 
 
-$$MV = \lambda V$$
+The mathematical relationship is defined as:
 
-All solutions of the above equation for $V$ are the eigenvectors and solutions of $\lambda$ are the eigenvalues. We can rearrange the equation by introducing the identity matrix on the right side and moving everything to the left:
+$$MV = \lambda V \tag{II.4}$$
 
-$$MV - I \lambda V = 0 \\
-(M- I\lambda) V = 0$$
+which states that applying the matrix $M$ as a linear transformation to $V$ is same as multiplying $V$ with a scalar $\lambda$. While this equation is not true for all vectors, all non zero solutions of $V$ are the eigenvectors and corresponding result of $\lambda$ are the eigenvalues. We can rearrange the equation by introducing the identity matrix on the right side and moving everything to the left, resulting in the zero vector $\vec 0$ :
+
+$$MV - I \lambda V = \vec 0 \\
+(M- I\lambda) V = \vec 0$$
 
 Writing the above in detail:
 
@@ -358,12 +362,211 @@ $$\begin{pmatrix}
   \vdots  & \vdots  & \ddots & \vdots  \\
   m_{n,1} & m_{n,2} & \cdots & m_{n,n} - \lambda 
  \end{pmatrix} \begin{pmatrix} v_{1} \\  v_{2} \\  \vdots\\ v_{n} \end{pmatrix}
-= \begin{pmatrix} 0 \\ 0 \\  \vdots\\ 0 \end{pmatrix} $$
+= \begin{pmatrix} 0 \\ 0 \\  \vdots\\ 0 \end{pmatrix} $$ 
 
+The result of $(M- I\lambda) V$, a matrix vector multiplication has to be $\vec 0$, meaning the matrix $M- I\lambda$ reduces the dimension of the vector space, which in turn is only possible if the determinant is $0$: $det(M- I\lambda) = 0$. We can use this property together with the equation of determinant to calculate the eigenvalues and eigenvectors of a matrix. A polinomial $O(n^3)$ algorithm exists for calculating the determinant which in turn is an n-th degree polynomial, having $n$ solutions for the eigenvalue $\lambda$.  Using solutions of $\lambda$ in Equation II.4 we can get eigenvectors for each eigenvalue up to a constant factor, meaning that we will not get an exact vector, only a direction. Since all vectors on the direction of an eigenvector will share the properties of preserving the span and be scaled by a constant, so they are also eigenvectors. In other words if we multiply an eigenvector $\vec e$ with a constant $c$ we get another eigenvector $\vec e'$:
 
+$$\vec e' = c \vec e$$
 
-* When we apply a scaling matrix, all vectors of a vector space will be eigenvectors
+Since in most cases we need a single eigenvector per direction, we can use the normalized version (length $1$), and because we still have two of these, for the case of $c = -1$, we can choose the one where the first element is always positive. 
 
-## **Spectral decomposition**
+Figure II.7 displays a two dimensional example of the eigenvector and eigenvalue. On the left side we see two vectors $\vec e_1$ and $\vec e_2$, and the lines on which the vectors rest on. The lines are the spans of the vectors. On the right side of the diagram we have two more vectors, $\vec a = \begin{pmatrix} a_1 \\ a_2 \end{pmatrix}$ and $\vec b = \begin{pmatrix} b_1 \\ b_2 \end{pmatrix}$. The vectors $\vec a$ and $\vec b$ can describe a transformation as $M = \begin{pmatrix}a_{1} & b_{1} \\ a_{2} & b_{2}\end{pmatrix}$. Applying the transformation $M$ would knock any vector off it's span in our two dimensional vector space except for vectors resting on the two highlighted lines. 
 
-## **Singular value decomposition**
+<p align="center">
+<img src="./img/ii-eigen.png" width="600">
+<br><b>Figure II.7: </b>Eigenvectors and eigenvalues of a transformation</p>
+
+$\vec e_1$ and $\vec e_2$ are eigenvectors of $M$, applying $M$ as a matrix transformation to these vectors we get $\lambda_1 \vec e_1$ and $\lambda_2 \vec e_2$ respectively, meaning their span was preserved and they were scaled by the eigenvalues $\lambda_1$ and $\lambda_2$. All vectors on the highlighted spans are eigenvectors.
+
+A special case is scaler transformation matrices (matrices that apply scaling on the vector space). When we apply a scaling matrix, all vectors of a vector space will preserve their span. In this case all vectors in the vector space are eigenvectors belonging to a single eigen value, which is the same as the scaling applied by the matrix.
+
+Another special case is rotation. Rotation in two dimensions will knock all vectors off their span except the $\vec 0$. Since eigenvector needs to be non zero, a two dimensional rotation does not have any eigenvector. In three dimension, applying a rotation matrix, the span of the resulting eigenvector will define the axis of rotation. The corresponding eigenvalue would be $1$ since there is no scaling.
+
+## **Matrix decomposition**
+
+Matrix multiplication is also called composition, because we are composing multiple transformations into a single one. Given a matrix, **decomposition** of the matrix means writing a matrix in terms of the product of other matrices. The geometric interpretation is that we rewrite a linear transformation as a series of transformations, usually more simple ones. In most cases our aim is for each matrix in our decomposition to be a primitive operation like a rotation or scaling. While composition gives a single result, decomposition can be done in infinite ways.
+
+### **Eigen decomposition**
+
+**Eigen decomposition** decomposes a matrix into three transformation using eigenvectors usinng the formula for basis change:
+
+* Change basis to the base defined by eigenvectors
+* Apply simple scaling
+* Reverse base change
+
+Eigen decomposition can only be applied in the following conditions:
+
+* The matrix we want to decompose is a square matrix. Only square matrices have eigenvalues
+* The $n$ dimensional matrix has $n$ eigenvalues with $n$ corresponding linearly independent eigenvectors. This is required for inverse matrix part of the basis change.
+
+We will decompose a square matrix $A$ with $e_1...e_n$ as the normalized, linearly independent eigenvectors of $A$ and $\lambda_1...\lambda_n$ as the corresponding eigenvalues. Using the formula for eigenvalues and eigenvectors we can write $n$ equations in the form:
+
+$$Ae_1 = \lambda_1 e_1 \\ Ae_2 = \lambda_2 e_2 \\ ... \\ Ae_n = \lambda_n e_n$$
+
+We can rewrite our $n$ equation using a single matrix equation:
+
+$$A\begin{pmatrix}
+  | & | &  & | \\
+  e_1 & e_2 & \cdots & e_n \\
+  | & | &  & | \\ 
+ \end{pmatrix} = \begin{pmatrix}
+  | & | &  & | \\
+  e_1 & e_2 & \cdots & e_n \\
+  | & | &  & | \\ 
+ \end{pmatrix}\begin{pmatrix}
+  \lambda_1 & 0 & \cdots & 0 \\
+  0 & \lambda_2 & \cdots & 0 \\
+  \vdots  & \vdots  & \ddots & \vdots  \\
+  0 & 0 & \cdots & \lambda_n 
+ \end{pmatrix}$$
+
+To see that this is true we can apply the matrix multiplication. If we name the matrix where each column is an eigenvector with $U$ and the column matrix with eigenvalues $\Lambda$ we can rewrite the equation as: 
+
+$$AU = U\Lambda$$
+
+Applying $U^{-1}$ from the right to both sides we get the formula for eigen decomposition
+
+$$A = U\Lambda U^{-1} \tag{II.5}$$
+
+$\Lambda$ is a column matrix, which corresponds to a scaling transformation. Formula II.5 corresponds to a basis change, and applying a simple scaling in the modified basis. 
+
+One very useful use case of eigen decomposition is calculating large powers of a matrix. We can rewrite $A^k$ as:<br>
+$A^k = U \Lambda U^{-1} \cdot U\Lambda U^{-1}  \cdot ...  \cdot U\Lambda U^{-1}$
+
+The $U^{-1} \cdot U$ pairs cancel out giving<br>
+$A^k = U \Lambda^k U^{-1}$
+
+Where $\Lambda^k$ can be calculated with much fewer operations, having the form of:
+
+$\Lambda^k = \begin{pmatrix}
+  \lambda_1^k & 0 & \cdots & 0 \\
+  0 & \lambda_2^k & \cdots & 0 \\
+  \vdots  & \vdots  & \ddots & \vdots  \\
+  0 & 0 & \cdots & \lambda_n^k 
+ \end{pmatrix}$
+
+While $U$ and $U^{-1}$ also require computation, for high power of $k$ the eigen decompostion might be computationally less heavy, more so if results for multiple powers of $k$ are needed. Another use case is if we apply to special matrices where computing $U^{-1}$ from $U$ is straightforward.
+
+### **Transpose of a matrix**
+
+Before we look into other decompositions we need the definition of a new operator: **transpose of a matrix**.
+
+While transpose of a matrix does not have a simple and intuitive geometric interpretation, the mathematical definition is quite simple. The transpose of a matrix is an operation that flips the matrix over its diagonal, switching the row and column indices. Given a matrix $A$ of dimensions $m \times n$, the transpose of $A$, denoted as $A^T$ or $A'$, is a new matrix of dimensions $n \times m$, where the element at row $i$ and column $j$ in $A$, noted with $a_{i,j}$, becomes the element at row $j$ and column $i$ in $A^T$, noted with $a^T_{j,i}$:
+
+$$a_{i,j} = a^T_{j,i}$$
+
+An interesting case of transpose is that of an orthogonal matrix, noted with $R$, resulting in it's inverse:
+
+$$R^T = R^{-1} \tag{II.6}$$
+
+An orthogonal matrix describes a rotation, the inverse matrix describes the inverse transformation. Inverse of a rotation would mean a rotation in inverse direction with same angle and axis as the original rotation. 
+
+Proof of Formula II.6:<br>
+$R^T = R^{-1}$ multiply from the right side with $R$<br>
+$R^TR = R^{-1}R$<br>
+$R^TR = I$<br>
+The matrix product is a dot product of columns of the left hand side matrix with rows of the right hand side matrix. Since $R$ is orthogonal means every column, if treated as a vector, has a norm of $1$ and is orthogonal to every other column vector, except for itself. Here, we are multiplying the orthogonal matrix with it's transpose, which means we will calculate dot products of orthogonal vectors. The dot product of two orthogonal vectors is $0$, the dot product of a unit vector with itself is $1$. This means that elements on the main diagonal would result in $1$ and elements off the main diagonal would result in $0$, giving the overall result as $I$.
+
+We can define transpose of vectors as well, in which case it will turn a single column vector to a single row vector and vice versa. We can use it to more properly define product of perpendicular vectors as 
+
+$$U  \cdot V^T = 0$$
+
+where $U$ and $V$ are perpendicular vectors.
+
+A property of transpose is that transpose of a product (of vectors and matrices) is the inverse direction of product of element wise transpose:
+
+$$(AB)^T = B^TA^T \tag{II.7}$$
+
+where $A$ and $B$ can be matrices or vectors of appropriate sizes to accomodate the definition of product (e.g A may be matrix and B can be a vector). 
+
+The transpose of a scalar is simply itself:
+
+$$c^T = c$$
+
+### **Symmetric matrices**
+
+A square matrix $M$ is **symmetric** if elements $m_{i,j}$  below the main diagonal ($m_{i,i}$) are equal to their corresponding pair above the main diagonal: $m_{i,j} = m_{j,i}$ (notice the change of order between $i$ and $j$). Non-square matrices cannot be symmetrical.
+
+Symmetric matrices are very useful because they have lots of favorable properties. 
+
+The most simple property is that the transpose of a symmetric matrix is equal to the original matrix.
+
+$$S = S^T \iff S \operatorname{is\ symmetrical}$$
+
+Eigenvectors of symmetric matrices also have very useful properties. Symmetric matrices of dimension $n$ have $n$ non zero eigenvalues and $n$ linearly independent eigenvectors (vectors have unique directions). The proof of this is quite complex involving further definitions we omitted so we will omit the proof of this also.
+
+An even more interesting property which can be easily shown is that the eigenvectors of symmetric matrices are orthogonal. In other words, each eigenvector is perpendicular to all others. And since we can mirror eigenvectors on the point of origin and get a corresponding eigenvector, eigenvectors will form a proper orthogonal basis. Proper orthogonal basis is same as the basis of the vector space rotated away.
+
+Proof:<br>
+
+To prove let's consider the symmetric matrix $A$ and two linearly independent eigenectors $x$ and $y$, corresponding to different eigenvalues $\lambda_x$ and $\lambda_y$ respectively (instead of two eigenvectors of the same direction, corresponding to same eigenvalue)
+
+Using the definition of eigenvalue and eigenvector we can input our two eigenvalues and corresponding eigenvectors to get two equations:
+
+$Ax = \lambda_x x,\ Ay = \lambda_y y$<br>
+Multiplying with the transpose of the other eigenvector from the left we get<br>
+$y^TAx = \lambda_x y^T x,\ x^TAy = \lambda_y x^Ty$<br>
+Taking transpose of both sides of the first equation and keeping the second one as is<br>
+$(y^TAx)^T = (\lambda_x y^T x)^T,\ x^TAy = \lambda_y x^Ty$<br>
+Apply itemwise transpose instead of transpose of product<br>
+$(x^T)^TA^Ty = \lambda_x x^T y,\ x^TAy = \lambda_y x^Ty$<br>
+Transpose of a transpose of a vector is same as the vector (we just turn column vector to row and back to column). Also transpose of a symmetric matrix is itself and $A$ is symmetric:<br>
+$x^TAy = \lambda_x x^T y,\ x^TAy = \lambda_y x^Ty$<br>
+The left hand side of both equations are now equal, we can substract the two equations:<br>
+$0 = (\lambda_x - \lambda_y)x^Ty$<br>
+And since we said that $\lambda_x \ne \lambda_y$ and the vectors $x$ and $y$ are non zero, it must be that $x^Ty = 0$ which is the definition of orthogonal vectors.
+
+### **Spectral decomposition**
+
+**Spectral decomposition** is the process of applying eigen decomposition to symmetric matrices using the properties discussed earlier. The eigenvectors of a symmetric matrix are orthogonal (perpendicular), and describe a new basis. We can change the basis from the symmetric matrix trough a simple rotation to the basis described by the eigenvectors. As we have seen for eigen decompostion, the transformation becomes a simple scaling under the base of eigenvectors. Writing all this mathematically we get the decomposition of a symmetric matrix $S$ as:
+
+$$S = Q\ \Lambda\ Q^T$$
+
+where $Q$ is an orthogonal matrix we use to change basis, but using transpose to change back, instead of inverse, because they are equal. Each column of $Q$ is a normalized eigenvector of $S$. $\Lambda$ is a diagonal matrix describing a simple scaling operation under the changed basis. The values on the diagonal of $\Lambda$ are the eigenvalues of $S$.
+
+Spectral decomposition states that all symmetric matrices can be decomposed as a rotation, which we can calculate by finding the normalized eigenvectors, a scaling and an inverse rotation given by the transpose of the rotation.
+
+### **Singular value decomposition (SVD)**
+
+So far we looked into eigenvalue decomposition which could be applied to matrices with certain conditions. Than we have seen spectral decomposiotn which was a special case of eigen decomposition, applied to an even more specific matrix, the symmetric matrix. 
+
+**Singular Value Decomposition (SVD)** is a powerful matrix decomposition technique, and the beautiful thing about it is its generality. SVD can be applied to any $m \times n$ matrix. 
+
+While most matrices  are not symmetrical we can construct symmetric matrices for any matrix. Given an $m \times n$ matrix $A$ both $AA^T$ of size $m\times m$ and $A^TA$ of size $n \times n$ are symmetrical. This statement is very simple to prove, using the attribute that the transpose of a product is the inverse ordered product of element wise transpose (Equation II.7). Using this attribute we can show that the transpose of the product $AA^T$ is same as itself. First we apply Formula II.7 to AA^T<br>
+
+$(AA^T)^T = (A^T)^TA^T$<br>
+And than we simplify $(A^T)^T = A$<br>
+$(AA^T)^T = AA^T$<br>
+
+Since the expression $AA^T$ is equal to it's transpose $(AA^T)^T$, it means $AA^T$ is symmetrical. Similarly we can show that $A^TA$ is also symmetrical. We can name $AA^T$ as $S_L$ (left) and $A^TA$ as $S_R$ (right).
+
+$S_L$ and $S_R$, because they are product in the form of $MM^T$, are not only symmetric matrices but all eigenvalues are non negative, also called **positive semi-definite** (PSD) matrices. Furthermore if we sort eigenvalues of $S_L$ and $S_R$ in decreasing order, the largest eigenvalue of both matrices will be equal, the second largest eigenvalue of both will be also equal, etc. Since $S_L$ and $S_R$ might have different dimensions, the remaining eigen values will all be $0$. For example if $m < n$ for $S_L$ of size $m \times m$ and $S_R$ of size $n \times n$, for the ordered eigen values $\lambda_{SL1},...,\lambda_{SLm}$ of $S_L$ and $\lambda_{SR1},...,\lambda_{SRn}$ of $S_R$
+
+$$\lambda_{SL1} = \lambda_{SR1}, \lambda_{SL2} = \lambda_{SR2}, ... , \lambda_{SLm} = \lambda_{SRm}$$
+
+The left over eigenvalues of $S_R$ are equal to $0$:
+
+$$\lambda_{SRm+1} = 0, ..., \lambda_{SRn} = 0$$
+
+This is the case where $m < n$, if $m > n$, $S_L$ will have left over eigenvalues all equal to $0$ instead. While proof of these statements can be shown trough simple matrix operations we will omit for simplicity.
+
+The square root of the shared eigenvalues of $S_L$ and $S_R$ are called the **singular values**. The $k$ th singular value is
+
+$$\sigma_k = \sqrt{\lambda_{SLk}} = \sqrt{\lambda_{SRk}}$$
+
+where $k = 1,  ..., \min(m, n)$
+
+We can calculate the eigenvectors of both $S_L$ and $S_R$ which are known as left singular singular vectors and right singular vectors respectively. Ordering the vectors in decreasing order according to their eigenvalues, we can construct two matrices. We can notate matrix having the eigenvectors of $S_L$ as columns with $U$, and the matrix having the eigenvectors of $S_R$ as columns as $V$.
+
+After all the definitions we can finally write our SVD decomposition. Specifically, using the $m \times n$ matrix $A$, there always exists a decomposition of the form:
+
+$$A=U\Sigma V^T$$
+
+Where:
+
+* $U$ and $V$ are the orthogonal matrices we calculated using the ordered eigenvectors of $S_L$ and $S_R$
+* $\Sigma$ is an $m \times n$ diagonal matrix (same size as $A$) with the singular values on the diagonal arranged in decreasing order. 
+
+Similar to spectral decomposition, SVD decomposes the matrix into a rotation, a scaling and an inverse rotation. As opposed to spectral decomposition, the scaling might remove or add dimension to our transformation, and the rotation on the left and right might happen in different number of dimensions, according to the number of rows and columns of $A$.
+
+SVD has a large number of applications in data science like principal component analysis, which is a dimensionality reduction technique, data compression, recommendation systems, natural language processing, etc. From the perspective of the decomposition, the order of eigenvalues does not matter as long we preserve the same order for eigenvectors and apply special care for the zero singular values. The reason we sorted eigenvalues in decreasing order, is because each singular value signifies the amount of stretching or compression that the matrix induces along a particular orthogonal direction in the input space. We usually care more for the larger changes. Similarly how we round off some digits in a large number, we can remove less significant singular values, allowing for use cases like compression and dimensionality reduction.
