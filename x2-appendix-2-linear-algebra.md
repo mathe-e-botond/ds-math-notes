@@ -134,20 +134,20 @@ $$I_{n, n} = \begin{pmatrix}
 
 To calculate the linear transformation of a vector we use the transformation matrix and we apply an operation called matrix-vector multiplication defined as:
 
-$$V_t = M_{n,n} \cdot V \\ = \begin{pmatrix}
+$$\begin{aligned}V_t &= M_{n,n} \cdot V \\ &= \begin{pmatrix}
   x_{1,1} & x_{1,2} & \cdots & x_{1,n} \\
   x_{2,1} & x_{2,2} & \cdots & x_{2,n} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
   x_{n,1} & x_{n,2} & \cdots & x_{n,n} 
- \end{pmatrix} \begin{pmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{pmatrix} \\ = v_1\begin{pmatrix}
+ \end{pmatrix} \begin{pmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{pmatrix} \\ &= v_1\begin{pmatrix}
   x_{1,1} \\ x_{2,1} \\ \vdots \\ x_{n,1} \end{pmatrix} + v_2\begin{pmatrix}
   x_{1,2} \\ x_{2,2} \\ \vdots \\ x_{n,2} \end{pmatrix} + ... + v_n\begin{pmatrix}
-  x_{1,n} \\ x_{2,n} \\ \vdots \\ x_{n,n} \end{pmatrix} \\ = \begin{pmatrix}
+  x_{1,n} \\ x_{2,n} \\ \vdots \\ x_{n,n} \end{pmatrix} \\ &= \begin{pmatrix}
   x_{1,1} v_1 + x_{1,2} v_2 + \cdots + x_{1,n} v_n  \\
   x_{2,1} v_1 + x_{2,2} v_2 + \cdots + x_{2,n} v_n  \\
   \vdots \\
   x_{n,1} v_1 + x_{n,2} v_2 + \cdots + x_{n,n} v_n  \\ 
- \end{pmatrix} \tag{II.2}$$
+ \end{pmatrix}\end{aligned}\tag{II.2}$$
 
 The resulting vector $V_t$ is also $n$ dimensional. The matrix $I_{n, n}$ in Figure II.1 is called the identity matrix. If we use this matrix as a transformation operator for a vector $V$, it would result in the same vector $I_{n,n} \cdot V = V$.
 
@@ -196,7 +196,7 @@ The determinant can have the following meaning depending on it's value:
 
     In the case of a projection a line or a hyperplane or the entire hyperspace will be projected to the point of origin $O$. The line, plane or hyperspace that ends up as the origin after the transformation is called the **kernel** or **null space** of the matrix. Mathematically the kernel is defined as the set of all vectors that become null vectors after the matrix transformation
 
-    $$N(M)=\{v∣M \vec v=\vec 0\} \tag{II.3}$$
+    $$N(M)=\{v|M \vec v=\vec 0\} \tag{II.3}$$
 * The determinant will be negative for one or any odd number of flips in the hyperspace. An even number of flips restores the space to it's original "side", the same transformation can be achieved trough rotation. The absolute value of a negative determinant will tell the factor the space is being scaled.
 
 The computation itself for the determinant is more complex for each added dimension, but here we will explore the two dimensional case and it's computation.
@@ -239,15 +239,15 @@ Depending on the type of transformation we can define some special matrices
 * **Scaling along a single dimension** can be done with a matrix where all elements are same as the identity matrix, but a single element on the diagonal has a scaler value of $k$. This matrix will preserve sizer on all dimension except for the modified dimension, where a scale by $k$ will be applied. Setting a diagonal element to $-1$ will mirror around that dimension.
 
 * **Shear operation** is a matrix which is same as an identity matrix, except a single off-diagonal element, which is a non zero $k$ real number. For example in two dimensions a sheer matrix $S = \begin{pmatrix}
-  1 & k \\
-  0 & 1 
- \end{pmatrix}$. Shear matrices have a determinant of $1$
+    1 & k \\
+    0 & 1 
+    \end{pmatrix}$. Shear matrices have a determinant of $1$
 
 * **Orthogonal matrix** is a matrix whose vectors fulfill two conditions:
     * each vector in the matrix (column) has a norm of 1
     * all vectors in the matrix are orthogonal to each other (dot product between any two columns are $0$)
 
-   This means each vector has size $1$ and perpendicular to all the other vectors. The identity matrix $I_{n,n}$ and any other matrix which is a rotation or mirroring in $n$ dimensions of the identity matrix are orthogonal. Applying this matrix as a transformation will result in rotation or mirroring or a combination of both.
+    This means each vector has size $1$ and perpendicular to all the other vectors. The identity matrix $I_{n,n}$ and any other matrix which is a rotation or mirroring in $n$ dimensions of the identity matrix are orthogonal. Applying this matrix as a transformation will result in rotation or mirroring or a combination of both.
 
 * **Proper orthogonal matrix** adds one more condition to orthogonal matrix, that the angles of vectors are preserved. This can be verified by a determinant of $1$. Proper orthogonal matrix will apply a rotation around the origin to the vector space without mirroring. As we have mentioned, mirroring even number of times results in a transformation which is same as a rotation.
 
@@ -261,17 +261,17 @@ When $m < n$, it's called a projection. When $m > n$ the result is higher dimens
 
 Matrix transformation is done similarly to square matrices.
 
-$$V_m = M_{m,n} \cdot V_n \\ = \begin{pmatrix}
+$$\begin{aligned}V_m &= M_{m,n} \cdot V_n \\ &= \begin{pmatrix}
   x_{1,1} & x_{1,2} & \cdots & x_{1,n} \\
   x_{2,1} & x_{2,2} & \cdots & x_{2,n} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
   x_{m,1} & x_{m,2} & \cdots & x_{m,n} 
- \end{pmatrix} \begin{pmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{pmatrix} \\ = \begin{pmatrix}
+ \end{pmatrix} \begin{pmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{pmatrix} \\ &= \begin{pmatrix}
   x_{1,1} v_1 + x_{1,2} v_2 + \cdots + x_{1,n} v_n  \\
   x_{2,1} v_1 + x_{2,2} v_2 + \cdots + x_{2,n} v_n  \\
   \vdots \\
   x_{m,1} v_1 + x_{m,2} v_2 + \cdots + x_{m,n} v_n  \\ 
- \end{pmatrix}$$
+ \end{pmatrix}\end{aligned}$$
 
 ### **Matrix multiplication**
 
@@ -279,7 +279,7 @@ Matrices, which describe linear transformations in vector spaces, can be combine
 
 The formula for matrix multiplication uses the formula of matrix vector multiplication (Formula II.2). Each column $k$ in the output matrix, if treated as a vector, is the $k$ th column in the right hand side matrix, also treated as a vector, transformed  (multiplied) by the left hand matrix. Summarized the product formula looks like this:
 
-$$B \cdot A = \begin{pmatrix}
+$$\begin{aligned}B \cdot A &= \begin{pmatrix}
   b_{1,1} & b_{1,2} & \cdots & b_{1,m} \\
   b_{2,1} & b_{2,2} & \cdots & b_{2,m} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
@@ -289,12 +289,12 @@ $$B \cdot A = \begin{pmatrix}
   a_{2,1} & a_{2,2} & \cdots & a_{2,n} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
   a_{m,1} & a_{m,2} & \cdots & a_{m,n} 
- \end{pmatrix} = \\ = \begin{pmatrix}
+ \end{pmatrix}\\ &= \begin{pmatrix}
   \sum_{i=1}^m b_{1,i}a_{i,1} & \sum_{i=1}^m b_{1,i}a_{i,2} & \cdots & \sum_{i=1}^m b_{1,i}a_{i,n} \\
   \sum_{i=1}^m b_{2,i}a_{i,1} & \sum_{i=1}^m b_{2,i}a_{i,2} & \cdots & \sum_{i=1}^m b_{2,i}a_{i,n} \\
   \vdots  & \vdots  & \ddots & \vdots  \\
   \sum_{i=1}^m b_{p,i}a_{i,1} & \sum_{i=1}^m b_{p,i}a_{i,2} & \cdots & \sum_{i=1}^m b_{p,i}a_{i,n} 
- \end{pmatrix}$$
+ \end{pmatrix}\end{aligned}$$
 
 Matrices can be multiplied only if the number of columns of the left hand matrix $m$ is equal to the number of rows to the right hand matrix: the output dimension of the first transformation has to be the same as the input dimension of the second transformation. The input dimension of the product $B \cdot A$ is the number of columns $n$ of the right hand side matrix $A$, the output dimension is the number of rows $p$ in the left hand matrix $B$.
 
@@ -532,7 +532,7 @@ So far we looked into eigenvalue decomposition which could be applied to matrice
 
 **Singular Value Decomposition (SVD)** is a powerful matrix decomposition technique, and the beautiful thing about it is its generality. SVD can be applied to any $m \times n$ matrix. 
 
-While most matrices  are not symmetrical we can construct symmetric matrices for any matrix. Given an $m \times n$ matrix $A$ both $AA^T$ of size $m\times m$ and $A^TA$ of size $n \times n$ are symmetrical. This statement is very simple to prove, using the attribute that the transpose of a product is the inverse ordered product of element wise transpose (Equation II.7). Using this attribute we can show that the transpose of the product $AA^T$ is same as itself. First we apply Formula II.7 to AA^T<br>
+While most matrices  are not symmetrical we can construct symmetric matrices for any matrix. Given an $m \times n$ matrix $A$ both $AA^T$ of size $m\times m$ and $A^TA$ of size $n \times n$ are symmetrical. This statement is very simple to prove, using the attribute that the transpose of a product is the inverse ordered product of element wise transpose (Equation II.7). Using this attribute we can show that the transpose of the product $AA^T$ is same as itself. First we apply Formula II.7 to $AA^T$<br>
 
 $(AA^T)^T = (A^T)^TA^T$<br>
 And than we simplify $(A^T)^T = A$<br>

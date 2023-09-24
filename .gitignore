@@ -1,1 +1,6 @@
 .vscode/
+md2tex/__pycache__/
+*.mdtest
+*.aux
+*.log
+output/

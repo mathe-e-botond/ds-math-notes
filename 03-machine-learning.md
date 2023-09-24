@@ -22,22 +22,23 @@ $\epsilon$ is the error term and can be decomposed using the expected value of (
 $$E[(Y-\hat{Y})^2] = \underbrace{[f(X)-\hat{f}(X)]^2}_\text{Reducible error} + \underbrace{\text{Var}(\epsilon)}_\text{Irreducible error}$$
 
 Proof:
-
+<!--mleq-->
 Using (4.1) and (4.2)<br>
 $E[(Y-\hat{Y})^2]=E[(f(X)+\epsilon-\hat{f}(X))^2]$<br>
-$=E[(f(X)-\hat{f}(X))^2+2 \epsilon (f(X)-\hat{f}(X)) +\epsilon^2]$
+$=E[(f(X)-\hat{f}(X))^2+2 \epsilon (f(X)-\hat{f}(X)) +\epsilon^2]$<br>
 
 Because the expectation is linear operator<br>
-$=E[(f(X)-\hat{f}(X))^2] +2E[\epsilon (f(X)-\hat{f}(X))] +E[\epsilon^2]$
+$=E[(f(X)-\hat{f}(X))^2] +2E[\epsilon (f(X)-\hat{f}(X))] +E[\epsilon^2]$<br>
 
 Because the expectation of $f$ and $\hat{f}$ are constant<br>
-$=[f(X)-\hat{f}(X)]^2 +E[\epsilon^2] +2E[\epsilon (f(X)-\hat{f}(X))$
+$=[f(X)-\hat{f}(X)]^2 +E[\epsilon^2] +2E[\epsilon (f(X)-\hat{f}(X))$<br>
 
 Because the mean of $\epsilon$ is zero<br>
-$=[f(X)-\hat{f}(X)]^2 +E[\epsilon^2]$
+$=[f(X)-\hat{f}(X)]^2 +E[\epsilon^2]$<br>
 
 Because the variance of $\epsilon$ is $E(\epsilon^2)$<br>
 $=[f(X)-\hat{f}(X)]^2 + \text{Var}(\epsilon)$
+<!--/mleq-->
 
 We can optimize our model to minimize the reducible error but irreducible error is also unknown and our model might overfit by including some fit on the noise as well.
 
@@ -54,7 +55,7 @@ An **estimator** is a function of the data. It can either estimate parameters of
 Given a population parameter $\beta^P$, an estimator function $\hat \beta$,and the samples $S_1, S_2, ..., S_n$, we can apply the estimator function to each sample. This would result in a set of estimated parameters $\beta^*_1, \beta^*_2, ..., \beta^*_n$
 
 <p align="center">
-<img src="./img/03-estimator.png" width="400">
+<img src="./img/03-estimator.png" width="500">
 <br><b>Figure 3.1: </b>Applying estimator to a set of observations 
 </p>
 
@@ -128,13 +129,18 @@ To measure how well the model fits our observed data we can use a **cost functio
 * Should always be positive
 * If our estimate improves, the cost function should decrease
 
-Using the likelihood function, which is the probability we can observe our data given our model, we can transform it to be a positive function, which decreases the better the fit. This is called the **negative log likelihood cost function**. Given a set of observations $X$ and a statistical model with parameters $\theta$ and the likelihood function $L(\theta | X)$, the cost function is:
+Using the likelihood function, which is the probability we can observe our data given our model, we can transform it to be a positive function, which decreases the better the fit. This is called the **negative log likelihood cost function**. Given a set of observations $X$ and a statistical model with parameters $\theta$ and the likelihood $L(\theta | X)$, the cost function is:
 
 $$\operatorname{NLL} = - \ln(L(\theta | X))$$
 
+This equation looks scary, but likelihood is basically the probability of observing the data given the model parameters. The logarithms is used because it provides several computational benefits:
+
+* Since probabilities are usually small numbers. When multiplied together, as in the case of joint probabilities for sequences, they can become extremely small and lead to underflow issues in computers (since computers can store numbers up to some precision, the value might become smaller than this precision, leading to instability).
+* In many cases, especially when working with likelihoods, products of probabilities get converted to sums when we take the logarithm. This transformation simplifies the computations and makes them more efficient. For example $\log(p_1  p_2) = \log(p_1) + \log(p_2)$
+
 The likelihood function is mainly used to estimate parameters of probability distribution given the observed data, but might not have closed form or might have more than one local minima which is why other cost functions which are easier to optimize might be used to fit machine learning models.
 
-A popular example of a cost function is the *mean squared error* or MSE, which is the average of the squared difference of predicted and actual output for each observation $i$.
+A popular example of a cost function is the **mean squared error** or MSE, which is the average of the squared difference of predicted and actual output for each observation $i$.
 
 $$\operatorname{MSE} = {1 \over n} \sum_{i=1}^n(y_i - \hat{f}(x_i))^2 $$
 
@@ -149,7 +155,7 @@ $${\displaystyle \operatorname {MSE} ({\hat \theta})=\operatorname {Var} _\theta
 Proof
 
 Using the definition of variance
-
+<!--mleq-->
 $\operatorname{Var}(X) = E(X^{2}) - (E(X))^{2}$ <br>
 $E(X^{2})=\operatorname{Var}(X)+(E(X))^{2}$ 
 
@@ -158,6 +164,7 @@ By substituting $X$ with $\hat {\theta }-\theta$ it can be shown that
 $\operatorname{MSE} ({\hat {\theta }})=\mathbb {E} [({\hat {\theta }}-\theta )^{2}]$<br>
 $=\operatorname {Var} ({\hat {\theta }}-\theta )+(\mathbb {E} [{\hat {\theta }}-\theta ])^{2}$<br>
 $=\operatorname {Var} ({\hat {\theta }})+\operatorname {Bias} ^{2}({\hat {\theta }})$
+<!--mleq-->
 
 Variance is always positive and bias is squared. The selected estimator needs to minimize either of or both of variance and bias in order to minimize $\operatorname{MSE}$
 

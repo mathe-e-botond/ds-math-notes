@@ -52,17 +52,19 @@ Small K values lead to higher variance, $K=1$ will perfectly fit the training da
 
 ## **5.2 Logistic regression**
 
-In logistic regression we model the probability of an observation belonging to one of two classes with logistic function. \output ranges between 0 and 1 (<b>Figure 5.2</b> left side)
+In logistic regression we model the probability of an observation belonging to one of two classes with logistic function. Output ranges between 0 and 1 (<b>Figure 5.2</b> left side)
 
 $$P(X) = {e^{\beta_0 + \beta_1X_1 + ... +  \beta_pX_p} \over 1 + e^{\beta_0 + \beta_1X_1 + ... + \beta_pX_p}}$$
 
 We can transform the above to odds form $p \over 1-p$
 
+<!--mleq-->
 $P(X) = {e^z \over 1 + e^z}$<br>
 $P(X)\cdot(1 + e^z) = e^z$<br>
 $P(X) + P(X) e^z = e^z$<br>
 $P(X) = e^z(1-P(X))$<br>
 ${P(X) \over 1 - P(X)} = e^z$
+<!--/mleq-->
 
 Giving
 
@@ -103,7 +105,8 @@ we can derive
 
 $$log\bigg({P(Y=k|X=x) \over P(Y=K|X=x)}\bigg)=\beta_{k0} + \beta_{k1}X_1 + ... + \beta_{kp}X_p$$
 
-Proof (with simplified notations):<br>
+Proof (with simplified notations):
+
 $log\big({P(k) \over P(K)}\big) = log\bigg({{e^{z_k} \over 1 + \sum_{l=1}^{K-1}e^{z_l}} \over {1 \over 1 + \sum_{l=1}^{K-1}e^{z_l}}}\bigg) = log({e^{z_k} \over 1}) = log(e^{z_k}) = z_k$
 
 An alternative is to use softmax encoding, we estimate coefficients for all classes $k = 1...K$
@@ -114,7 +117,8 @@ and we calculate ration between classes $k$ and $k'$
 
 $$log\bigg({P(Y=k|X=x) \over P(Y=K|X=x)}\bigg)=(\beta_{k0}-\beta_{k'0}) + (\beta_{k1}-\beta_{k'1})X_1 + ... + (\beta_{kp}-\beta_{k'p})X_p$$
 
-Proof (with simplified notations):<br>
+Proof (with simplified notations):
+
 $log\big({P(k) \over P(k')}\big) = log\big({e^{z_k} \over e^{z_{k'}}}\big) = log(e^{z_k}) - log(e^{z_{k'}}) = z_k - z_{k'}$
 
 ### 5.2.3 Assessing the model
@@ -155,7 +159,9 @@ Where $X_1, ..., X_p$ are the predictor variables, and $x_1, ..., x_p$ are value
 
 $${\displaystyle C^{\text{Bayes}}(x)={\underset {k}{\operatorname {argmax} }}\operatorname {P} (Y=k)\prod _{j} P(X_j = x_j|Y=k)}$$
 
-Complete breakdown for reference <br>
+Complete breakdown for reference
+
+<!--mleq-->
 $\displaystyle C^{\text{Bayes}}(x)=argmax_k(P(Y = k | X = x))$<br>
 Plugging in (5.2) but notating the denominator with $\alpha$ for simplicity
 $\displaystyle C^{\text{Bayes}}(x)=argmax_k \biggl( {P(Y = k) P(X = x | Y = k) \over \alpha} \biggr)$<br>
@@ -163,6 +169,7 @@ Since $\alpha$ is positive and constant for all terms, it will not change the ou
 $\displaystyle C^{\text{Bayes}}(x)=argmax_k \bigl( P(Y = k) P(X = x | Y = k) \bigr)$<br>
 Finally we plug in the (5.3) assumption<br>
 $\displaystyle C^{\text{Bayes}}(x)=argmax_k \bigl( P(Y = k) \prod _{j}P(X_j = x_j | Y = k)] \bigr)$<br>
+<!--/mleq-->
 
 To complete the classification task, estimating $P(X_j = x_j|Y=k)$ for each predictor $X_1, ..., X_j$ is remaining. There are a few ways to achieve this.
 

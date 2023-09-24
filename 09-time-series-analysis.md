@@ -57,15 +57,15 @@ The moving average process is stationary and weekly dependent. We can simply fin
 1. $E[x_t] = E[\epsilon_t] + \theta E[\epsilon_{t-1}] = 0$ — constant mean, not a function of time
 2. $Var(x_t) = Var(\epsilon_t) + \theta^2 Var(\epsilon_{t-1}) = \sigma^2(1 + \theta^2)$ — constant variance, not a function of time
 2. $\operatorname{Cov}(x_t, x_{t-1}) = \operatorname{Cov}(\epsilon_t + \theta\epsilon_{t-1}, \epsilon_{t-1} + \theta\epsilon_{t-2})$
-
+    
     We can expand the covariance same as multiplication, but we know error terms are independent, so we only need to consider the recurring error term $\epsilon_{t-1}$: 
-
+    
     $= \theta \operatorname{Cov}(\epsilon_{t-1}, \epsilon_{t-1}) = \theta Var(\epsilon_{t-1}) = \theta \sigma ^2$
-
+    
     For a lag $h$ larger than $1$
-
+    
     $\operatorname{Cov}(x_t, x_{t-h}) = 0$
-
+    
     Overall it's a function of the lag and not of time
 
 Similarly the correlation will also become $0$ for lag larger than the lag in the model, making it weakly dependent.
@@ -82,58 +82,60 @@ $$\epsilon \sim i.i.d(0, \sigma^2)$$
 
 The AR model is stationary under certain conditions. If we examine AR(1) and apply it for the conditions of stationary. 
 
-1. Stationary in mean: 
-
+1. **Stationary in mean**: 
+    
     $E[x_t] = \rho_0 + \rho_1 E[x_{t-1}] + E[\epsilon_t]$ <br>
-    $E[\epsilon_t]$ is simply 0 from the definition. In order for the process to be stationary it must hold that $E(x_t) = E(x_{t−1})$  (we will reuse this several times below), substituting these: <br>
+    $E[\epsilon_t]$ is simply 0 from the definition. In order for the process to be stationary it must hold that $E(x_t) = E(x_{t-1})$  (we will reuse this several times below), substituting these: <br>
     $E[x_t] = \rho_0 + \rho_1 E[x_t] \Leftrightarrow$ <br>
     $$E[x_t] = {\rho_0 \over 1 - \rho_1}$$
-
+    
     For the process to be stationary, we need $E[x_t]$ to be finite, which means $$\rho_1 \neq 1$$ needs to hold, otherwise it's division by 0.
-
-2. Stationary in variance: 
-
-    $Var(x_t)=Var(\rho_0+\rho_1x_{t-1}+\epsilon_t)=\rho_1^2V(x_{t-1})+\underbrace{2Cov(x_{t-1},\epsilon_t)}_{=0}+\underbrace{Var(\epsilon_t)}_{\sigma^2}$. In order for the process to be stationary it must hold that $Var(x_t) = Var(x_{t−1})$: <br>
+    
+2. **Stationary in variance**: 
+    
+    $Var(x_t)=Var(\rho_0+\rho_1x_{t-1}+\epsilon_t)=\rho_1^2V(x_{t-1})+\underbrace{2Cov(x_{t-1},\epsilon_t)}_{=0}+\underbrace{Var(\epsilon_t)}_{\sigma^2}$. In order for the process to be stationary it must hold that $Var(x_t) = Var(x_{t-1})$: <br>
     $Var(x_t)=\rho^2Var(x_t)+\sigma^2 \Leftrightarrow$ 
-
+    
     $$Var(x_t)={\sigma^2 \over 1-\rho_1^2}$$ 
-
+    
     The variance to be positive and finite, we need <br>
     $\rho_1^2<1 \Leftrightarrow$ 
     
     $$\vert \rho \vert <1$$
-
-3. Covariance stationary: 
-
+    
+3. **Covariance stationary**:
+    
     We can take result of 1., rearrange the elements:
-
+    
     $E[x_t] = {\rho_0 \over 1 - \rho_1}$ <br>
     $\rho_0 = (1 - \rho_1)E[x_t]$ <br>
     And use this to change the center of the process (original AR(1) formula), removing $\rho_0$:<br>
     $x_t-E(x_t)=\rho_1(x_{t-1}-E(x_t))+\epsilon_t$
-
+    
     Since it's a recursive function and because $E(x_t) = E(x_{t-1})$, we can substitute $x_{t-1}-E(x_t)$ with $\rho_1(x_{t-2}-E(x_t))+\epsilon_t$:
-
+    
     $x_t-E(x_t)=\rho_1^2(x_{t-2}-E(x_t))+\rho_1\epsilon_{t-1} + \epsilon_t$
-
+    
     Repeating $h$ times:
-
+    
     $x_t-E(x_t)=\rho_1^k(x_{t-h}-E(x_t))+\sum_{i=0}^{h-1}\rho_1^i\epsilon_{t-i}$
-
+    
     Shifting by $h$  (note that again we don't need to update $E(x_t)$)
-
+    
     $x_{t+h}-E(x_t)=\rho_1^k(x_{t}-E(x_t))+\sum_{i=0}^{h-1}\rho_1^i\epsilon_{t+h-i}$
-
+    
     Calculating covariance with the shifted value (auto covariance), because there is no relationship between $x$ and the error terms, $\sum_{i=0}^{h-1}\rho_1^i\epsilon_{t+h-i}$ becomes $0$:
-
+    
+    <!--mleq-->
     $Cov(x_t-E(x_t), x_{t+h}-E(x_t))$<br>
     $= Cov(x_t-E(x_t), \rho_1^k(x_{t}-E(x_t)))$<br> 
     $= \rho_1^k Cov(x_t-E(x_t), x_t-E(x_t))$<br>
     $= \rho_1^k Var(x_t-E(x_t))$<br>
     Redoing tha calculation for stationary in variance (2) but with centered process, gives the same result:<br> 
     $= \rho_1^k {\sigma^2 \over 1-\rho_1^2}$
-
+    
     This has the same condition as the stationary in variance: $\vert \rho \vert <1$
+    <!--/mleq-->
 
 ### **9.1.4 AR or MA process**
 
@@ -195,3 +197,75 @@ SARIMAX is a commonly applied time series analysis technique, it is actually a c
 * I: Adding differencing to ARMA
 * S: Seasonality added it ARIMA
 * X: External parameter added (moving from single variate to multi variate)
+
+## **9.2 Non linear modelling of time series data**
+
+Linear models assume some form of linear relationship in time series. If the time series has some non linear relationship and is not purely a random walk or white noise we can try to fit a non linear model.
+
+A number of machine learning techniques we discussed so far as well as new techniques developed for sequential data can be fit to model time series. If a model is successfully fit on a time series, it can be used for forecasting unseen/future values. 
+
+### **9.3.1 Neural networks in time series**
+
+One simple approach is to train a deep neural network with $k$ inputs capturing the relationship among $k$ consecutive samples in the time series. A challenge is that we might not know $k$ but also that $k$ might differ for a test dataset or even among training sets. 
+
+To support a variable number of inputs, which form a sequence, where previous values influence future or upcoming values, an extension of neural network has been developed called **recurrent neural network** or **RNN**. The difference between an RNN and a multilayer network is that these networks have **feedback loops**.
+
+Just as with multilayer network we define an input at position or time $t$ as $X_t$ which can be single value (scalar) or multiple values (vector). Assuming the more complex case, where we have multiple inputs at each moment $t$, $X_t$ would be a vector of dimension $d_x$.
+
+A common structure for RNN has a single hidden layer with a non linear activation function, noted with $f_h$, also used for the feedback loop, and an output activation, noted with $f_Y$. These two activation functions might be of different type, for example the hidden layer activation $f_h$ might be a tanh function while the output activation $f_Y$ might be a softmax function. 
+
+An RNN, similar to multilayer networks, has weights and biases. RNNs introduce one more set of weights, noted here with the matrix $W_{hh}$ for the feedback loop, the output of a network would become an input as well. The hidden layer can have one or more neurons, we can note this number with $d_h$. $W_{hh}$, representing the weights between all neurons in the hidden layer to all other neurons, would be a square matrix with dimension $d_h \times d_h$.
+
+Similar to multi layer networks, we have weights associated with inputs which we can represent as a matrix $W_{Xh}$ of dimension $d_x \times d_h$, mapping inputs to hidden layer neurons. Using the activation for the hidden layer $A_h$, the recurrent relationship can be written as:
+
+$$h_t = A_h(W_{Xh} X_t + W_{hh} h_{t-1} + b_h)$$
+
+Where $b_h$ is the bias term for the hidden layer.The output of an RNN for time step $t$ can be computed as:
+
+$$Y_t = A_Y(W_{hY} h_t + b_Y)$$
+
+The weight matrix $W_{hY}$ that transforms the hidden state to the output space has the shape of $d_h \times d_Y$, where $d_Y$ is the dimensionality of the output. $b_Y$ is the bias term for the output.
+
+To combine the two formula into a single, more continuous formula, would be:
+$$Y_t = A_Y(W_{hY} \times A_h(W_{xh} X_t + W_{hh} h_{t-1} + b_h) + b_o)$$
+
+<p align="center">
+<img src="./img/09-rnn.png" width="600">
+<br><b>Figure 9.5: </b> Left: structure of an RNN, right: unrolling of the network</p>
+
+**Figure 9.5** shows the RNN visually. On the left side we can see the feedback loop. This network can be unrolled by making copies of the network, in which case the feedback loop would become input for the next copy. This process is called unrolling and has been used by state of the art network at the time of writing this material. The right side of the diagram shows the unrolled version of the network.
+
+**Modelling an AR(k) model with RNN**
+
+While it is not efficient to use RNN for an AR(k) process, it is a useful way to understand how RNN works and extends the AR process. Applying RNN would probably introduce unnecessary variance and overfit the model. But if we were to model an AR(k) process defined as $x_t = \rho_0 + \rho_1 x_{t-1} + ... + \rho_k x_{t-k} + \epsilon$ the RNN would have the following properties:
+
+* Input would be a scalar, the value of the time series at time $t-k$ leading up to $t-1$. The output would also be a scalar, the prediction, or current value: $x_t$. 
+* The hidden layer would need to have $k$ activation functions, where both the hidden layer and output activation functions would be linear function: $f_h(x) = f_Y(x) = x$ for all values of $x$.
+* The weights on the output layer would be the identity matrix $I$, with each diagonal value of $1$ and off diagonal element of $0$
+* While multiple set of weights on the hidden layer could model an AR(k) process, a very straightforward option would be a diagonal matrix, where each diagonal element would be a coefficient of the AR(k) process: $\rho_1 ... \rho_k$. The bias term would be equal to $\rho_0$
+
+Such a recurrent network would be equivalent with the AR(k) process. If we were to train an actual RNN using samples from an AR(k), we would probably end up with a different but equivalent definition of weights, resulting from the random initialization of the network.
+
+Notice the points that we simplified and if we are to utilize, can capture more complex relationships in the time series:
+
+* When we modelled an AR(k) process, we used only a small potion of the available weights. We can leverage off diagonal elements in the hidden layer as well as the weights in the output layer to create a more complex model.
+* Non linear activation functions can capture non linear relationship between the points in time as well as in the output mapping. Interactions between the inputs can also be approximated
+* Using identity matrix for weights as well as linear activation, we effectively removed the output layer. 
+* An RNN can handle multiple inputs and outputs.
+
+**Considerations of RNN** 
+
+An RNN, even when we consider the unrolled version, still uses the same weights for each copy. To scale an RNN, the simplest way is to increase the neurons in the hidden layer. Another option is to stack multiple RNNs, the output of the first RNN would be the input of the second RNN and so forth.
+
+RNNs provide a useful way to think about neural networks but in practice it's rarely used in it's simplest form. The biggest challenge of RNN is it's difficulty of training. In practice, the more we unroll an RNN network, will behave like a really deep neural network. All the difficulties of training deep neural networks arise in a magnified manners. 
+
+More specifically the issue is that weight training is unstable, leading to **vanishing** or **exploding gradients** problems. Considering a single weight in the hidden layer, noted with $w$ and the input $x$, a network unrolled $n$ times, the loss function will contain the output of the network compared with the training data set, which in turn will have in it's formula the expression $x w^n$. If $n$ is large, e.g. 100, which can happen easily for time series inputs like price changes across time, the expression $x w^n$ can become close to $0$ if $w < 1$ or very large for $w > 1$. In the backpropagation process we calculate the gradient of the loss function, which will have similar behavior, resulting in the problem of vanishing gradient ($n \gg 1, w < 1 \rightarrow w^n \approx 0$) or exploding gradient ($n \gg 1, w > 1 \rightarrow w^n \approx \infty$).
+
+To resolve the vanishing/exploding gradient issue, further variations of RNN has been proposed. Sepp Hochreiter and Jürgen Schmidhuber in their paper called "Long Short-Term Memory" defined **Long Short Term Memory** networks, **LSTM** in brief. They applied gating mechanism and two tracks to maintain a long term memory and a short term memory, while keeping the network easier to train. In more recent years, the attention and transformer architecture has seen great results, outperforming LSTM in both ease of training and ability to maintain memory. Transformer architecture has seen great results being applied to time series, also allowing for multivariate time series forecasting, using other features available in the data. We will explore transformer architecture in the context of natural language processing and large language models, but the same architecture can be used for time series as well.
+
+### **9.3.2 Tree models in time series modelling**
+
+
+
+### **9.3.3 Trend and seasonality modelling - Facebook Prophet**
+

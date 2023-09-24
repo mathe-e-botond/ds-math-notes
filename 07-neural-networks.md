@@ -2,55 +2,58 @@
 
 ## **7.1 Perceptron**
 
+The building block of a neural network is the **perceptron** which is a mathematical model of a biological neuron, or brain cell. Similar to how neurons have dendrids, a perceptron has inputs and an **activation function**. The inputs are fed in as a linear combination, with each input being assigned a weight. Weights are usually real numbers.
+
 <p align="center">
 <img src="./img/07-perceptron.png" width="300">
-<br><b>Figure 7.1: </b><i>Model of a neuron</i>
+<br><b>Figure 7.1: </b>Model of a neuron
 </p>
 
-The input of a perceptron is the dot product of inputs and weights. The threshold of activation or **bias** of the perceptron is modelled with an added input $1$ and $b$ weight.
+We can model the combination of inputs and weights as a dot product. The threshold of activation or **bias** of the perceptron is modelled with an added input $1$ and a weight noted with $b$. The dot product becomes $z = b + w \cdot x = b + \sum_j w_jx_j$.
 
-Using the dot product $z = b + w \cdot x = b + \sum_j w_jx_j$ the model we use various activation functions
+For the neural network to be able to approximate any function, needs to non linear. Since inputss and weights are linear combination, this non liniarity is achieved trough the activation function which in most cases is not linear.
+
+Neural networks use various functions as activation functions:
 
 <p align="center">
 <img src="./img/07-activation-functions.png" width="600">
-<br><b>Figure 7.4: </b><i>Activation functions</i>
-</p>
+<br><b>Figure 7.4: </b>Activation functions</p>
 
-1. Step function: can be either unit step 
-
-$$h = \begin{cases}
-0 & \operatorname{if }\ z > 0 \\
-1 & \operatorname{if }\ z \le 0
-\end{cases}
-$$
-
-or signum, where $-1$ is used instead of $0$. The challenge with this is that small change in the input might trigger a jump from $0$ to $1$ times weights, which might be a sudden big jump and if organized to netwerk it might not learn.
-
-2. Linear
-
-$$h = z $$
-
-Same as linear regression. In case multiple neurons are connected will still collapse to linear model. To be able to model non linear functions, the activation should also be non linear
-
-3. Sigmoid
-
-$$h = {1 \over 1 + e^{-z}}$$
-
-Small changes in the input will result in small changes in the output because the function is continuous.
-
-$$\Delta h \approx \sum_j {\partial h \over \partial w_j} \Delta w_j $$
-
-Sigmoid can become saturated on values close to $0$ (low) and $1$ (high) because the derivate becomes close to $0$.
-
-3. Rectifier Linear Unit: ReLU
-
-$$h = max(0, z)$$
-
-A variant is the **leaky ReLU** which allows small negative values to be passed trough. It:s defined as 
-
-$$h = max(az, z)$$
-
-where $a$ is a very small constant (e.g. $0.0001$). While the rectified unit is not continuous and it has some issues like vanishing or exploding gradient in learning, it:s still very popular due to it:s simplicity and good performance in practice if used as part of large neural netwworks.
+1. **Step function**: can be either unit step 
+    
+    $$h = \begin{cases}
+    0 & \operatorname{if }\ z > 0 \\
+    1 & \operatorname{if }\ z \le 0
+    \end{cases}
+    $$
+    
+    or signum, where $-1$ is used instead of $0$. The challenge with this is that small change in the input might trigger a jump from $0$ to $1$ times weights, which might be a sudden big jump and if organized to network it might not learn.
+    
+2. **Linear**
+    
+    $$h = z $$
+    
+    Same as linear regression. In case multiple neurons are connected will still collapse to linear model. To be able to model non linear functions, the activation should also be non linear
+    
+3. **Sigmoid**
+    
+    $$h = {1 \over 1 + e^{-z}}$$
+    
+    Small changes in the input will result in small changes in the output because the function is continuous.
+    
+    $$\Delta h \approx \sum_j {\partial h \over \partial w_j} \Delta w_j $$
+    
+    Sigmoid can become saturated on values close to $0$ (low) and $1$ (high) because the derivate becomes close to $0$.
+    
+4. **Rectifier Linear Unit: ReLU**
+    
+    $$h = max(0, z)$$
+    
+    A variant is the **leaky ReLU** which allows small negative values to be passed trough. It:s defined as 
+    
+    $$h = max(az, z)$$
+    
+    where $a$ is a very small constant (e.g. $0.0001$). While the rectified unit is not continuous and it has some issues like vanishing or exploding gradient in learning, it's still very popular due to it's simplicity and good performance in practice if used as part of large neural networks.
 
 ## **7.2 Network structure**
 
@@ -58,14 +61,14 @@ In feed forward networks, output of neurons in a layer act as inputs in the next
 
 <p align="center">
 <img src="./img/07-feedforward-network.png" width="575">
-<br><b>Figure 7.3: </b><i>Architecture of a feed forward neural network with 3 inputs and 2 hidden layers</i>
+<br><b>Figure 7.3: </b>Architecture of a feed forward neural network with 3 inputs and 2 hidden layers
 </p>
 
-To train the model we can choose a loss function $C$ we could minimize. To minimize $C$ we can define a change in $C$ as
+To train the model we can choose a loss function $C$ we could minimize. To minimize $C$ we can define a change in $C$ as the sum of all partial derivates of $C$ over all the weights $w_k$
 
 $$\Delta C \approx \sum_k { \partial C \over \partial w_k} \Delta w_k = \nabla C \Delta w_k \tag{7.1}$$
 
-We can make a decrease in the cost function $C$ by choosing $\Delta w_k$ as
+$\nabla C$ (pronounced nabla) is simply a notation for the sum of partial derivates. We can make a decrease in the cost function $C$ by choosing $\Delta w_k$ as
 
 $$\Delta w_k = -\eta \nabla C$$
 
@@ -95,38 +98,41 @@ Cross entropy cost function acts as a cost function because it's always positive
 
 To see why this seemingly complex function is useful, we could check the learning rate for a single sigmoid neuron, notated with $\sigma(z)$ the partial derivate against a weight $w$:
 
-${\partial C \over \partial w_j} = {\partial \over \partial w_j }{\big ( -{1 \over n}\sum_x(y \ln \sigma(z) + (1 - y) \ln (1-\sigma(z)))\big ) }$<br>
+${\partial C \over \partial w_j} = {\partial \over \partial w_j }{\big ( -{1 \over n}\sum_x(y \ln \sigma(z) + (1 - y) \ln (1-\sigma(z)))\big ) }$
 
-
-$= -{1 \over n}\sum_x \left ( {\partial \over \partial w_j}\big ( y \ln \sigma(z)\big ) + {\partial \over \partial w_j} \big ((1 - y) \ln (1-\sigma(z))\big )\right )$<br>
+$= -{1 \over n}\sum_x \left ( {\partial \over \partial w_j}\big ( y \ln \sigma(z)\big ) + {\partial \over \partial w_j} \big ((1 - y) \ln (1-\sigma(z))\big )\right )$
 
 Because $ln(x)' = {1 \over x}$
 
-${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y \over \sigma(z) } {\partial \sigma(z) \over \partial w_j} - {1 - y \over 1-\sigma(z)} {\partial \sigma(z) \over \partial w_j}\right )$<br>
+${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y \over \sigma(z) } {\partial \sigma(z) \over \partial w_j} - {1 - y \over 1-\sigma(z)} {\partial \sigma(z) \over \partial w_j}\right )$
 
 Notice how the sign in the middle flipped because of $ln'(1-\sigma(z))$
 
-${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y \over \sigma(z) } - {1 - y \over 1-\sigma(z)}\right ) {\partial \sigma(z) \over \partial w_j} $<br>
+${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y \over \sigma(z) } - {1 - y \over 1-\sigma(z)}\right ) {\partial \sigma(z) \over \partial w_j} $
 
 Since $z = b + \sum_j x_jw_j$ the derivate will be ${\partial \sigma(z) \over \partial w_j} = \sigma'(z) z'(w_j) = \sigma'(z) x_j$, pluggin in
 
-${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y \over \sigma(z) } - {1 - y \over 1-\sigma(z)}\right ) \sigma'(z)x_j $<br>
+${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y \over \sigma(z) } - {1 - y \over 1-\sigma(z)}\right ) \sigma'(z)x_j$
 
 We can rewrite ${y \over \sigma(z) } - {1 - y \over 1-\sigma(z)} = {y(1-\sigma(z)) - (1 - y)\sigma(z) \over \sigma(z) (1-\sigma(z)) } = {y - \sigma(z) - y\sigma(z) + y\sigma(z) \over \sigma(z) (1-\sigma(z))} = {y - \sigma(z) \over \sigma(z) (1-\sigma(z))}$. We get
 
-${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y - \sigma(z) \over \sigma(z) (1-\sigma(z))}\right ) \sigma'(z)x_j $<br>
+${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y - \sigma(z) \over \sigma(z) (1-\sigma(z))}\right ) \sigma'(z)x_j$
 
-Using the definition of sigmoid $\sigma(z) = {1 \over 1 + e^{-z}}$, and the rule $\left( 1 \over f \right )' = (f^{-1})' = -f^{-2} f'$ we can calculate 
+Using the definition of sigmoid $\sigma(z) = {1 \over 1 + e^{-z}}$, and the rule $\left( 1 \over f \right )' = (f^{-1})' = -f^{-2} f'$ we can calculate<br>
 
-$\sigma'(z) = \left (-{1 \over ( 1 + e^{-z})^2} \right ) e^{-z} (-1) = {e^{-z} \over ( 1 + e^{-z})^2 } = {1 \over  1 + e^{-z}} {e^{-z} \over 1 + e^{-z}} = {1 \over  1 + e^{-z}} {1 + e^{-z} - 1 \over 1 + e^{-z}} = {1 \over 1 + e^{-z}} \left ( 1 - {1 \over  1 + e^{-z}} \right ) = \sigma(z)(1 - \sigma(z))$. Plugging the result, i.e $\sigma'(z) = \sigma(z)(1 - \sigma(z))$ to ${\partial C \over \partial w_j}$ will give
+$\sigma'(z) = \left (-{1 \over ( 1 + e^{-z})^2} \right ) e^{-z} (-1)$ <br>
+$= {e^{-z} \over ( 1 + e^{-z})^2 } = {1 \over  1 + e^{-z}} {e^{-z} \over 1 + e^{-z}} = {1 \over  1 + e^{-z}} {1 + e^{-z} - 1 \over 1 + e^{-z}} = {1 \over 1 + e^{-z}} \left ( 1 - {1 \over  1 + e^{-z}} \right ) $<br>
+$= \sigma(z)(1 - \sigma(z))$. <br>
+Plugging the result, i.e $\sigma'(z) = \sigma(z)(1 - \sigma(z))$ to ${\partial C \over \partial w_j}$ will give
 
-${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y - \sigma(z) \over \sigma(z) (1-\sigma(z))}\right ) \sigma(z)(1 - \sigma(z)) x_j = -{1 \over n}\sum_x(y - \sigma(z))x_j$<br>
+${\partial C \over \partial w_j} = -{1 \over n}\sum_x \left ( {y - \sigma(z) \over \sigma(z) (1-\sigma(z))}\right ) \sigma(z)(1 - \sigma(z)) x_j $<br>
+$= -{1 \over n}\sum_x(y - \sigma(z))x_j$
 
 $${\partial C \over \partial w_j} = {1 \over n}\sum_x(\sigma(z) - y)x_j$$
 
 The result shows that the learning rate ${\partial C \over \partial w_j}$ is proportional to the difference between expected and actual output $y - \sigma(z)$. The larger the difference the better the learning rate. The same is not true if we use MSE with sigmoid. 
 
-We can claculate the same for bias the only difference is<br> ${\partial \sigma(z) \over \partial b} = \sigma'(z) z'(b) = \sigma'(z)$, resulting in
+We can claculate the same for bias the only difference is ${\partial \sigma(z) \over \partial b} = \sigma'(z) z'(b) = \sigma'(z)$, resulting in
 
 $${\partial C \over \partial b} = {1 \over n}\sum_x(\sigma(z) - y)$$
 
@@ -136,15 +142,15 @@ Less popular but the negative log likelyhood function might also be used with so
 
 ## **7.3 How networks learn**
 
-To calculate the cost function (7.4) or (7.5) we need to iterates trough all input data, calculating weight updates might be costly. Instead of calculating the cost for all inputs, for each update we can select a subset of size $m$ of training data, noted with $X_j$, called mini batch to update the weights. The update would take the form
+Training neural networks can be highly inefficient so we need various optimizations. First we optimize on how we use the input data. To calculate the rate of change in cost function (7.4) or (7.5) we could iterates trough all input data, but this process would be costly. Instead of calculating the change in cost function for all inputs, we can select a subset of size $m$ of training data, noted with $X_j$, called **mini batch** to update the weights. The update would take the form
 
 $$w_k' = w_k - {\eta \over m} { \partial C_{X_j} \over \partial w_k} $$
 
-In some cases the $1 \over m$, which scales the learning rate with batch size, can be ommitted.
+In some cases the $1 \over m$, which scales the learning rate with batch size, can be ommitted. A complete iteration over all training data trough batches is called an **epoch**.
 
-A complete iteration over all training data trough batches is called an **epoch**.
+Trough the example of cross entropy, we looked at how a single neuron learns but calculating the same way how an entire network learns is not efficient. All forward paths would need to be distangled and summed up several times. It would basically mean recalculating every subtree every time it shows up after a perceptron as we step trough the graph. Instead more efficient algorithms can be used which move backward, reusing already computed results.
 
-Backprograpagation is the algorithm used in training, specifically for calculating $\partial C \over \partial w$  and $\partial C \over \partial b$ from equations (7.2) and (7.3) respectively for a multi layer neural network.
+**Backprograpagation** is the algorithm used in training, specifically for calculating $\partial C \over \partial w$  and $\partial C \over \partial b$ from equations (7.2) and (7.3) respectively for a multi layer neural network.
 
 ### **7.3.1 Assumptions of backpropagatation**
 
@@ -163,9 +169,9 @@ $$C = C(A^L)$$
 * $h$ activation method used
 * $A_j^l$ is activation of the $j$ th neuron in layer $l$
 
-The activation function
+   The activation function
 
-$$A_j^l = h(b_j^l + \sum_k w_{jk}^l A_j^{l-1})$$
+   $$A_j^l = h(b_j^l + \sum_k w_{jk}^l A_j^{l-1})$$
 
 Transforming to matrix form
 
@@ -194,6 +200,7 @@ $$\delta^L = \nabla _AC \odot h(z^L) \tag{BP1}$$
 
 Proof:
 
+<!--mleq-->
 Start with (7.6)<br>
 $\delta_j^l = {\partial C \over \partial z_j^l}$<br>
 applying the chain rule <br>
@@ -202,7 +209,7 @@ Since activation $A$ of $k$ th neuron depends only of the weighted input of the 
 $\delta_j^l = {\partial C \over \partial A^L_j}{\partial A^L_j \over \partial z_j^l}$<br>
 Because by definition $A^L_j = h(z_j^L)$ we can rewrite the second term<br>
 $\delta_j^l = {\partial C \over \partial A^L_j}h'(z_j^L)$<br>
-
+<!--/mleq-->
 
 **Error of layer $l$ in respect to error in laer $l+1$**
 
@@ -214,6 +221,7 @@ The first half moves the error backward a layer, the second half, moves error tr
 
 Proof:
 
+<!--mleq-->
 Start with (7.6)<br>
 $\delta_j^l = {\partial C \over \partial z_j^l}$<br>
 applying the chain rule, in terms of <br>
@@ -225,8 +233,9 @@ The first term<br>
 ${\partial z_j^{l+1} \over \partial z_j^l} = {\partial \sum_j w_{kj}^{l+1} f(z_j^l) + b_k^{l+1} \over \partial z_j^l} = w_{kj}^{l+1}h'(z_j^l)$<br>
 Adding it back <br>
 $\delta_j^l = \sum_k w_{kj}^{l+1} \delta_k^{l+1} h'(z_j^l)$<br>
-Writing in matric form we get<br>
+Writing the same in matrix form we get<br>
 $\delta^l = \big ((w^{l+1})^T \delta^{l+1}\big ) \odot h(z^l)$
+<!--/mleq-->
 
 **Rate of change of cost in respect to bias**
 
@@ -234,12 +243,14 @@ $${\partial C \over \partial b^l} = \delta^l \tag{BP3}$$
 
 Proof:
 
+<!--mleq-->
 ${\partial C \over \partial b^l} = \sum_k {\partial C \over \partial z_k^l}{\partial z_k^l \over \partial b_j^l}$<br>
 Since $z_k^l$ only dependson on $b_j^l$ where $k = j$<br>
 ${\partial C \over \partial b^l} = {\partial C \over \partial z_j^l}{\partial z_j^l \over \partial b_j^l} = \delta^l{\partial z_j^l \over \partial b_j^l}$<br>
 ${\partial C \over \partial b^l} = \delta^l{\partial \sum_j w_{kj}^l f(z_j^{l-1}) + b_k^l \over \partial b_j^l}$<br>
 The second term is simply $1$ resulting in<br>
 ${\partial C \over \partial b^l} = \delta^l$
+<!--/mleq-->
 
 **Rate of change of cost in respect to weights**
 
@@ -247,10 +258,11 @@ $${\partial C \over \partial w^l} = A^{l-1}\delta^l \tag{BP4}$$
 
 Proof
 
-${\partial C \over \partial w^l} = \sum_m {\partial C \over \partial z_m^l}{\partial z_m^l \over \partial w_{kj}^l}$<br>
+${\partial C \over \partial w^l} = \sum_m {\partial C \over \partial z_m^l}{\partial z_m^l \over \partial w_{kj}^l}$
 
-${\partial C \over \partial w^l} = \sum_m {\partial C \over \partial z_m^l}{\partial \sum_n w_{mn}^lA_n^{l-1} + b_m^l \over \partial w_{kj}^l}$<br>
-and only when $m = j$ and $n = k$, the derivative is not $0$, so here we get<br>
+${\partial C \over \partial w^l} = \sum_m {\partial C \over \partial z_m^l}{\partial \sum_n w_{mn}^lA_n^{l-1} + b_m^l \over \partial w_{kj}^l}$
+
+and only when $m = j$ and $n = k$, the derivative is not $0$, so here we get
 
 ${\partial C \over \partial w_{jk}^l} = {\partial C \over \partial z_j^l}A_k^{l-1} = A^{l-1}\delta^l$
 
@@ -266,7 +278,7 @@ The algorithm (using mini batches)
 
 The reason backpropagation is faster than forward learning is because we would need to compute the gradient for all combinations of weights for each layer. Since most of the computation is redundant in the sense that partial gradients are recalculated multiple times, for each forward path, the backpropagation algoroithm optimizes on this to compute only once.
 
-## **7.4 Techniques used to improve learning** 
+## **7.4 Techniques used to improve learning**
 
 In recent years a number of techniques has been developed to improve the performance of neural networks
 

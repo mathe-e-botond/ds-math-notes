@@ -12,11 +12,11 @@ $$R^2_{adj} = 1 - {(n-1)RSS \over (n - p - 1)TSS}$$
 
 WIth each added dimension, the data sparsity increases exponentially, because the volume of the data hypercube also increases exponentially. This is called the **curse of dimensionality**. Dimensionality reduction techniques help reduce the dimensionality of features while preserving as much as possible about the data conveyed. 
 
-A number of techniques have been proposed to reduce dimensionality ranging from linear techniques to neural network based techniques.
+Dimensionality reduction can be performed directly on a dataset or on a model. A number of techniques have been proposed to reduce dimensionality ranging from linear techniques to neural network based techniques.
 
-## **8.1 Dimensionality reduction for linear models**
+## **8.1 Dimensionality reduction of linear models**
 
-Linear dimensionality redcution methods transform a linear model to a lower number of predictors by substituting to another smaller set of predictors.
+Linear dimensionality reduction methods can transform a linear model to a lower number of predictors by substituting to another smaller set of predictors.
 
 Let the following be a linear model
 
@@ -36,11 +36,11 @@ The relationship between the model parameters are:
 
 $$\beta_j = \sum_{m = 1}^M\theta_m \phi_{jm}$$
 
-So far we omitted the task on choosing the $\phi_{jm}$ parameters. Depending on how we choose them, OLS on the reduced model might provide a better fit. 
+So far we omitted the task on choosing the $\phi_{jm}$ parameters. Depending on how we choose them, OLS on the reduced model might provide a better fit. Linear dimensionality techniques can be used to reduce both the data directly as well as the linear models. 
 
-### **8.1.1 Principal Component Analysis**
+## **8.2 Principal Component Analysis**
 
-A number of methods have been proposed for choosing the $\phi_{jm}$ like **Principal Component Analysis** (PCA). It's a form of **unsupervised learning**, which means no training dataset is needed. PCA can be used to reduce the dimension of an $n \times p$ matrix. 
+**Principal Component Analysis** (PCA) is a form of **unsupervised learning**, which means no labeled training dataset is needed. PCA can be used to reduce the dimension of an $n \times p$ matrix. 
 
 The PCA method remaps the basis vectors of the dataset (in Figure 8.1 the basis vectors are unit vectors on the axis $X_1$ and $X_2$ respectively). The first principal component we choose in PCA is the one where the variance of the data is maximum (in Figure 8.1 the diagonal continuous line). Projecting the observations to the line of the first principal component results in the largest variance of the projected data, compared to any other line. In other words, the first principal component is the line closest to the data.
 
@@ -50,5 +50,21 @@ The PCA method remaps the basis vectors of the dataset (in Figure 8.1 the basis 
 
 Since in the example there is high correlation between $X_1$ and $X_2$, the first principal component captures this relationship. The second component is chosen to capture the remaining maximum variance, in this case the remaining variance. Principal components are uncorrelated, so they are perpendicular to one another. 
 
-When we have $p$ features, we can choose in the same way up to $p$ principal components. Since we maximize capturing variance with each component we can limit the number of components to $M$, where $M < p$, resulting in dimensionality reduction, while still minimizing data loss.
+When we have $p$ features, we can choose in similar manner up to $p$ principal components. Since we maximize capturing variance with each component we can limit the number of components to $M$, where $M < p$, resulting in dimensionality reduction, while still minimizing data loss.
+
+To compute the principal components we use spectral decomposition. For a full treatment on linear algebra, eigenvalues, eigenvectors and matrix decomposition, see Appendix II. For a data matrix $X$ (where each row is an observation and columns are the features $X_1, ..., X_n$) the algorithm for PCA is as follows:
+
+1. **Center the Data**: Before PCA is applied, the data is usually centered. This means subtracting the mean of each feature from the data so that the mean of the centered data is zero.
+2. **Compute the Covariance Matrix**: For the centered data matrix $X$, compute the covariance matrix $\Sigma$ given by: $$\Sigma = \frac{1}{n-1} X^T X$$ Where $n$ is the number of observations.
+3. **Spectral decomposition of the Covariance Matrix**: Compute the eigenvectors and eigenvalues of the covariance matrix $\Omega$. Since $\Omega$ is the form of $X^T X$ scaled by a constant, means it's a symmetric matrix, which in turn means that its eigenvectors are orthogonal, and can be decomposed using spectral decomposition. Let $V$ be the matrix whose columns are the eigenvectors of $\Sigma$ and $\lambda$ be the corresponding eigenvalues. Using spectral decomposition will have the form of:
+    $$\Omega = V \Sigma V^T $$
+4. **Order the Eigenvectors**: Sort the eigenvectors in $V $ in descending order based on the magnitude of their corresponding eigenvalues in $\Sigma$. The reason for this is that the largest eigenvalue corresponds to the direction of the greatest variance in the data, the second largest to the second most direction of variance, and so on.
+5. **Principal Components**: The sorted eigenvectors are the principal components. They provide an orthogonal basis for the data space, with each component capturing a descending amount of the total variance in the data. These are the first $k$ columns of $V$, noted with $V_k$.
+6. **Projection**: The original data $X$ can be projected onto these top $k$ principal components (or right singular vectors) using:
+
+$$X_k=XV_k$$
+
+The principal components essentially provide a new coordinate system for the data where the axes are aligned with the directions of maximum variance (as determined by the eigenvectors of the covariance matrix). By ordering these axes by the amount of variance they capture (as determined by the eigenvalues), we can efficiently reduce the dimensionality of the data, if desired, by only considering the most significant axes.
+
+## **8.3 Autoencoders**
 

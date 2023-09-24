@@ -1,4 +1,4 @@
-# 4 Regression
+# 4 Linear Regression
 
 **Linear models** are a set of supervised statistical learning techniques, used to approximate an unknown function based on observations using a liner combination of predictors and weights. 
 
@@ -55,6 +55,7 @@ $\operatorname{RSS} = (Y-\hat\beta X)^T(Y-\hat\beta X)$
 
 Because the transpose operator $A^T$ is a linear operator, we can apply to each item individually (we also need to change order of matrix multiplication):
 
+<!--mleq-->
 $\operatorname{RSS} = (Y^T- X^T \hat\beta^T)(Y-\hat\beta X)$<br>
 $\operatorname{RSS} = Y^T Y - Y^T \hat\beta X - X^T \hat\beta^T Y + X^T \hat\beta^T \hat\beta X$
 
@@ -62,12 +63,16 @@ We would like choose $\hat\beta$ which minimizes $\operatorname{RSS}$, i.e: $arg
 
 ${\partial \operatorname{RSS} \over \partial \hat\beta} = 0$<br>
 ${\partial \over \partial \hat\beta}(Y^T Y - Y^T \hat\beta X - X^T \hat\beta^T Y + X^T \hat\beta^T \hat\beta X) = 0$<br>
+<!--/mleq-->
 
 The first term is $0$, the second term is the transpose of the third. Notice that all terms results in a scalar, but the gradient results in a column vector, so result has to be the $0$ column vector, which we can notate as $O$.
 
+<!--mleq-->
 $-X^T Y - X^T Y + 2 X^T X \hat\beta = O$<br>
 We can rearrange as <br>
 $2 X^T X \hat\beta = 2X^T Y$<br>
+<!--/mleq-->
+
 We can remove the $2$ and multiply both side by $(X^TX)^{-1}$, which cancels out on the left, resulting in
 
 $$\hat\beta = (X^TX)^{-1} X^T Y$$
@@ -125,30 +130,29 @@ When we include interactions or polynomial terms we should always include the ba
 The **Gauss-Markov theorem** proposed by two mathematicians says that ordinary least squares is the best linear unbiased estimator (BLUE) under the following assumptions:
 
 1. **Linear in parameters**: coefficients of the predictors must be linear. For example $\beta_0 + \beta_1X_1 + \epsilon$ is linear but $\beta_0 + \beta_0\beta_1X_1 + \epsilon$ is not. Can be verified using residual plots ($e_i = y_i - \hat y_i$ vs $x_i$ or in the case of multiple regression $y_i$). In case of non linearity polynomial terms can be used, e.g $\beta_0 + \beta_1X_1 + \beta_2X_1^2$ and similar exponential terms are still linear in parameters.
-
+    
 2. **Random sampling**: our samples $\{x_i, y_i\}$ are randomly selected from a population. This assumption also contains the assumption that all samples come from the same population. 
-
+    
 3. **No perfect colliniarity** in regressors: there cannot be an exact relationship between regressors. **Multicolliniarity** happens if there is correlation between predictor variables. If two predictors are correlated, increasing the coefficient of one can be cancelled out by a corresponding opposite change of the other coefficient, thus making coefficients highly unstable (multiple values for coefficients result in same fit, including infinitely large coefficients). Pairwise correlation can be detected by plotting the correlation matrix of the predictors. Can be quantified trough the **variance inflation factor** (VIF) $$\operatorname{VIF}(\beta_j) = {1 \over 1 - R_{X_jX-j}^2}$$.
-
+    
 4. **Zero conditional mean** of error: $$E(\epsilon | X) = 0$$ means the expectation of the error term does not depend on the value of x. The error is uniformly distributed along the regression line (does not move above or below the line depending on the value of X). It's also called **exogeneity**, which means there is no hidden variable or relationship influencing the error term. If there is a relationship and violates this assumption, we say the regressor is influenced by or are **endogenous** to the error term (endogeneity).
-
+    
 5. **Constant variance of error terms** or **homoscedastic errors**: if error terms increase with dependent variable, it's called **heteroscedasticity** and can be seen on the residual plot as a funnel shape. In the case of this issue, we can transform the response using a concave function ($\sqrt{y}$ or $log(y)$). Another option might be to fit using **weighted least squares**. 
-
-<p align="center">
-<img src="./img/04-assumptions.png" width="500">
-<br><b>Figure 4.2: </b>Non zero conditional mean on left, error are below or above the line as X changes and heteroscedastic errors on the right. 
-</p>
-
+    <p align="center">
+    <img src="./img/04-assumptions.png" width="600">
+    <br><b>Figure 4.2: </b>Non zero conditional mean on left, error are below or above the line as X changes and heteroscedastic errors on the right. 
+    </p>
+    
 6. **Error terms are uncorrelated**, an error term $\epsilon_i$ provides no information about $\epsilon_j$, like sign or distance, which is the case for example for time series analysis. Mathematically this can be expressed as $$Cov(\epsilon_i, \epsilon_j) = 0 \implies i = j$$
 
 ## **4.6 Other considerations**
 
-### **Outliers** 
+### **4.6.1 Outliers**
 
 **Outliers** can be identified from residual plot, or we can plot **studentized residuals** $$\bigg|{\epsilon_i \over SE}\bigg| > 3$$ <br>
 Outliers might indicate incorrect data input in which case can be simply removed or issues with model like missing predictor variable
 
-### **High leverage points** 
+### **4.6.2 High leverage points**
 
 **High leverage points**  are observations which have unusual predictor $x_i$ values and might easily influence the regression. A so called **leverage statistic** can be calculated to quantify leverage, more so for multiple predictors
 
@@ -160,7 +164,7 @@ Interactions and polynomial terms can cause multicolliniarity for non centered p
 
 ## **4.5 K-Nearest Neighbor regression**
 
-KNN is a non parametric estimator, and so does not make assumptions about the form of $f(X)$. On the other hand, does not support inference (explaining predictor relationships). To perform KNN regression, we find the K nearest neighbors of $x_0$ noted with $\Nu_0$, and we calculate the average of training responses
+KNN is a non parametric estimator, and so does not make assumptions about the form of $f(X)$. On the other hand, does not support inference (explaining predictor relationships). To perform KNN regression, we find the K nearest neighbors of $x_0$ noted with $N_0$, and we calculate the average of training responses
 
 $$f(x_0) = {1 \over K} \sum_{x_i \in N_0}y_i$$
 

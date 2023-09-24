@@ -38,67 +38,72 @@ We can derive several consequences from the axioms
 $$P(\phi) = 0$$
 
 Proof
-
+<!--mleq-->
 $E := \phi$<br>
 $E \cup \phi = E$<br>
 $P(E) + P(\phi) = P(E)$<br>
 $P(\phi) = P(E) - P(E)$<br>
 $P(\phi) = 0$
+<!--/mleq-->
 
 **Monotonicity**
 
 $$A \subseteq B \implies P(A) \le P(B) $$
 
 Proof
-
+<!--mleq-->
 $A \subseteq B$<br>
 $A \cup (B \setminus A) = B$<br>
 $P(A) + P(B \setminus A) = P(B)$<br>
 $P(A) \le P(B)$
+<!--/mleq-->
 
 **Complement rule**
 
 $$ A^C = \Omega \setminus A \implies P(A^C) = 1 - P(A) $$
 
 Proof
-
-$A$ and $A^C$ are mutually exclusive and $A \cup A^C = \Omega$
-
+<!--mleq-->
+$A$ and $A^C$ are mutually exclusive and $A \cup A^C = \Omega$<br><br>
 $P(A \cup A^C) = P(A) + P(A^C)$<br>
 $P(A) + P(A^C) = P(\Omega) = 1$<br>
 $P(A^C) = 1 - P(A)$
+<!--/mleq-->
 
 **Numeric bound**
 
 $$P(A) \le 1 \text{, for all A in event space}$$
 
 Proof from the complement rule
-
+<!--mleq-->
 $P(A^C) = 1 - P(A)$<br>
 $P(A^C) \ge 0$, from the first axiom
+<!--/mleq-->
 
 **Inclusion-exclusion principle**
 
 $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
 
 Proof
-
-$A$ and $B \setminus A$ are mutually exclusive
-
+<!--mleq-->
+$A$ and $B \setminus A$ are mutually exclusive:
 $P(A \cup B) = P(A \cup (B \setminus A))$<br>
 $P(A \cup B) = P(A) + P(B \setminus A)$
+<!--/mleq-->
 
 Also $B \setminus A$ and $A \cap B$ are also exclusive with union B:
-
+<!--mleq-->
 $(B \setminus A) \cup (A \cap B) = B$<br>
 $P(B \setminus A) + P(A \cap B) = P(B)$
+<!--/mleq-->
 
 Adding both sides of the two results together
-
-$P(A \cup B) + P(A \cap B) + P(B \setminus A) = P(A) + P(B) + P(B \setminus A)$, we can eliminate $P(B \setminus A)$
-
+<!--mleq-->
+$P(A \cup B) + P(A \cap B) + P(B \setminus A) = P(A) + P(B) + P(B \setminus A)$<br>
+We can eliminate $P(B \setminus A)$<br>
 $P(A \cup B) + P(A \cap B) = P(A) + P(B)$<br>
 $P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+<!--/mleq-->
 
 ### **1.1.3 Conditional probabilities**
 
@@ -112,23 +117,27 @@ $$ P(A \cap B) = P(A|B)P(B) $$
 
 **Conditional probabilities act the same way as priors, because they satisfy the three axioms of probability**
 
-1. $P(A|B) \ge 0$<br>
-2. $P(B|B) = 1$<br>
-3.  if $A_1, A_2, ..., A_k$ are mutually exclusive events, then<br>
-$P(A_1 \cup ... \cup A_k | B) = P(A_1|B) + ... + P(A_k|B)$
+1. $P(A|B) \ge 0$
+2. $P(B|B) = 1$
+3. if $A_1, A_2, ..., A_k$ are mutually exclusive events, then<br>
+    $P(A_1 \cup ... \cup A_k | B) = P(A_1|B) + ... + P(A_k|B)$
 
 Proof
 
-1. $P(A \cap B) \ge 0, P(B) > 0 \implies {P(A \cap B) \over P(B)} \ge 0$<br>
-2. $B \cap B = B$<br>
-$P(B \cap B) = P(B)$<br>
-$P(B|B) = {P(B \cap B) \over P(B)} = {P(B) \over P(B)} = 1$<br>
-3. From set theory, for: $A_1...A_k$ mutually exclusive sets<br>
-$(A_1 \cup ... \cup A_k) \cap B = (A_1 \cap B) \cup ... \cup (A_k \cap B)$<br>
-$P((A_1 \cup ... \cup A_k) \cap B) = P((A_1 \cap B) \cup ... \cup (A_k \cap B))$<br>
-$P((A_1 \cup ... \cup A_k) \cap B) = P(A_1 \cap B) + ... + P(A_k \cap B)$<br>
-${P((A_1 \cup ... \cup A_k) \cap B) \over P(B)} = {P(A_1 \cap B) \over P(B)} + ... + {P(A_k \cap B) \over P(B)}$<br>
-$P(A_1 \cup ... \cup A_k | B) = P(A_1 | B) + ... + P(A_k | B)$
+1. $P(A \cap B) \ge 0, P(B) > 0 \implies {P(A \cap B) \over P(B)} \ge 0$
+2.  <!--mleq-->
+    $B \cap B = B$<br>
+    $P(B \cap B) = P(B)$<br>
+    $P(B|B) = {P(B \cap B) \over P(B)} = {P(B) \over P(B)} = 1$
+    <!--/mleq-->
+3. From set theory, for: $A_1...A_k$ mutually exclusive sets
+    <!--mleq-->
+    $(A_1 \cup ... \cup A_k) \cap B = (A_1 \cap B) \cup ... \cup (A_k \cap B)$<br>
+    $P((A_1 \cup ... \cup A_k) \cap B) = P((A_1 \cap B) \cup ... \cup (A_k \cap B))$<br>
+    $P((A_1 \cup ... \cup A_k) \cap B) = P(A_1 \cap B) + ... + P(A_k \cap B)$<br>
+    ${P((A_1 \cup ... \cup A_k) \cap B) \over P(B)} = {P(A_1 \cap B) \over P(B)} + ... + {P(A_k \cap B) \over P(B)}$<br>
+    $P(A_1 \cup ... \cup A_k | B) = P(A_1 | B) + ... + P(A_k | B)$
+    <!--/mleq-->
 
 ### **1.1.4 Bayes rule**
 
@@ -138,10 +147,12 @@ $$P(B | A) = {P(A | B) P(B) \over P(A)}$$
 
 Proof using the product rule
 
+<!--mleq-->
 $P(A \cap B) = P(A | B) P(B)$ and<br>
 $P(A \cap B) = P(B | A) P(A)$ by making right side equal<br>
 $P(B | A) P(A) = P(A | B) P(B)$<br>
 $P(B | A) = {P(A | B) P(B) \over P(A)}$
+<!--/mleq-->
 
 Bayes rule can be conditioned on a background variable
 
@@ -149,8 +160,9 @@ $$P(B | A, e) = {P(A | B, e) P(B, e) \over P(A, e)}$$
 
 instead of calculating $P(A, e)$ we can sometimes calculate the complement instead and normalizing it to become $1$
 
-$$\text{using notation }\boldsymbol{P}(A) := \langle P(A), P(A^C) \rangle \\  
-\boldsymbol{P}(B|A) = \alpha\boldsymbol{P}(B|A)\boldsymbol{P}(A) \\ = \alpha \langle P(B|A)P(A), P(B|A^C)P(A^C) \rangle $$
+$$\begin{aligned}\text{using notation }\boldsymbol{P}(A) &:= \langle P(A), P(A^C) \rangle \\  
+\boldsymbol{P}(B|A) &= \alpha\boldsymbol{P}(B|A)\boldsymbol{P}(A) \\
+&= \alpha \langle P(B|A)P(A), P(B|A^C)P(A^C) \rangle \end{aligned}$$
 
 where $\alpha$ is the normalization constant to make entries in $\boldsymbol{P}$  sum up to $1$
 
@@ -164,10 +176,10 @@ An interesting challenge for the bayesian interpretation is what if an agent doe
 
 The two interpretations are mathematically equivalent, rely on the same set of axioms and definitions, including conditional probabilities. The bayesian interpretation of conditional probabilities is updating our belief system with some evidence while the frequentist interpretation is including new evidence to the evaluation of the repeated process. 
 
-## **1.2 Describing random variables** ##
+## **1.2 Describing random variables**
 If we enumerate all possible outcomes and their probabilities, we can construct a function that describes a random variable. This function is called **probability distribution**. 
 
-### **1.2.1 Discrete probability distribution** ###
+### **1.2.1 Discrete probability distribution**
 
 If the random variable outcome is discreet like a coin toss, the probability distribution function is also called **probability mass function**. 
 
@@ -179,7 +191,7 @@ $$p_X(x) \ge 0$$
 and
 $$\sum_x p_X(x) = 1$$
 
-### **1.2.2 Continuous probability distribution** ###
+### **1.2.2 Continuous probability distribution**
 
 In the case of a continuous random variable, the probability distribution is also called the **probability density function (PDF)**. 
 
@@ -191,7 +203,7 @@ Unlike the probability, the density function can take up values bigger than $1$,
 
 $$\int_{-\infty}^\infty f(x)dx = 1$$
 
-### **1.2.3 Cumulative distribution function** ###
+### **1.2.3 Cumulative distribution function**
 
 An alternative description with a function of a random variable is the **cumulative distribution function** (CDF) which in both discrete and continuous case is defined as the probability of the random variable taking a value bigger or equal to $x$.
 
@@ -215,10 +227,10 @@ $$F_X(x) = \int_{-\infty}^x p(y)dy$$
 
 The purpose of statistics is to estimate properties of a population, given a sample. Properties of a population are for example what we call the moments of a random variable, defined as
 
-1st moment: mean or expectation as central tendency<br>
-2nd moment: variance<br>
-3rd moment: skewness<br>
-4th moment: kurtosis<br>
+* 1st moment: **mean** or **expectation** as central tendency
+* 2nd moment: **variance**
+* 3rd moment: **skewness**
+* 4th moment: **kurtosis**
 
 We can define each in terms of a population, a sample, discreet probability distribution or continuous probability distribution. 
 
@@ -230,7 +242,7 @@ For a population size N, the mean is defined as
 
 $$\mu = {\sum x \over N}$$
 
-FOr a sample size $n$
+For a sample size $n$
     
 $$\bar x = {\sum x \over n}$$
 
@@ -279,7 +291,7 @@ $$\operatorname{KURT}[X] = E\left[ \left( X - \mu \over \sigma \right)^4 \right]
 In case of distributions which are restricted in the area, like probability distributions have an area under the PDF curve as 1, a higher kurtosis would also mean increased variance and decreased mode or peak (see Figure 1.1). Despite this, kurtosis does not measure the peakness of distribution, rather the fatness of the tails of the distribution.
 
 <p align="center">
-<img src="./img/01-moments.png" width="400">
+<img src="./img/01-moments.png" width="500">
 <br><b>Figure 1.1: </b>Variance and kurtosis 
 </p>
 
@@ -300,11 +312,11 @@ To understand how the third power measures skewness, Figure 1.2 shows the third 
 
 Another method to measure skewness is using median and mode difference. Right skewed distribution will have mode smaller than the mean.
 
-## **1.4 Multiple random variables** ##
+## **1.4 Multiple random variables**
 
 We sometimes want to work with multiple random variables. 
 
-### **1.4.1 Joint probability distribution** ###
+### **1.4.1 Joint probability distribution**
 
 The joint probability of two variables is noted by
 
@@ -316,8 +328,8 @@ $$f(x, y) = P(X = x, Y= y)$$
 
 We can write it in terms of conditional distribution
 
-$$P(X,Y) = P(X|Y)P(Y) = P(Y|X)P(X)\\
-f(x, y) = P(X = x | Y= y) \cdot P(Y= y) = P(Y = y | X = x) \cdot P(X = x)$$
+$$\begin{aligned}P(X,Y) &= P(X|Y)P(Y) = P(Y|X)P(X)\\
+f(x, y) &= P(X = x | Y= y) \cdot P(Y= y) = P(Y = y | X = x) \cdot P(X = x)\end{aligned}$$
 
 We can calculate the individual probability distributions from the joint probability distribution, and it's called the **marginal probability distributions** (if we enumerate a discreet joint probability distribution in a table, we would calculate the marginal distribution by summing up the rows and columns, making it the margin of the table as the last row and columns)
 
@@ -327,7 +339,7 @@ Similarly to the probability distribution the joint cumulative distribution func
 
 $$F_{X,Y}(x,y) = P(X \le x, Y \le y)$$
 
-### **1.4.2 Independent and identically distributed random variables (i.i.d)** ###
+### **1.4.2 Independent and identically distributed random variables (i.i.d)**
 
 Two variables are **independent** when the conditional probability is same as the pior
 
@@ -347,7 +359,7 @@ $$F_X(x) = F_Y(y)\tag{i.d}$$
 
 Two variables are said to be **independent and identically distributed (i.i.d)** if both condition for independence (eq. (i)) and identically distributed (eq. (i.d.)) are both satisfied.
 
-### **1.4.3 Covariance and correlation** ###
+### **1.4.3 Covariance and correlation**
 
 Similarity between two variables can be defined using correlation or covariance. 
 
@@ -395,7 +407,8 @@ If $X$ and $Y$ are independent variables, the $\operatorname{Cov}$ term becomes 
 
 $$Var(aX + bY) = a^2 Var(X) + b^2 Var(Y)$$
 
-Proof: <br>
+Proof:
+<!--mleq-->
 $Var(X) = E[(X - E[X])^2]$ <br>
 $=E[(aX + bY - E[aX + bY])^2]$ <br>
 $=E[(aX + bY - aE[X] - bE[Y])^2]$ <br>
@@ -405,3 +418,4 @@ $=E[a^2(X - E[X])^2 + 2ab(X - E[X])(Y - E[Y]) + b^2(Y - E[Y])^2]$<br>
 $=E[a^2(X - E[X])^2] + E[2ab(X - E[X])(Y - E[Y])] + E[b^2(Y - E[Y])^2]$<br>
 Finally using definition of variance and covariance, we get<br>
 $=a^2 Var(X) + 2ab \operatorname{Cov}(X, Y) + b^2 Var(Y)$
+<!--/mleq-->
